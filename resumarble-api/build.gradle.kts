@@ -12,5 +12,5 @@ dependencies {
     // swagger-ui
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 
-    compileOnly(project(":resumarble-core"))
+    api(project(":resumarble-core"))
 }

@@ -15,8 +15,7 @@ class OpenApiConfig {
         return OpenAPI()
             .components(
                 Components()
-            )
-            .info(getInfo())
+            ).info(getInfo())
             .servers(getServers())
     }
 
@@ -31,7 +30,7 @@ class OpenApiConfig {
     // swagger에 server 종류 추가
     private fun getServers(): List<Server> {
         return listOf(
-            Server().url("http://localhost:8080").description("localhost"),
+            Server().url("http://localhost:8080").description("localhost")
         )
     }
 

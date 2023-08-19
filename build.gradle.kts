@@ -7,7 +7,6 @@ plugins {
     kotlin("plugin.spring") version "1.8.22" apply false
     kotlin("plugin.jpa") version "1.8.22" apply false
     kotlin("kapt") version "1.8.22" apply false
-
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1" apply false
 }
 
@@ -15,6 +14,7 @@ allprojects {
     group = "resumarble"
     version = "0.0.1-SNAPSHOT"
 
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
     repositories {
         mavenCentral()
     }
@@ -27,7 +27,6 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.kapt")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
     apply(plugin = "kotlin-kapt")
@@ -49,7 +48,6 @@ subprojects {
         runtimeOnly("com.mysql:mysql-connector-j")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
-
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs += "-Xjsr305=strict"
@@ -60,4 +58,3 @@ subprojects {
         useJUnitPlatform()
     }
 }
-
