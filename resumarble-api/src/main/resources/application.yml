@@ -1,3 +1,7 @@
 spring:
   jpa:
     open-in-view: false
+
+springdoc:
+    swagger-ui:
+        path: /swagger
