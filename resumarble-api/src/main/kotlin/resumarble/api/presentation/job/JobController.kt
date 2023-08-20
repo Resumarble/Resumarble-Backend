@@ -1,10 +1,11 @@
-package resumarble.api.job
+package resumarble.api.presentation.job
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import resumarble.api.response.Response
 import resumarble.core.domain.application.JobListResponse
 import resumarble.core.domain.application.JobQueryService
 
@@ -21,7 +22,7 @@ class JobController(
         description = "직업 목록을 조회한다."
     )
     @GetMapping
-    fun jobs(): JobListResponse {
-        return jobQueryService.getAllJobs()
+    fun jobs(): Response<JobListResponse> {
+        return Response.ok(jobQueryService.getAllJobs())
     }
 }
