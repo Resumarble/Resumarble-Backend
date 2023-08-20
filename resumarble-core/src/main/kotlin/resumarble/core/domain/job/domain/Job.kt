@@ -10,7 +10,7 @@ import resumarble.core.global.domain.BaseEntity
 
 @Entity
 @Table(name = "job")
-class Job(
+class Job private constructor(
 
     @Embedded
     private val jobTitle: JobTitle,
