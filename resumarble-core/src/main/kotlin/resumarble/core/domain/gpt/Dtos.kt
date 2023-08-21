@@ -26,7 +26,7 @@ data class ChatCompletionMessageResponse(
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
-data class ChoicesDto(
+data class Choices(
     val index: Int,
     val message: ChatCompletionMessage,
     val finishReason: String
