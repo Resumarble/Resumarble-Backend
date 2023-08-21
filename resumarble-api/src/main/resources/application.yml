@@ -1,7 +1,16 @@
 spring:
-  jpa:
-    open-in-view: false
+  sql:
+    init:
+      mode: always
+  kafka:
+    bootstrap-servers: ENC(N7RrOIacldwE0oXmIzILUmmaCTG5BYRfGtbv2T4n7aU/TwEtx9eShK6jDUpiSEQj6kRaI1uKG/r0/4GKZoWWWA==)
+  profiles:
+    active: local
 
 springdoc:
-    swagger-ui:
-        path: /swagger
+  swagger-ui:
+    path: /swagger
+
+jasypt:
+  encryptor:
+    password: resumarble-backend

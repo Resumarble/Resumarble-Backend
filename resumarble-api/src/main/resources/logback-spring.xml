@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration packagingData="true">
+    <timestamp key="timestamp" datePattern="yyyy-MM-dd-HH-mm-ssSSS"/>
+
+    <appender name="aws_cloud_watch_log" class="ca.pjer.logback.AwsLogsAppender">
+        <layout>
+            <pattern>[%thread] [%date] [%level] [%file:%line] - %msg%n</pattern>
+        </layout>
+        <logGroupName>goodjob</logGroupName>
+        <logStreamUuidPrefix>goodjob-log</logStreamUuidPrefix>
+        <logRegion>ap-northeast-2</logRegion>
+        <maxBatchLogEvents>50</maxBatchLogEvents>
+        <maxFlushTimeMillis>30000</maxFlushTimeMillis>
+        <maxBlockTimeMillis>5000</maxBlockTimeMillis>
+        <retentionTimeDays>0</retentionTimeDays>
+        <accessKeyId>${AWS_ACCESS_KEY}</accessKeyId>
+        <secretAccessKey>${AWS_SECRET_KEY}</secretAccessKey>
+    </appender>
+
+    <property name="CONSOLE_LOG_PATTERN" value="%highlight(%-5level) %date [%thread] %cyan([%C{0} :: %M :: %L]) - %msg%n"/>
+    <appender name="console_log" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="local">
+        <root level="INFO">
+            <appender-ref ref="console_log"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="WARN">
+            <appender-ref ref="console_log"/>
+        </root>
+    </springProfile>
+</configuration>

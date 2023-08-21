@@ -31,6 +31,7 @@ class OpenApiConfig {
     private fun getServers(): List<Server> {
         return listOf(
             Server().url("http://localhost:8080").description("localhost")
+                .url("http://49.50.173.88:8080").description("dev server")
         )
     }
 
