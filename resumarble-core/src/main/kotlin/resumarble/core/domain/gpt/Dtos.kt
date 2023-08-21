@@ -21,8 +21,8 @@ data class ChatCompletionMessageResponse(
     val `object`: String,
     val created: Long,
     val model: String,
-    val choices: List<Choices> = listOf(),
-    val usage: LengthInfo
+    val choices: List<ChoicesDto> = listOf(),
+    val usage: Usage
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
@@ -33,7 +33,7 @@ data class Choices(
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
-data class LengthInfo(
+data class Usage(
     val promptTokens: Int,
     val completionTokens: Int,
     val totalTokens: Int
