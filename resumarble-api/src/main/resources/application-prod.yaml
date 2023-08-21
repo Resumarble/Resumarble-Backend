@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: resumarble-prod
+  config:
+    import: "optional:configserver:http://43.201.132.18:8090/"
+  cloud:
+    config:
+      name: resumarble
+      profile: prod
