@@ -1,7 +1,7 @@
 package resumarble.core.domain.job
 
-import resumarble.core.domain.application.JobListResponse
-import resumarble.core.domain.application.JobResponse
+import resumarble.core.domain.job.application.JobListResponse
+import resumarble.core.domain.job.application.JobResponse
 import resumarble.core.domain.job.domain.Job
 
 object JobFixture {

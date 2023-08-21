@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import resumarble.api.response.Response
-import resumarble.core.domain.application.JobListResponse
-import resumarble.core.domain.application.JobQueryService
+import resumarble.core.domain.job.application.JobListResponse
+import resumarble.core.domain.job.application.JobQueryService
 
 @Tag(name = "JobController", description = "직업 관련 API")
 @RestController

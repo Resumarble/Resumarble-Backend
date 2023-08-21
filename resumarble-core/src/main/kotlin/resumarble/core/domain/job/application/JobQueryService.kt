@@ -1,4 +1,4 @@
-package resumarble.core.domain.application
+package resumarble.core.domain.job.application
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

@@ -1,4 +1,4 @@
-package resumarble.core.domain.application
+package resumarble.core.domain.job.application
 
 data class JobResponse(
     val jobTitleKr: String,
