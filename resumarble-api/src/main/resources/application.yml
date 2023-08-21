@@ -21,5 +21,5 @@ jasypt:
 
 external:
   openai:
-    url: https://api.openai.com/v1/chat/completions
+    url: https://api.openai.com
     token: ENC(rAYsw0jbXV5NfG0pKimswwaOldvl93RPcJrQZK/rGNQc5mm3aQrHI6p/LorED98dWNiNmDvWjidQgV2toXFiXA==)
