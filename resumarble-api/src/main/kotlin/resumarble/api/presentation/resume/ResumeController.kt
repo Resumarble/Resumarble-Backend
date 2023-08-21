@@ -1,6 +1,7 @@
 package resumarble.api.presentation.resume
 
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import resumarble.core.domain.gpt.ChatCompletionsMessage
@@ -14,8 +15,10 @@ class ResumeController(
     private val openAiService: OpenAiService
 ) {
 
-    @PostMapping
-    fun createResume(): String {
+    @PostMapping("/interview-questions")
+    fun createResume(
+        @RequestBody request: InterviewQuestionRequest
+    ): String {
         val response = openAiService.requestOpenAiChatCompletion(
             ChatCompletionsRequest(
                 messages =
