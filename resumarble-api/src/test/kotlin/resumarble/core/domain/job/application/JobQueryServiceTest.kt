@@ -4,7 +4,6 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import resumarble.core.domain.application.JobQueryService
 import resumarble.core.domain.job.JobFixture
 import resumarble.core.domain.job.infrastructure.JobRepository
 

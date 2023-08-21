@@ -10,8 +10,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import resumarble.api.presentation.job.JobController
-import resumarble.core.domain.application.JobQueryService
 import resumarble.core.domain.job.JobFixture
+import resumarble.core.domain.job.application.JobQueryService
 
 class JobControllerTest : DescribeSpec({
     val jobQueryService = mockk<JobQueryService>()
