@@ -4,36 +4,36 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
-data class ChatCompletionsRequest(
+data class ChatCompletionRequest(
     val model: String = GPT_MODEL,
     val maxTokens: Int = 2000,
-    val messages: MutableList<ChatCompletionsMessage> = mutableListOf()
+    val messages: MutableList<ChatCompletionMessage> = mutableListOf()
 )
 
-data class ChatCompletionsMessage(
+data class ChatCompletionMessage(
     val role: String,
     val content: String
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
-data class ChatCompletionsMessageResponse(
+data class ChatCompletionMessageResponse(
     val id: String,
     val `object`: String,
     val created: Long,
     val model: String,
     val choices: List<ChoicesDto> = listOf(),
-    val usage: UsageDto
+    val usage: Usage
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class ChoicesDto(
     val index: Int,
-    val message: ChatCompletionsMessage,
+    val message: ChatCompletionMessage,
     val finishReason: String
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
-data class UsageDto(
+data class Usage(
     val promptTokens: Int,
     val completionTokens: Int,
     val totalTokens: Int
