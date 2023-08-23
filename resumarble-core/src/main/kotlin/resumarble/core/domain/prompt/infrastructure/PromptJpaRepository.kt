@@ -6,4 +6,6 @@ import resumarble.core.domain.prompt.domain.PromptType
 
 interface PromptJpaRepository : JpaRepository<Prompt, Long> {
     fun existsByPromptType(promptType: PromptType): Boolean
+
+    fun findByPromptType(promptType: PromptType): Prompt
 }
