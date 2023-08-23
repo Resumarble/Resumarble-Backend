@@ -22,6 +22,10 @@ class PromptRepositoryImpl(
         promptJpaRepository.deleteById(id)
     }
 
+    override fun findByPromptType(promptType: PromptType): Prompt {
+        return promptJpaRepository.findByPromptType(promptType)
+    }
+
     override fun existsByPromptType(promptType: PromptType): Boolean {
         return promptJpaRepository.existsByPromptType(promptType)
     }

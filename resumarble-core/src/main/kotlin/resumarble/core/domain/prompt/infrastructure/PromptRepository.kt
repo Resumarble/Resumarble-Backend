@@ -7,6 +7,7 @@ interface PromptRepository {
     fun save(prompt: Prompt): Prompt
     fun findById(id: Long): Prompt
     fun deleteById(id: Long)
-
     fun existsByPromptType(promptType: PromptType): Boolean
+
+    fun findByPromptType(promptType: PromptType): Prompt
 }
