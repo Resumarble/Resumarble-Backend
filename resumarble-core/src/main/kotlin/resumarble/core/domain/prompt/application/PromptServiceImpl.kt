@@ -2,6 +2,7 @@ package resumarble.core.domain.prompt.application
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import resumarble.core.domain.prompt.domain.PromptType
 import resumarble.core.domain.prompt.infrastructure.PromptRepository
 import resumarble.core.global.error.PromptAlreadyExistsException
 
@@ -22,8 +23,8 @@ class PromptServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun getPrompt(id: Long): PromptResponse {
-        val prompt = promptRepository.findById(id)
+    override fun getPrompt(promptType: PromptType): PromptResponse {
+        val prompt = promptRepository.findByPromptType(promptType)
 
         return PromptResponse.of(prompt)
     }
