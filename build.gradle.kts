@@ -7,7 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.8.22" apply false
     kotlin("plugin.jpa") version "1.8.22" apply false
     kotlin("kapt") version "1.8.22" apply false
-    id("org.jlleitschuh.gradle.ktlint") version "11.5.1" apply false
+    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
 
 allprojects {
@@ -15,6 +15,13 @@ allprojects {
     version = "0.0.1-SNAPSHOT"
 
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+    ktlint {
+        filter {
+            exclude { it.file.path.contains("$buildDir/generated/") }
+        }
+    }
+
     repositories {
         mavenCentral()
     }
