@@ -3,7 +3,7 @@ package resumarble.core.domain.gpt
 import org.springframework.stereotype.Component
 
 @Component
-class OpenAiMapper {
+object OpenAiMapper {
     fun promptAndContentToChatCompletionRequest(
         prompt: String,
         content: String
