@@ -21,7 +21,7 @@ data class ChatCompletionMessageResponse(
     val `object`: String,
     val created: Long,
     val model: String,
-    val choices: List<ChoicesDto> = listOf(),
+    val choices: List<Choices> = listOf(),
     val usage: Usage
 )
 

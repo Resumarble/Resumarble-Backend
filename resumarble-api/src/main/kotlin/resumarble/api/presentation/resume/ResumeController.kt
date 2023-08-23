@@ -4,32 +4,20 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import resumarble.core.domain.gpt.ChatCompletionMessage
-import resumarble.core.domain.gpt.ChatCompletionRequest
-import resumarble.core.domain.gpt.OpenAiRole
-import resumarble.core.domain.gpt.application.OpenAiService
+import resumarble.api.response.Response
+import resumarble.core.domain.resume.facade.InterviewQuestionResponse
+import resumarble.core.domain.resume.facade.ResumeFacade
 
 @RestController
 @RequestMapping("/resumes")
 class ResumeController(
-    private val openAiService: OpenAiService
+    private val resumeFacade: ResumeFacade
 ) {
-
     @PostMapping("/interview-questions")
-    fun createResume(
+    fun interviewQuestions(
         @RequestBody request: InterviewQuestionRequest
-    ): String {
-        val response = openAiService.requestOpenAiChatCompletion(
-            ChatCompletionRequest(
-                messages =
-                mutableListOf(
-                    ChatCompletionMessage(
-                        role = OpenAiRole.SYSTEM.value,
-                        content = "Hello? What is Your name?"
-                    )
-                )
-            )
-        )
-        return response.choices[0].message.content
+    ): Response<InterviewQuestionResponse> {
+        val command = request.toCommand()
+        return Response.ok(resumeFacade.generateInterviewQuestion(command))
     }
 }

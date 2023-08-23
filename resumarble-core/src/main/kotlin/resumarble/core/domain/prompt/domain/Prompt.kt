@@ -43,13 +43,4 @@ class Prompt(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
-) : BaseEntity() {
-
-    fun createRequestForm(
-        job: String,
-        resumeType: String,
-        questionDifficult: String,
-        career: String,
-        language: String
-    ) = content.format(job, resumeType, questionDifficult, career, language)
-}
+) : BaseEntity()

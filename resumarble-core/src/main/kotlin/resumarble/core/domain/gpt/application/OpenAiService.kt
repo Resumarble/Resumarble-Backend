@@ -16,7 +16,7 @@ class OpenAiService(
     @Value("\${external.openai.token}")
     private lateinit var token: String
 
-    fun requestOpenAiChatCompletion(
+    fun requestChatCompletion(
         request: ChatCompletionRequest
     ): ChatCompletionMessageResponse {
         return openAiClient.generateChatCompletion(
