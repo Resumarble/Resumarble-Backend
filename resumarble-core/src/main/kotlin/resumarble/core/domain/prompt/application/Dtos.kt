@@ -18,6 +18,14 @@ data class PromptResponse(
     val promptType: PromptType,
     val content: String
 ) {
+    fun createRequestForm(
+        job: String,
+        resumeType: String,
+        questionDifficult: String,
+        career: String,
+        language: String
+    ) = content.format(job, resumeType, questionDifficult, career, language)
+
     companion object {
         @JvmStatic
         fun of(prompt: Prompt) = PromptResponse(
