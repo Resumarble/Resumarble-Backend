@@ -7,9 +7,7 @@ import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import jakarta.persistence.Index
 import jakarta.persistence.Lob
-import jakarta.persistence.Table
 import org.hibernate.annotations.ColumnDefault
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.SQLDelete
@@ -19,12 +17,6 @@ import resumarble.core.global.domain.BaseEntity
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE prompt SET is_deleted = true WHERE id = ?")
 @Entity
-@Table(
-    name = "prompt",
-    indexes = [
-        Index(name = "idx_prompt_type", columnList = "prompt_type")
-    ]
-)
 class Prompt(
 
     @Comment(value = "삭제 여부")
@@ -51,13 +43,4 @@ class Prompt(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
-) : BaseEntity() {
-
-    fun createRequestForm(
-        job: String,
-        resumeType: String,
-        questionDifficult: String,
-        career: String,
-        language: String
-    ) = content.format(job, resumeType, questionDifficult, career, language)
-}
+) : BaseEntity()
