@@ -23,7 +23,10 @@ data class ChatCompletionMessageResponse(
     val model: String,
     val choices: List<Choices> = listOf(),
     val usage: Usage
-)
+) {
+    val questionAndAnswer: String
+        get() = choices[0].message.content
+}
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class Choices(

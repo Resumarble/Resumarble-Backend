@@ -12,7 +12,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    // spring cloud open feign
+    // spring cloud openfeign
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
     implementation("org.springframework:spring-webmvc:6.0.11")
