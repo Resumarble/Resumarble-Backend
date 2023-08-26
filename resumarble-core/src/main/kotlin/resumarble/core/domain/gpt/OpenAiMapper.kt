@@ -14,7 +14,7 @@ class OpenAiMapper(
         content: String
     ): ChatCompletionRequest {
         return ChatCompletionRequest(
-            messages = arrayListOf(
+            messages = listOf(
                 ChatCompletionMessage(
                     role = OpenAiRole.SYSTEM.value,
                     content = prompt

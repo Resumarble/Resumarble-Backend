@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 data class ChatCompletionRequest(
     val model: String = GPT_MODEL,
     val maxTokens: Int = 2000,
-    val messages: MutableList<ChatCompletionMessage> = mutableListOf()
+    val messages: List<ChatCompletionMessage> = listOf()
 )
 
 data class ChatCompletionMessage(
