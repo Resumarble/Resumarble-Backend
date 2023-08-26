@@ -15,3 +15,7 @@ data class PromptAlreadyExistsException(
 data class InvalidInputValueException(
     override val errorCode: ErrorCode
 ) : BusinessException(ErrorCode.INVALID_INPUT_VALUE)
+
+data class CompletionFailedException(
+    override val errorCode: ErrorCode = ErrorCode.REQUEST_FAILED
+) : BusinessException(ErrorCode.REQUEST_FAILED)

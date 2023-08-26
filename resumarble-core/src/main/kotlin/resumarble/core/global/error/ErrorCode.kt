@@ -11,6 +11,9 @@ enum class ErrorCode(
     // Common
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "유효하지 않은 입력값입니다"),
 
+    // InterviewQuestion
+    REQUEST_FAILED(HttpStatus.BAD_REQUEST, "요청에 실패했습니다"),
+
     // prompt
     PROMPT_NOT_FOUND(HttpStatus.NOT_FOUND, "프롬프트를 찾을 수 없습니다"),
     PROMPT_ALREADY_EXISTS(HttpStatus.CONFLICT, "프롬프트가 이미 존재합니다")
