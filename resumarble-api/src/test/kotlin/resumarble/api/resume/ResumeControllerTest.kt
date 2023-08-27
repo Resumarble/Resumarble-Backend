@@ -10,16 +10,19 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import resumarble.api.error.GlobalExceptionHandler
 import resumarble.api.presentation.resume.ResumeController
 import resumarble.core.domain.resume.ResumeFixture
 import resumarble.core.domain.resume.facade.ResumeFacade
+import resumarble.core.global.error.CompletionFailedException
 
 class ResumeControllerTest : DescribeSpec() {
 
     init {
         val resumeFacade: ResumeFacade = mockk<ResumeFacade>()
         val objectMapper = ObjectMapper()
-        val sut = MockMvcBuilders.standaloneSetup(ResumeController(resumeFacade)).build()
+        val sut = MockMvcBuilders.standaloneSetup(ResumeController(resumeFacade))
+            .setControllerAdvice(GlobalExceptionHandler()).build()
 
         describe("ResumeController") {
             val request = ResumeFixture.interviewQuestionRequest()
@@ -35,6 +38,19 @@ class ResumeControllerTest : DescribeSpec() {
                         .andExpect {
                             status().isOk
                             content().json(objectMapper.writeValueAsString(response))
+                        }
+                }
+            }
+            context("면접 예상 질문 생성에 실패하면") {
+                every { resumeFacade.generateInterviewQuestion(any()) } throws CompletionFailedException()
+                it("404를 반환한다.") {
+                    sut.perform(
+                        post("/resumes/interview-questions")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(request))
+                    ).andDo { print() }
+                        .andExpect {
+                            status().isBadRequest
                         }
                 }
             }
