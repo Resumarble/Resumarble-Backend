@@ -1,5 +1,7 @@
 package resumarble.core.domain.resume
 
+import resumarble.api.presentation.resume.InterviewQuestionRequest
+import resumarble.api.presentation.resume.ResumeInfo
 import resumarble.core.domain.prompt.application.PromptResponse
 import resumarble.core.domain.prompt.domain.PromptType
 import resumarble.core.domain.resume.facade.InterviewQuestion
@@ -39,4 +41,15 @@ object ResumeFixture {
                 )
             )
         )
+
+    fun interviewQuestionRequest(): InterviewQuestionRequest {
+        return InterviewQuestionRequest(
+            job = "Backend Developer",
+            career = "3 years",
+            ResumeInfo(
+                category = "Technology Stack",
+                content = "Kotlin, Java, Spring Boot, JPA, MySQL, Redis, Kafka, Git, Kubernetes"
+            )
+        )
+    }
 }
