@@ -2,10 +2,10 @@ package resumarble.core.domain.gpt
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import org.springframework.stereotype.Component
 import resumarble.core.domain.resume.facade.InterviewQuestionResponse
+import resumarble.core.global.annotation.Mapper
 
-@Component
+@Mapper
 class OpenAiMapper(
     private val objectMapper: ObjectMapper
 ) {
