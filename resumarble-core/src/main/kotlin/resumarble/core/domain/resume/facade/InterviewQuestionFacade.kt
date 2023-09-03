@@ -8,7 +8,7 @@ import resumarble.core.global.annotation.Facade
 import resumarble.core.global.util.loggingStopWatch
 
 @Facade
-class ResumeFacade(
+class InterviewQuestionFacade(
     private val promptService: PromptService,
     private val openAiService: OpenAiService,
     private val openAiMapper: OpenAiMapper

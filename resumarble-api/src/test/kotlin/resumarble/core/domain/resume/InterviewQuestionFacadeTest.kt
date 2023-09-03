@@ -9,16 +9,16 @@ import io.mockk.verify
 import resumarble.core.domain.gpt.OpenAiMapper
 import resumarble.core.domain.gpt.application.OpenAiService
 import resumarble.core.domain.prompt.application.PromptService
-import resumarble.core.domain.resume.facade.ResumeFacade
+import resumarble.core.domain.resume.facade.InterviewQuestionFacade
 import resumarble.core.global.error.CompletionFailedException
 
-class ResumeFacadeTest : BehaviorSpec() {
+class InterviewQuestionFacadeTest : BehaviorSpec() {
 
     init {
         val promptService = mockk<PromptService>()
         val openAiService = mockk<OpenAiService>()
         val openAiMapper = mockk<OpenAiMapper>()
-        val sut = ResumeFacade(promptService, openAiService, openAiMapper)
+        val sut = InterviewQuestionFacade(promptService, openAiService, openAiMapper)
 
         afterEach {
             clearAllMocks()
