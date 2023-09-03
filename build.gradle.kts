@@ -3,25 +3,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.1.2" apply false
     id("io.spring.dependency-management") version "1.1.2" apply false
+    jacoco
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22" apply false
     kotlin("plugin.jpa") version "1.8.22" apply false
     kotlin("kapt") version "1.8.22" apply false
-    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
+    id("org.jlleitschuh.gradle.ktlint") version "11.5.1" apply false
 }
 
 allprojects {
     group = "resumarble"
     version = "0.0.1-SNAPSHOT"
-
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
-
-    ktlint {
-        filter {
-            exclude { it.file.path.contains("$buildDir/generated/") }
-        }
-    }
-
     repositories {
         mavenCentral()
     }
@@ -37,6 +29,20 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
     apply(plugin = "kotlin-kapt")
+    apply(plugin = "jacoco")
+
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        filter {
+            exclude { it.file.path.contains("$buildDir/generated/") }
+        }
+    }
+
+    configure<JacocoPluginExtension> {
+        toolVersion = "0.8.6"
+
+    }
 
     java.sourceCompatibility = JavaVersion.VERSION_17
 
