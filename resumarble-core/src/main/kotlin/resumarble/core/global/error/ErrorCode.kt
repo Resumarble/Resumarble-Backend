@@ -21,5 +21,6 @@ enum class ErrorCode(
 
     // user
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "유저를 찾을 수 없습니다"),
-    UNIDENTIFIED_USER(HttpStatus.UNAUTHORIZED, "사용자 정보가 일치하지 않습니다.")
+    UNIDENTIFIED_USER(HttpStatus.UNAUTHORIZED, "사용자 정보가 일치하지 않습니다."),
+    DUPLICATE_USER(HttpStatus.CONFLICT, "이미 존재하는 유저입니다.")
 }
