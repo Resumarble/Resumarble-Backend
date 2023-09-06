@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
-import resumarble.api.error.GlobalExceptionHandler
+import resumarble.api.advice.GlobalExceptionHandler
 import resumarble.api.presentation.resume.InterviewQuestionController
 import resumarble.core.domain.resume.ResumeFixture
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade

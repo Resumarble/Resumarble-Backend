@@ -33,6 +33,11 @@ data class Response<T>(
         }
 
         @JvmStatic
+        fun <T> fail(errorCode: ErrorCode, data: T): Response<T> {
+            return of(errorCode.status, errorCode.message, data)
+        }
+
+        @JvmStatic
         fun <T> fail(errorCode: ErrorCode): Response<T?> {
             return of(errorCode.status, errorCode.message, null)
         }

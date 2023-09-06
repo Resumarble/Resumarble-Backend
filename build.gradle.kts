@@ -37,6 +37,7 @@ subprojects {
         filter {
             exclude { it.file.path.contains("$buildDir/generated/") }
         }
+        disabledRules = listOf("wildcard-imports")
     }
 
     configure<JacocoPluginExtension> {
@@ -69,5 +70,34 @@ subprojects {
     }
     tasks.withType<Test> {
         useJUnitPlatform()
+    }
+
+    tasks.test {
+        finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+    }
+    tasks.jacocoTestReport {
+        dependsOn(tasks.test) // tests are required to run before generating the report
+        reports {
+            xml.required.set(true)
+            xml.outputLocation.set(File("$buildDir/reports/jacoco.xml"))
+        }
+        classDirectories.setFrom(
+            files(
+                classDirectories.files.map {
+                    fileTree(it) { // 테스트 커버리지 측정 제외 목록
+                        exclude(
+                            "**/*Application*",
+                            "**/*Config*",
+                            "**/*Dto*",
+                            "**/*Request*",
+                            "**/*Response*",
+                            "**/*Interceptor*",
+                            "**/*Exception*",
+                            "**/Q*"
+                        ) // QueryDsl 용이나 Q로 시작하는 클래스 뺄 위험 존재
+                    }
+                }
+            )
+        )
     }
 }
