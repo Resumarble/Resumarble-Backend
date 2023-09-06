@@ -4,7 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication(
-    scanBasePackages = ["resumarble.core", "resumarble.api"]
+    scanBasePackages = ["resumarble.core", "resumarble.api", "resumarble.infrastructure"]
 )
 class Application
 
