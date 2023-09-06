@@ -30,6 +30,7 @@ class UserEntity(
     private val id: Long = 0L
 ) {
     companion object {
+        @JvmStatic
         fun from(user: User): UserEntity {
             return UserEntity(user.email, user.password, user.nickname, user.userId)
         }
