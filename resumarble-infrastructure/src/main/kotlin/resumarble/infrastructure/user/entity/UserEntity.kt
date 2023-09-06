@@ -1,6 +1,12 @@
 package resumarble.infrastructure.user.entity
 
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Embedded
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import jakarta.validation.constraints.Email
 import resumarble.core.domain.user.domain.User
 import resumarble.core.domain.user.domain.password.Password
@@ -13,7 +19,6 @@ class UserEntity(
     private val email: String,
 
     @Embedded
-    @Column(nullable = false)
     private val password: Password,
 
     @Column(nullable = false)

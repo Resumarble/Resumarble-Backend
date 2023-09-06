@@ -8,6 +8,14 @@ data class PromptNotFoundException(
     override val errorCode: ErrorCode = ErrorCode.PROMPT_NOT_FOUND
 ) : BusinessException(ErrorCode.PROMPT_NOT_FOUND)
 
+data class UserNotFoundException(
+    override val errorCode: ErrorCode = ErrorCode.USER_NOT_FOUND
+) : BusinessException(ErrorCode.USER_NOT_FOUND)
+
+data class UnidentifiedUserException(
+    override val errorCode: ErrorCode = ErrorCode.UNIDENTIFIED_USER
+) : BusinessException(ErrorCode.UNIDENTIFIED_USER)
+
 data class PromptAlreadyExistsException(
     override val errorCode: ErrorCode = ErrorCode.PROMPT_ALREADY_EXISTS
 ) : BusinessException(ErrorCode.PROMPT_ALREADY_EXISTS)
