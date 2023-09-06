@@ -1,13 +1,15 @@
-package resumarble.core.domain.prompt.infrastructure
+package resumarble.infrastructure.prompt.adapter
 
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Repository
 import resumarble.core.domain.prompt.domain.Prompt
 import resumarble.core.domain.prompt.domain.PromptType
+import resumarble.core.domain.prompt.infrastructure.PromptRepository
 import resumarble.core.global.error.PromptNotFoundException
+import resumarble.infrastructure.annotation.Adapter
+import resumarble.infrastructure.prompt.entity.PromptJpaRepository
 
-@Repository
-class PromptRepositoryImpl(
+@Adapter
+class PromptPersistenceAdapter(
     private val promptJpaRepository: PromptJpaRepository
 ) : PromptRepository {
     override fun save(prompt: Prompt): Prompt {
