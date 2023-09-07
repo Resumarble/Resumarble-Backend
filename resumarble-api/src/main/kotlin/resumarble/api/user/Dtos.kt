@@ -1,4 +1,4 @@
-package resumarble.api.presentation.user
+package resumarble.api.user
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
