@@ -23,8 +23,8 @@ data class JoinUserRequest(
 }
 
 data class LoginUserRequest(
-    private val email: String,
-    private val password: String
+    val email: String,
+    val password: String
 ) {
     fun toCommand() = LoginUserCommand(
         email = email,
