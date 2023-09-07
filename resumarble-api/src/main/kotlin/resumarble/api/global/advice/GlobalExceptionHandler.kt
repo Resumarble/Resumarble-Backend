@@ -9,6 +9,7 @@ import resumarble.core.global.error.DuplicateUserException
 import resumarble.core.global.error.ErrorCode
 import resumarble.core.global.error.PromptNotFoundException
 import resumarble.core.global.error.TokenVerifyException
+import resumarble.core.global.error.UnidentifiedUserException
 import resumarble.core.global.error.UserNotFoundException
 
 @RestControllerAdvice
@@ -37,6 +38,11 @@ class GlobalExceptionHandler {
     @ExceptionHandler(DuplicateUserException::class)
     fun handleDuplicateUserException(e: DuplicateUserException): Response<Any> {
         return Response.fail(e.errorCode, e.email)
+    }
+
+    @ExceptionHandler(UnidentifiedUserException::class)
+    fun handleUnidentifiedUserException(e: UnidentifiedUserException): Response<Any?> {
+        return Response.fail(e.errorCode)
     }
 
     @ExceptionHandler(TokenVerifyException::class)
