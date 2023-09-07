@@ -1,4 +1,4 @@
-package resumarble.api.presentation.resume
+package resumarble.api.resume
 
 import resumarble.core.domain.resume.facade.InterviewQuestionCommand
 

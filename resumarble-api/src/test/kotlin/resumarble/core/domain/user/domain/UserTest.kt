@@ -3,6 +3,7 @@ package resumarble.core.domain.user.domain
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import resumarble.core.domain.user.domain.password.Password
+import resumarble.core.domain.user.domain.password.sha256Encrypt
 
 class UserTest : StringSpec() {
 
@@ -20,6 +21,13 @@ class UserTest : StringSpec() {
             user.email shouldBe email
             user.password shouldBe Password(password)
             user.nickname shouldBe nickname
+        }
+
+        "패스워드가 암호화된다." {
+            val password = "password"
+            val encryptedPassword = Password(password)
+
+            encryptedPassword.value shouldBe sha256Encrypt(password)
         }
     }
 }
