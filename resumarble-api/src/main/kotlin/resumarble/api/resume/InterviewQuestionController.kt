@@ -1,11 +1,11 @@
-package resumarble.api.presentation.resume
+package resumarble.api.resume
 
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import resumarble.api.response.Response
+import resumarble.api.global.response.Response
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade
 import resumarble.core.domain.resume.facade.InterviewQuestionResponse
 

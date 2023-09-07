@@ -1,6 +1,6 @@
 package resumarble.fixture
 
-import resumarble.api.presentation.user.JoinUserRequest
+import resumarble.api.user.JoinUserRequest
 
 object UserFixture {
 

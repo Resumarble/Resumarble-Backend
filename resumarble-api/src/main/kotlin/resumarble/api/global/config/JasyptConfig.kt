@@ -1,4 +1,4 @@
-package resumarble.api.config
+package resumarble.api.global.config
 
 import org.jasypt.encryption.StringEncryptor
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor

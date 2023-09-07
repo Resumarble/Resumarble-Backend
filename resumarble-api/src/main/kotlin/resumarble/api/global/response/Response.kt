@@ -1,4 +1,4 @@
-package resumarble.api.response
+package resumarble.api.global.response
 
 import org.springframework.http.HttpStatus
 import resumarble.core.global.error.ErrorCode
