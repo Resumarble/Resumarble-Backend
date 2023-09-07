@@ -58,6 +58,19 @@ subprojects {
         testImplementation("io.kotest:kotest-runner-junit5-jvm:5.6.2")
         testImplementation("io.mockk:mockk:1.13.5")
 
+        // spring security
+        implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+        implementation("org.springframework.boot:spring-boot-starter-security")
+        testImplementation("org.springframework.security:spring-security-test")
+
+        // redis
+        implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+        // token
+        implementation("com.auth0:java-jwt:3.18.3")
+        implementation("io.jsonwebtoken:jjwt:0.9.1")
+        implementation("com.nimbusds:nimbus-jose-jwt:9.31")
+
         runtimeOnly("com.h2database:h2")
         runtimeOnly("com.mysql:mysql-connector-j")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
