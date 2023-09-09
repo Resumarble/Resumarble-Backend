@@ -1,9 +1,11 @@
 package resumarble.api.user
 
 import io.swagger.v3.oas.annotations.Operation
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.response.Response
 import resumarble.core.domain.user.application.port.`in`.JoinUserUseCase
@@ -18,6 +20,7 @@ class UserController(
 
     @Operation(summary = "회원 가입", description = "이메일, 패스워드, 닉네임을 입력받아 회원가입을 진행한다.")
     @PostMapping("/join")
+    @ResponseStatus(HttpStatus.CREATED)
     fun join(@RequestBody joinUserRequest: JoinUserRequest): Response<Unit> {
         joinUserUseCase.join(joinUserRequest.toCommand())
         return Response.ok()
