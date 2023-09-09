@@ -29,7 +29,7 @@ class JwtTokenProvider(
             .withExpiresAt(Date(System.currentTimeMillis() + ACCESS_EXPIRATION_TIME))
             .withClaim("id", command.userId)
             .withClaim("nickname", command.nickname)
-            // .withClaim("provider",user.getProvider().name()) TODO: 소셜 로그인 추가
+            .withClaim("provider", command.provider.name)
             .sign(Algorithm.HMAC256(SECRET_KEY))
 
     protected fun refreshToken(): String =
