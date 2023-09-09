@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Email
 import resumarble.core.domain.user.constraints.JwtProvider
 import resumarble.core.domain.user.constraints.UserRole
 import resumarble.core.domain.user.domain.User
+import resumarble.core.domain.user.domain.UserInformation
 import resumarble.core.domain.user.domain.password.Password
 
 @Entity
@@ -56,6 +57,6 @@ class UserEntity(
     }
 
     fun toDomain(): User {
-        return User(email, password, nickname, jwtProvider, userRole, id)
+        return User(UserInformation(email, nickname), password, jwtProvider, userRole, id)
     }
 }

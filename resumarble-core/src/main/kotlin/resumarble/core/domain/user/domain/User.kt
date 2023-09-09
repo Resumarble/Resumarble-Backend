@@ -5,7 +5,7 @@ import resumarble.core.domain.user.constraints.UserRole
 import resumarble.core.domain.user.domain.password.Password
 import resumarble.core.global.error.UnidentifiedUserException
 
-class User private constructor(
+class User(
 
     private val userInformation: UserInformation,
 
