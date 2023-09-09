@@ -326,4 +326,8 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
+resumarble-api/out/
+resumarble-infrastructure/out/
+resumarble-core/out/
+
 # End of https://www.toptal.com/developers/gitignore/api/kotlin,intellij,intellij+all,intellij+iml,macos,java,gradle
