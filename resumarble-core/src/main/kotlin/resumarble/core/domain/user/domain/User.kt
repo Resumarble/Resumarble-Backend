@@ -21,10 +21,8 @@ class User private constructor(
         email: String,
         password: Password,
         nickname: String,
-        provider: JwtProvider,
-        role: UserRole,
-        userId: Long
-    ) : this(UserInformation(email, nickname), password, provider, role, userId)
+        provider: JwtProvider
+    ) : this(UserInformation(email, nickname), password, provider)
 
     val email: String
         get() = userInformation.email
