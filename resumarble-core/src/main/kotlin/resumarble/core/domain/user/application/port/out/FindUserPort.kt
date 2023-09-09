@@ -6,5 +6,5 @@ interface FindUserPort {
 
     fun findUserByEmail(email: String): User
 
-    fun existsUserByEmail(nickname: String): Boolean
+    fun existsUserByEmail(email: String): Boolean
 }
