@@ -38,7 +38,8 @@ class JwtTokenProvider(
             .sign(Algorithm.HMAC256(SECRET_KEY))
 
     companion object {
-        private const val TOKEN_PREFIX = "Bearer "
+        const val TOKEN_PREFIX = "Bearer "
+        const val HEADER_STRING = "Authorization"
         const val ACCESS_EXPIRATION_TIME = 120 * 60 * 1000L // 2시간
 
         const val REFRESH_EXPIRATION_TIME = 14 * 60 * 60 * 24 * 1000L // 14일

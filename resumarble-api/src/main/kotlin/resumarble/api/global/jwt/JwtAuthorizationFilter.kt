@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import resumarble.core.global.error.BusinessException
+import resumarble.core.global.jwt.JwtTokenProvider.Companion.HEADER_STRING
+import resumarble.core.global.jwt.JwtTokenProvider.Companion.TOKEN_PREFIX
 import resumarble.core.global.jwt.JwtVerifier
 
 @Component
@@ -56,10 +58,5 @@ class JwtAuthorizationFilter(
 
     private fun setJwtException(request: HttpServletRequest, exception: JwtException) {
         request.setAttribute("exception", exception.name)
-    }
-
-    companion object {
-        private const val TOKEN_PREFIX = "Bearer "
-        private const val HEADER_STRING = "Authorization"
     }
 }
