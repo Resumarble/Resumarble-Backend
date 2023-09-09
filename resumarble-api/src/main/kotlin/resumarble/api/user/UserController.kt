@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.response.Response
 import resumarble.core.domain.user.application.port.`in`.JoinUserUseCase
 import resumarble.core.domain.user.application.port.`in`.LoginUserUseCase
+import resumarble.core.global.jwt.LoginToken
 
 @RestController
 @RequestMapping("/users")
@@ -28,8 +29,8 @@ class UserController(
 
     @Operation(summary = "로그인", description = "이메일, 패스워드를 입력받아 로그인을 진행한다.")
     @PostMapping("/login")
-    fun login(@RequestBody loginUserRequest: LoginUserRequest): Response<Unit> {
-        loginUserUseCase.login(loginUserRequest.toCommand())
-        return Response.ok()
+    fun login(@RequestBody loginUserRequest: LoginUserRequest): Response<LoginToken> {
+        val token = loginUserUseCase.login(loginUserRequest.toCommand())
+        return Response.ok(token)
     }
 }
