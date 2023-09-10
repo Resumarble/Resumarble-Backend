@@ -39,7 +39,7 @@ class UserController(
         return Response.ok(token)
     }
 
-    @Operation(summary = "로그아웃", description = "이메일, 액세스 토큰을 입력받아 로그아웃을 진행한다.")
+    @Operation(summary = "로그아웃", description = "헤더의 엑세스 토큰으로 로그아웃을 진행한다.")
     @PostMapping("/logout")
     fun logout(@AuthenticationPrincipal user: JwtUserDetails): Response<Unit> {
         logoutUserUseCase.logout(LogoutUserCommand.of(user.userId))
