@@ -32,6 +32,10 @@ data class LoginUserCommand(
 }
 
 data class LogoutUserCommand(
-    val email: String,
-    val accessToken: String
-)
+    val userId: Long
+) {
+    companion object {
+        @JvmStatic
+        fun of(userId: Long) = LogoutUserCommand(userId)
+    }
+}
