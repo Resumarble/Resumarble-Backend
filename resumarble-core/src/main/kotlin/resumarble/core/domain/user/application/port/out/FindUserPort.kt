@@ -4,7 +4,9 @@ import resumarble.core.domain.user.domain.User
 
 interface FindUserPort {
 
-    fun findUserByEmail(email: String): User
+    fun getUserByUserId(userId: Long): User
+
+    fun getUserByEmail(email: String): User
 
     fun existsUserByEmail(email: String): Boolean
 }

@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import resumarble.api.global.advice.GlobalExceptionHandler
 import resumarble.core.domain.user.application.port.`in`.JoinUserUseCase
 import resumarble.core.domain.user.application.port.`in`.LoginUserUseCase
+import resumarble.core.domain.user.application.port.`in`.LogoutUserUseCase
 import resumarble.core.global.error.DuplicateUserException
 import resumarble.core.global.error.UnidentifiedUserException
 import resumarble.core.global.error.UserNotFoundException
@@ -26,8 +27,9 @@ class UserControllerTest : DescribeSpec() {
     init {
         val joinUserUseCase = mockk<JoinUserUseCase>()
         val loginUserUseCase = mockk<LoginUserUseCase>()
+        val logoutUserUseCase = mockk<LogoutUserUseCase>()
         val objectMapper = ObjectMapper()
-        val sut = MockMvcBuilders.standaloneSetup(UserController(joinUserUseCase, loginUserUseCase))
+        val sut = MockMvcBuilders.standaloneSetup(UserController(joinUserUseCase, loginUserUseCase, logoutUserUseCase))
             .setControllerAdvice(GlobalExceptionHandler()).build()
 
         describe("UserController") {

@@ -26,6 +26,16 @@ data class LoginUserCommand(
         userId = user.userId,
         email = user.email,
         nickname = user.nickname,
-        provider = user.provider
+        provider = user.provider,
+        role = user.role
     )
+}
+
+data class LogoutUserCommand(
+    val userId: Long
+) {
+    companion object {
+        @JvmStatic
+        fun of(userId: Long) = LogoutUserCommand(userId)
+    }
 }
