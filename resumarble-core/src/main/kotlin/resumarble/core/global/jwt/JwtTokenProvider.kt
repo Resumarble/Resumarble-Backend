@@ -19,7 +19,7 @@ class JwtTokenProvider(
     fun createToken(command: CreateTokenCommand): LoginToken {
         val refreshToken = refreshToken()
         val accessToken = accessToken(command)
-        redisTemplate.opsForValue().set(command.email, refreshToken, 14, TimeUnit.DAYS)
+        redisTemplate.opsForValue().set(USER_KEY_PREFIX + command.email, refreshToken, 14, TimeUnit.DAYS)
         return LoginToken(TOKEN_PREFIX + accessToken, TOKEN_PREFIX + refreshToken)
     }
 
@@ -42,6 +42,7 @@ class JwtTokenProvider(
         const val TOKEN_PREFIX = "Bearer "
         const val HEADER_STRING = "Authorization"
         const val ACCESS_EXPIRATION_TIME = 120 * 60 * 1000L // 2시간
+        const val USER_KEY_PREFIX = "user:"
 
         const val REFRESH_EXPIRATION_TIME = 14 * 60 * 60 * 24 * 1000L // 14일
     }
