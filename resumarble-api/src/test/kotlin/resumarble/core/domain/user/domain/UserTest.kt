@@ -2,6 +2,7 @@ package resumarble.core.domain.user.domain
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import resumarble.core.domain.user.constraints.JwtProvider
 import resumarble.core.domain.user.domain.password.Password
 import resumarble.core.domain.user.domain.password.sha256Encrypt
 
@@ -15,7 +16,8 @@ class UserTest : StringSpec() {
             val user = User(
                 email = email,
                 password = Password(password),
-                nickname = nickname
+                nickname = nickname,
+                provider = JwtProvider.RESUMARBLE
             )
 
             user.email shouldBe email
