@@ -27,8 +27,8 @@ class JwtVerifier(
         }
     }
 
-    fun verifyRefreshToken(account: String, refreshToken: String) {
-        val findRefreshToken = redisTemplate.opsForValue().get(account)
+    fun verifyRefreshToken(email: String, refreshToken: String) {
+        val findRefreshToken = redisTemplate.opsForValue().get(email)
 
         findRefreshToken?.let {
             if (it != refreshToken) {
@@ -37,11 +37,11 @@ class JwtVerifier(
         } ?: throw RefreshTokenNotFoundException()
     }
 
-    fun expireRefreshToken(account: String) {
-        redisTemplate.delete(account)
+    fun expireRefreshToken(email: String) {
+        redisTemplate.delete(email)
     }
 
-    fun parseAccount(accessToken: String): String {
-        return JWT.decode(accessToken).subject
+    fun parseEmail(accessToken: String): String {
+        return JWT.decode(accessToken).claims["email"]?.asString() ?: throw TokenVerifyException()
     }
 }
