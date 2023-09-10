@@ -2,6 +2,7 @@ package resumarble.fixture
 
 import resumarble.api.user.JoinUserRequest
 import resumarble.api.user.LoginUserRequest
+import resumarble.core.domain.user.constraints.JwtProvider
 import resumarble.core.domain.user.domain.User
 import resumarble.core.domain.user.domain.password.Password
 
@@ -24,10 +25,10 @@ object UserFixture {
 
     fun user(): User {
         return User(
-            userId = 1L,
             email = "test@test.com",
             password = password(),
-            nickname = "test"
+            nickname = "test",
+            provider = JwtProvider.RESUMARBLE
         )
     }
 
