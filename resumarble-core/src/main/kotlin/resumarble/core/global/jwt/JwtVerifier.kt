@@ -38,7 +38,7 @@ class JwtVerifier(
     }
 
     fun expireRefreshToken(email: String) {
-        redisTemplate.delete(email)
+        redisTemplate.delete(JwtTokenProvider.USER_KEY_PREFIX + email)
     }
 
     fun parseEmail(accessToken: String): String {
