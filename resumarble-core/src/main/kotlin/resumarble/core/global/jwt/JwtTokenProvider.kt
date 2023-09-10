@@ -29,6 +29,7 @@ class JwtTokenProvider(
             .withExpiresAt(Date(System.currentTimeMillis() + ACCESS_EXPIRATION_TIME))
             .withClaim("id", command.userId)
             .withClaim("nickname", command.nickname)
+            .withClaim("auth", command.role.name)
             .withClaim("provider", command.provider.name)
             .sign(Algorithm.HMAC256(SECRET_KEY))
 
