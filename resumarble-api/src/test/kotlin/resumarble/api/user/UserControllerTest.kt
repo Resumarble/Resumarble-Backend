@@ -104,6 +104,31 @@ class UserControllerTest : DescribeSpec() {
                         .andExpect { status().isUnauthorized() }
                 }
             }
+
+            context("로그아웃 요청시") {
+                it("로그아웃이 성공한다.") {
+                    every { logoutUserUseCase.logout(any()) } just runs
+                    sut.perform(
+                        post("/users/logout")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .header("Authorization", "Bearer access")
+                            .content(objectMapper.writeValueAsString(request))
+                    )
+                        .andDo { print() }
+                        .andExpect { status().isOk() }
+                }
+                it("로그아웃이 실패한다.") {
+                    every { logoutUserUseCase.logout(any()) } throws UserNotFoundException()
+                    sut.perform(
+                        post("/users/logout")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .header("Authorization", "Bearer access")
+                            .content(objectMapper.writeValueAsString(request))
+                    )
+                        .andDo { print() }
+                        .andExpect { status().isBadRequest() }
+                }
+            }
         }
     }
 }
