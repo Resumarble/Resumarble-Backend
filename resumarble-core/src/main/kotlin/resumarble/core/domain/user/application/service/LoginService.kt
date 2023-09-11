@@ -8,6 +8,7 @@ import resumarble.core.domain.user.application.port.`in`.LoginUserUseCase
 import resumarble.core.domain.user.application.port.`in`.LogoutUserUseCase
 import resumarble.core.domain.user.application.port.out.FindUserPort
 import resumarble.core.domain.user.domain.password.Password
+import resumarble.core.global.error.UserNotFoundException
 import resumarble.core.global.jwt.JwtTokenProvider
 import resumarble.core.global.jwt.JwtVerifier
 import resumarble.core.global.jwt.LoginToken
@@ -21,14 +22,14 @@ class LoginService(
 
     @Transactional(readOnly = true)
     override fun login(command: LoginUserCommand): LoginToken {
-        val user = findUserPort.getUserByEmail(command.email)
+        val user = findUserPort.findUserByEmail(command.email) ?: throw UserNotFoundException()
         user.authenticate(Password(command.password))
         return jwtTokenProvider.createToken(command.toTokenCommand(user))
     }
 
     @Transactional(readOnly = true)
     override fun logout(command: LogoutUserCommand) {
-        val user = findUserPort.getUserByUserId(command.userId)
+        val user = findUserPort.findUserByUserId(command.userId) ?: throw UserNotFoundException()
         jwtVerifier.expireRefreshToken(user.email)
     }
 }
