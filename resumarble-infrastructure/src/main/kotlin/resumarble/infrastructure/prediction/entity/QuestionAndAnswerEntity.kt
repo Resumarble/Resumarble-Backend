@@ -6,13 +6,16 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import resumarble.core.domain.prediction.domain.Answer
+import resumarble.core.domain.prediction.domain.Question
+import resumarble.core.domain.prediction.domain.QuestionAndAnswer
 import resumarble.core.global.domain.BaseEntity
 
 @Entity
 @Table(name = "question_and_answer")
 data class QuestionAndAnswerEntity(
 
-    private val interviewPredictionId: Long,
+    private val predictionId: Long,
     @Column(
         nullable = false,
         columnDefinition = "TEXT"
@@ -28,14 +31,19 @@ data class QuestionAndAnswerEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long = 0L
-) : BaseEntity()
+) : BaseEntity() {
 
-@JvmInline
-value class Question(
-    private val value: String
-)
+    fun toDomain() = QuestionAndAnswer(
+        question = question,
+        answer = answer
+    )
 
-@JvmInline
-value class Answer(
-    private val value: String
-)
+    companion object {
+        @JvmStatic
+        fun from(predictionId: Long, questionAndAnswer: QuestionAndAnswer) = QuestionAndAnswerEntity(
+            predictionId = predictionId,
+            question = questionAndAnswer.question,
+            answer = questionAndAnswer.answer
+        )
+    }
+}
