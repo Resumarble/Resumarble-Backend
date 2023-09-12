@@ -1,5 +1,6 @@
 package resumarble.infrastructure.user.adapter
 
+import org.springframework.data.repository.findByIdOrNull
 import resumarble.core.domain.user.application.port.out.FindUserPort
 import resumarble.core.domain.user.application.port.out.JoinUserPort
 import resumarble.core.domain.user.domain.User
@@ -16,9 +17,8 @@ class UserPersistenceAdapter(
         userJpaRepository.save(UserEntity.from(user))
     }
 
-    override fun findUserByUserId(userId: Long): User? {
-        val userEntity = userJpaRepository.findById(userId).orElse(null)
-        return userEntity?.toDomain()
+    override fun findUserById(userId: Long): User? {
+        return userJpaRepository.findByIdOrNull(userId)?.toDomain()
     }
 
     override fun findUserByEmail(email: String): User? {
