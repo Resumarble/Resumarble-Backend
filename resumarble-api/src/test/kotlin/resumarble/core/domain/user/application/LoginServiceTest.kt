@@ -34,13 +34,13 @@ class LoginServiceTest : BehaviorSpec() {
                 "Bearer refresh"
             )
             `when`("올바른 이메일과 비밀번호를 입력하면") {
-                every { findUserPort.getUserByEmail(any()) } returns UserFixture.user()
+                every { findUserPort.findUserByEmail(any()) } returns UserFixture.user()
                 every { jwtTokenProvider.createToken(any()) } returns loginToken
                 then("로그인이 성공한다.") {
                     val actual = sut.login(request.toCommand())
 
                     verify(exactly = 1) {
-                        findUserPort.getUserByEmail(request.email)
+                        findUserPort.findUserByEmail(request.email)
                         jwtTokenProvider.createToken(any())
                     }
                     actual.accessToken shouldBe loginToken.accessToken
@@ -50,19 +50,19 @@ class LoginServiceTest : BehaviorSpec() {
             clearMocks(findUserPort, jwtTokenProvider)
 
             `when`("잘못된 이메일을 입력하면") {
-                every { findUserPort.getUserByEmail(any()) } throws UserNotFoundException()
+                every { findUserPort.findUserByEmail(any()) } throws UserNotFoundException()
                 then("로그인 실패 응답을 반환한다.") {
                     shouldThrow<UserNotFoundException> {
                         sut.login(request.toCommand())
                     }
                     verify(exactly = 1) {
-                        findUserPort.getUserByEmail(request.email)
+                        findUserPort.findUserByEmail(request.email)
                     }
                 }
             }
             clearMocks(findUserPort, jwtTokenProvider)
             `when`("잘못된 비밀번호를 입력하면") {
-                every { findUserPort.getUserByEmail(any()) } returns UserFixture.user()
+                every { findUserPort.findUserByEmail(any()) } returns UserFixture.user()
                 every { jwtTokenProvider.createToken(any()) } throws UnidentifiedUserException()
                 then("로그인 실패 응답을 반환한다.") {
 
@@ -71,7 +71,7 @@ class LoginServiceTest : BehaviorSpec() {
                     }
 
                     verify(exactly = 1) {
-                        findUserPort.getUserByEmail(request.email)
+                        findUserPort.findUserByEmail(request.email)
                         jwtTokenProvider.createToken(any())
                     }
                 }
@@ -82,25 +82,25 @@ class LoginServiceTest : BehaviorSpec() {
             val command = LogoutUserCommand.of(1L)
             val user = UserFixture.user()
             `when`("로그인 중인 유저일 경우") {
-                every { findUserPort.getUserByUserId(any()) } returns user
+                every { findUserPort.findUserById(any()) } returns user
                 every { jwtVerifier.expireRefreshToken(any()) } just runs
                 then("로그아웃이 성공한다.") {
                     sut.logout(command)
                     verify(exactly = 1) {
-                        findUserPort.getUserByUserId(command.userId)
+                        findUserPort.findUserById(command.userId)
                         jwtVerifier.expireRefreshToken(user.email)
                     }
                 }
             }
             clearMocks(findUserPort, jwtVerifier)
             `when`("로그인 중이 아닌 유저일 경우") {
-                every { findUserPort.getUserByUserId(any()) } throws UserNotFoundException()
+                every { findUserPort.findUserById(any()) } throws UserNotFoundException()
                 then("로그아웃이 실패한다.") {
                     shouldThrow<UserNotFoundException> {
                         sut.logout(command)
                     }
                     verify(exactly = 1) {
-                        findUserPort.getUserByUserId(command.userId)
+                        findUserPort.findUserById(command.userId)
                     }
                 }
             }

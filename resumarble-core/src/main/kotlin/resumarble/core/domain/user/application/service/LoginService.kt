@@ -29,7 +29,7 @@ class LoginService(
 
     @Transactional(readOnly = true)
     override fun logout(command: LogoutUserCommand) {
-        val user = findUserPort.findUserByUserId(command.userId) ?: throw UserNotFoundException()
+        val user = findUserPort.findUserById(command.userId) ?: throw UserNotFoundException()
         jwtVerifier.expireRefreshToken(user.email)
     }
 }
