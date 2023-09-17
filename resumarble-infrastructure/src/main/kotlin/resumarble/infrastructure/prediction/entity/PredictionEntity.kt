@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import resumarble.core.domain.prediction.domain.Prediction
+import resumarble.core.domain.prediction.domain.constraints.Category
 import resumarble.core.domain.prediction.domain.constraints.Job
 import resumarble.core.global.domain.BaseEntity
 
@@ -20,6 +21,9 @@ class PredictionEntity(
     @Enumerated(EnumType.STRING)
     val job: Job,
 
+    @Enumerated(EnumType.STRING)
+    val category: Category,
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
@@ -29,6 +33,7 @@ class PredictionEntity(
         Prediction(
             userId = userId,
             job = job,
+            category = category,
             questionAndAnswerList = questionAndAnswerEntities.map { it.toDomain() }
         )
 
@@ -36,7 +41,8 @@ class PredictionEntity(
         @JvmStatic
         fun from(prediction: Prediction) = PredictionEntity(
             userId = prediction.userId,
-            job = prediction.job
+            job = prediction.job,
+            category = prediction.category
         )
     }
 }
