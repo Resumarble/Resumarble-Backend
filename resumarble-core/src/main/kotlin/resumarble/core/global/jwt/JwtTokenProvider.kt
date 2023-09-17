@@ -19,16 +19,15 @@ class JwtTokenProvider(
     fun createToken(command: CreateTokenCommand): LoginToken {
         val refreshToken = refreshToken()
         val accessToken = accessToken(command)
-        redisTemplate.opsForValue().set(USER_KEY_PREFIX + command.email, refreshToken, 14, TimeUnit.DAYS)
+        redisTemplate.opsForValue().set(USER_KEY_PREFIX + command.account, refreshToken, 14, TimeUnit.DAYS)
         return LoginToken(TOKEN_PREFIX + accessToken, TOKEN_PREFIX + refreshToken)
     }
 
     protected fun accessToken(command: CreateTokenCommand): String =
         JWT.create()
-            .withSubject(command.email)
+            .withSubject(command.account)
             .withExpiresAt(Date(System.currentTimeMillis() + ACCESS_EXPIRATION_TIME))
             .withClaim("id", command.userId)
-            .withClaim("nickname", command.nickname)
             .withClaim("auth", command.role.name)
             .withClaim("provider", command.provider.name)
             .sign(Algorithm.HMAC256(SECRET_KEY))

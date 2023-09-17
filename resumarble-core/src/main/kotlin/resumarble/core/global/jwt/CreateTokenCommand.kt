@@ -5,8 +5,7 @@ import resumarble.core.domain.user.constraints.UserRole
 
 data class CreateTokenCommand(
     val userId: Long,
-    val email: String,
-    val nickname: String,
+    val account: String,
     val provider: JwtProvider,
     val role: UserRole
 )
