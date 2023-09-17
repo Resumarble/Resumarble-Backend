@@ -1,11 +1,11 @@
-package resumarble.core.domain.prediction.domain.application.service
+package resumarble.core.domain.prediction.application.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import resumarble.core.domain.prediction.domain.application.port.`in`.FindPredictionUseCase
-import resumarble.core.domain.prediction.domain.application.port.`in`.PredictionResponse
-import resumarble.core.domain.prediction.domain.application.port.`in`.QuestionAndAnswerResponse
-import resumarble.core.domain.prediction.domain.application.port.out.FindPredictionPort
+import resumarble.core.domain.prediction.application.port.`in`.FindPredictionUseCase
+import resumarble.core.domain.prediction.application.port.`in`.PredictionResponse
+import resumarble.core.domain.prediction.application.port.`in`.QuestionAndAnswerResponse
+import resumarble.core.domain.prediction.application.port.out.FindPredictionPort
 
 @Service
 @Transactional(readOnly = true)

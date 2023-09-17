@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.response.Response
-import resumarble.core.domain.prediction.domain.application.port.`in`.FindPredictionUseCase
-import resumarble.core.domain.prediction.domain.application.port.`in`.PredictionResponse
+import resumarble.core.domain.prediction.application.port.`in`.FindPredictionUseCase
+import resumarble.core.domain.prediction.application.port.`in`.PredictionResponse
 
 @RestController
 @RequestMapping("/predictions")

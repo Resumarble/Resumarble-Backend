@@ -1,9 +1,9 @@
 package resumarble.infrastructure.prediction.adapter
 
 import org.springframework.data.repository.findByIdOrNull
+import resumarble.core.domain.prediction.application.port.out.FindPredictionPort
+import resumarble.core.domain.prediction.application.port.out.SavePredictionPort
 import resumarble.core.domain.prediction.domain.Prediction
-import resumarble.core.domain.prediction.domain.application.port.out.FindPredictionPort
-import resumarble.core.domain.prediction.domain.application.port.out.SavePredictionPort
 import resumarble.infrastructure.annotation.Adapter
 import resumarble.infrastructure.prediction.entity.PredictionEntity
 import resumarble.infrastructure.prediction.entity.PredictionEntityJpaRepository
