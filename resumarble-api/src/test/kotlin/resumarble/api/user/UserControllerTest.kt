@@ -47,7 +47,7 @@ class UserControllerTest : DescribeSpec() {
                 }
             }
             context("중복 가입인 경우") {
-                every { joinUserUseCase.join(any()) } throws DuplicateUserException(request.email)
+                every { joinUserUseCase.join(any()) } throws DuplicateUserException(request.account)
                 it("중복 가입 예외가 발생한다.") {
                     sut.perform(
                         post("/users/join")

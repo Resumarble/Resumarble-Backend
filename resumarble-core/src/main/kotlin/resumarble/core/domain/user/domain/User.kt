@@ -7,7 +7,7 @@ import resumarble.core.global.error.UnidentifiedUserException
 
 class User(
 
-    private val userInformation: UserInformation,
+    val account: String,
 
     val password: Password,
 
@@ -17,18 +17,6 @@ class User(
 
     val userId: Long = 0L
 ) {
-    constructor(
-        email: String,
-        password: Password,
-        nickname: String,
-        provider: JwtProvider
-    ) : this(UserInformation(email, nickname), password, provider)
-
-    val email: String
-        get() = userInformation.email
-
-    val nickname: String
-        get() = userInformation.nickname
 
     fun authenticate(password: Password) {
         identify(this.password == password)

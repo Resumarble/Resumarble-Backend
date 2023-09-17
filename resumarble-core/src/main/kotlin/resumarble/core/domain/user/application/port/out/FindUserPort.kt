@@ -6,7 +6,7 @@ interface FindUserPort {
 
     fun findUserById(userId: Long): User?
 
-    fun findUserByEmail(email: String): User?
+    fun findUserByAccount(account: String): User?
 
-    fun existsUserByEmail(email: String): Boolean
+    fun existsUserByAccount(account: String): Boolean
 }

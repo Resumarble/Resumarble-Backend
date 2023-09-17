@@ -10,19 +10,16 @@ class UserTest : StringSpec() {
 
     init {
         "회원을 생성한다." {
-            val email = "test@gmail.com"
+            val account = "test"
             val password = "password"
-            val nickname = "nickname"
             val user = User(
-                email = email,
+                account = account,
                 password = Password(password),
-                nickname = nickname,
                 provider = JwtProvider.RESUMARBLE
             )
 
-            user.email shouldBe email
+            user.account shouldBe account
             user.password shouldBe Password(password)
-            user.nickname shouldBe nickname
         }
 
         "패스워드가 암호화된다." {

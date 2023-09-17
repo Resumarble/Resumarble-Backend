@@ -6,26 +6,23 @@ import resumarble.core.domain.user.domain.password.Password
 import resumarble.core.global.jwt.CreateTokenCommand
 
 data class JoinUserCommand(
-    val email: String,
-    val password: String,
-    val nickname: String
+    val account: String,
+    val password: String
 ) {
     fun toDomain() = User(
-        email = email,
+        account = account,
         password = Password(password),
-        nickname = nickname,
         provider = JwtProvider.RESUMARBLE
     )
 }
 
 data class LoginUserCommand(
-    val email: String,
+    val account: String,
     val password: String
 ) {
     fun toTokenCommand(user: User) = CreateTokenCommand(
         userId = user.userId,
-        email = user.email,
-        nickname = user.nickname,
+        account = user.account,
         provider = user.provider,
         role = user.role
     )

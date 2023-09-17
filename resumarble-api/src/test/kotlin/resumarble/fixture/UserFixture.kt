@@ -10,24 +10,22 @@ object UserFixture {
 
     fun joinUserRequest(): JoinUserRequest {
         return JoinUserRequest(
-            email = "test@test.com",
-            password = "test1234",
-            nickname = "test"
+            account = "test",
+            password = "test1234"
         )
     }
 
     fun loginUserRequest(): LoginUserRequest {
         return LoginUserRequest(
-            email = "test@test.com",
+            account = "test",
             password = "test1234"
         )
     }
 
     fun user(): User {
         return User(
-            email = "test@test.com",
+            account = "test",
             password = password(),
-            nickname = "test",
             provider = JwtProvider.RESUMARBLE
         )
     }

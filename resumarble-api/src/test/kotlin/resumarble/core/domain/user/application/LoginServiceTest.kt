@@ -34,13 +34,13 @@ class LoginServiceTest : BehaviorSpec() {
                 "Bearer refresh"
             )
             `when`("올바른 이메일과 비밀번호를 입력하면") {
-                every { findUserPort.findUserByEmail(any()) } returns UserFixture.user()
+                every { findUserPort.findUserByAccount(any()) } returns UserFixture.user()
                 every { jwtTokenProvider.createToken(any()) } returns loginToken
                 then("로그인이 성공한다.") {
                     val actual = sut.login(request.toCommand())
 
                     verify(exactly = 1) {
-                        findUserPort.findUserByEmail(request.email)
+                        findUserPort.findUserByAccount(request.account)
                         jwtTokenProvider.createToken(any())
                     }
                     actual.accessToken shouldBe loginToken.accessToken
@@ -50,19 +50,19 @@ class LoginServiceTest : BehaviorSpec() {
             clearMocks(findUserPort, jwtTokenProvider)
 
             `when`("잘못된 이메일을 입력하면") {
-                every { findUserPort.findUserByEmail(any()) } throws UserNotFoundException()
+                every { findUserPort.findUserByAccount(any()) } throws UserNotFoundException()
                 then("로그인 실패 응답을 반환한다.") {
                     shouldThrow<UserNotFoundException> {
                         sut.login(request.toCommand())
                     }
                     verify(exactly = 1) {
-                        findUserPort.findUserByEmail(request.email)
+                        findUserPort.findUserByAccount(request.account)
                     }
                 }
             }
             clearMocks(findUserPort, jwtTokenProvider)
             `when`("잘못된 비밀번호를 입력하면") {
-                every { findUserPort.findUserByEmail(any()) } returns UserFixture.user()
+                every { findUserPort.findUserByAccount(any()) } returns UserFixture.user()
                 every { jwtTokenProvider.createToken(any()) } throws UnidentifiedUserException()
                 then("로그인 실패 응답을 반환한다.") {
 
@@ -71,7 +71,7 @@ class LoginServiceTest : BehaviorSpec() {
                     }
 
                     verify(exactly = 1) {
-                        findUserPort.findUserByEmail(request.email)
+                        findUserPort.findUserByAccount(request.account)
                         jwtTokenProvider.createToken(any())
                     }
                 }
@@ -88,7 +88,7 @@ class LoginServiceTest : BehaviorSpec() {
                     sut.logout(command)
                     verify(exactly = 1) {
                         findUserPort.findUserById(command.userId)
-                        jwtVerifier.expireRefreshToken(user.email)
+                        jwtVerifier.expireRefreshToken(user.account)
                     }
                 }
             }

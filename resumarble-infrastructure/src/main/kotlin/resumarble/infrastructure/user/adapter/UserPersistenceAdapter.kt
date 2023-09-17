@@ -21,12 +21,12 @@ class UserPersistenceAdapter(
         return userJpaRepository.findByIdOrNull(userId)?.toDomain()
     }
 
-    override fun findUserByEmail(email: String): User? {
-        val userEntity = userJpaRepository.findByEmail(email)
+    override fun findUserByAccount(account: String): User? {
+        val userEntity = userJpaRepository.findByAccount(account)
         return userEntity?.toDomain()
     }
 
-    override fun existsUserByEmail(email: String): Boolean {
-        return userJpaRepository.existsByEmail(email)
+    override fun existsUserByAccount(account: String): Boolean {
+        return userJpaRepository.existsByAccount(account)
     }
 }

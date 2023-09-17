@@ -16,7 +16,8 @@ class UserCommandService(
 
     @Transactional
     override fun join(command: JoinUserCommand) {
-        findUserPort.existsUserByEmail(command.email).takeIf { !it } ?: throw DuplicateUserException(command.email)
+        findUserPort.existsUserByAccount(command.account).takeIf { !it }
+            ?: throw DuplicateUserException(command.account)
         joinUserPort.join(command.toDomain())
     }
 }
