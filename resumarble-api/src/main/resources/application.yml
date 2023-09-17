@@ -1,4 +1,12 @@
 spring:
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+  data:
+    redis:
+      port: 6379
+      host: localhost
   sql:
     init:
       mode: always

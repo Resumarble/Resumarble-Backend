@@ -15,6 +15,8 @@ dependencies {
     // spring cloud config
     implementation("org.springframework.cloud:spring-cloud-starter-config")
 
+    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
+
     // swagger-ui
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 
