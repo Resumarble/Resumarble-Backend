@@ -1,4 +1,4 @@
-package resumarble.core.domain.prediction.domain.application.port.`in`
+package resumarble.core.domain.prediction.application.port.`in`
 
 interface FindPredictionUseCase {
 
