@@ -33,15 +33,19 @@ class InterviewQuestionFacade(
             requestChatCompletion(completionRequest)
         }
 
+        asyncSavePrediction(command, completionResult)
+
+        return completionResult
+    }
+
+    private fun asyncSavePrediction(command: InterviewQuestionCommand, result: InterviewQuestionResponse) {
         scope.launch(handler) {
             predictionFacade.savePrediction(
                 command.job,
                 command.category,
-                completionResult
+                result
             )
         }
-
-        return completionResult
     }
 
     private fun prepareCompletionRequest(
