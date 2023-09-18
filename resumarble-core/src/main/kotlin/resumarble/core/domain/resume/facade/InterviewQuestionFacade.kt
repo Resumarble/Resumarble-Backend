@@ -24,7 +24,7 @@ class InterviewQuestionFacade(
     private val openAiMapper: OpenAiMapper,
     private val predictionFacade: PredictionFacade
 ) {
-    private val scope = CoroutineScope(Dispatchers.Default)
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     fun generateInterviewQuestion(command: InterviewQuestionCommand): InterviewQuestionResponse {
         val completionResult = loggingStopWatch {
