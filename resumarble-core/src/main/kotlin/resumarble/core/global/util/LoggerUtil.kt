@@ -24,3 +24,9 @@ fun <T> loggingStopWatch(function: () -> T): T {
 
     return result
 }
+
+inline fun loggingErrorMarking(function: () -> String) {
+    val startAt = LocalDateTime.now()
+    logger.error(function.invoke())
+    logger.info("예외 발생 시각: $startAt")
+}
