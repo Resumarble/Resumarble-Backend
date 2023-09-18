@@ -6,7 +6,6 @@ import resumarble.api.global.response.Response
 import resumarble.core.global.error.BusinessException
 import resumarble.core.global.error.CompletionFailedException
 import resumarble.core.global.error.DuplicateUserException
-import resumarble.core.global.error.ErrorCode
 import resumarble.core.global.error.PromptNotFoundException
 import resumarble.core.global.error.TokenVerifyException
 import resumarble.core.global.error.UnidentifiedUserException
@@ -49,9 +48,9 @@ class GlobalExceptionHandler {
     fun handleTokenVerifyException(e: TokenVerifyException): Response<Any?> {
         return Response.fail(e.errorCode)
     }
-
-    @ExceptionHandler(Exception::class)
-    fun handleException(e: Exception): Response<Any?> {
-        return Response.fail(ErrorCode.INTERNAL_SERVER_ERROR)
-    }
+//
+//    @ExceptionHandler(Exception::class)
+//    fun handleException(e: Exception): Response<Any?> {
+//        return Response.fail(ErrorCode.INTERNAL_SERVER_ERROR)
+//    }
 }
