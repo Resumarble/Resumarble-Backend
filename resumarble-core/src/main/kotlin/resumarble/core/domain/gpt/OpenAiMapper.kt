@@ -3,12 +3,13 @@ package resumarble.core.domain.gpt
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import resumarble.core.domain.prediction.domain.Answer
-import resumarble.core.domain.prediction.domain.Prediction
 import resumarble.core.domain.prediction.domain.Question
 import resumarble.core.domain.prediction.domain.QuestionAndAnswer
 import resumarble.core.domain.prediction.domain.constraints.Category
 import resumarble.core.domain.prediction.domain.constraints.Job
+import resumarble.core.domain.prediction.facade.SavePredictionCommand
 import resumarble.core.domain.resume.facade.InterviewQuestion
+import resumarble.core.domain.resume.facade.InterviewQuestionCommand
 import resumarble.core.domain.resume.facade.InterviewQuestionResponse
 import resumarble.core.global.annotation.Mapper
 
@@ -40,11 +41,14 @@ class OpenAiMapper(
         )
     }
 
-    fun completionToPrediction(job: String, category: String, response: InterviewQuestionResponse): Prediction {
-        return Prediction(
+    fun completionToSavePredictionCommand(
+        command: InterviewQuestionCommand,
+        response: InterviewQuestionResponse
+    ): SavePredictionCommand {
+        return SavePredictionCommand(
             userId = 1L,
-            job = Job.fromJobTitleEn(job),
-            category = Category.fromValue(category),
+            job = Job.fromJobTitleEn(command.job),
+            category = Category.fromValue(command.category),
             questionAndAnswerList = convertToQuestionAndAnswer(response.interviews)
         )
     }

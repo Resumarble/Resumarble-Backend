@@ -10,6 +10,7 @@ import resumarble.core.domain.gpt.ChatCompletionRequest
 import resumarble.core.domain.gpt.OpenAiMapper
 import resumarble.core.domain.gpt.application.OpenAiService
 import resumarble.core.domain.prediction.facade.PredictionFacade
+import resumarble.core.domain.prediction.facade.SavePredictionCommand
 import resumarble.core.domain.prompt.application.PromptResponse
 import resumarble.core.domain.prompt.application.PromptService
 import resumarble.core.domain.prompt.domain.PromptType
@@ -33,17 +34,15 @@ class InterviewQuestionFacade(
             requestChatCompletion(completionRequest)
         }
 
-        asyncSavePrediction(command, completionResult)
+        asyncSavePrediction(openAiMapper.completionToSavePredictionCommand(command, completionResult))
 
         return completionResult
     }
 
-    private fun asyncSavePrediction(command: InterviewQuestionCommand, result: InterviewQuestionResponse) {
+    private fun asyncSavePrediction(command: SavePredictionCommand) {
         scope.launch(handler) {
             predictionFacade.savePrediction(
-                command.job,
-                command.category,
-                result
+                command
             )
         }
     }
