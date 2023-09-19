@@ -7,7 +7,8 @@ data class InterviewQuestionRequest(
     val career: String,
     val resumeInfo: ResumeInfo
 ) {
-    fun toCommand() = InterviewQuestionCommand(
+    fun toCommand(userId: Long) = InterviewQuestionCommand(
+        userId = userId,
         job = job,
         career = career,
         category = resumeInfo.category,
