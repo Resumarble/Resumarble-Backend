@@ -3,10 +3,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.1.2" apply false
     id("io.spring.dependency-management") version "1.1.2" apply false
-    kotlin("jvm") version "1.8.22"
-    kotlin("plugin.spring") version "1.8.22" apply false
-    kotlin("plugin.jpa") version "1.8.22" apply false
-    kotlin("kapt") version "1.8.22" apply false
+    kotlin("jvm") version "1.9.0"
+    kotlin("plugin.spring") version "1.9.0" apply false
+    kotlin("plugin.jpa") version "1.9.0" apply false
+    kotlin("kapt") version "1.9.0" apply false
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1" apply false
 }
 
@@ -16,6 +16,9 @@ allprojects {
     repositories {
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+        maven(url = "https://plugins.gradle.org/m2/")
+        maven(url = "https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates")
+        gradlePluginPortal()
     }
 }
 
@@ -74,6 +77,7 @@ subprojects {
         runtimeOnly("com.mysql:mysql-connector-j")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
+
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs += "-Xjsr305=strict"
