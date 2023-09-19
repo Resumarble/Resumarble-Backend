@@ -1,10 +1,12 @@
 package resumarble.api.resume
 
 import io.swagger.v3.oas.annotations.Operation
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade
 import resumarble.core.domain.resume.facade.InterviewQuestionResponse
@@ -21,9 +23,10 @@ class InterviewQuestionController(
     )
     @PostMapping("/interview-questions")
     fun interviewQuestions(
-        @RequestBody request: InterviewQuestionRequest
+        @RequestBody request: InterviewQuestionRequest,
+        @AuthenticationPrincipal user: JwtUserDetails?
     ): Response<InterviewQuestionResponse> {
-        val command = request.toCommand()
+        val command = request.toCommand(user?.userId ?: 0L)
         return Response.ok(interviewQuestionFacade.generateInterviewQuestion(command))
     }
 }

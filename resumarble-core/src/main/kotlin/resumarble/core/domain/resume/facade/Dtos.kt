@@ -3,6 +3,7 @@ package resumarble.core.domain.resume.facade
 import resumarble.core.domain.prompt.application.PromptResponse
 
 data class InterviewQuestionCommand(
+    val userId: Long = 0L,
     val job: String,
     val career: String,
     val category: String,
