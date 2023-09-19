@@ -1,4 +1,4 @@
-package resumarble.core.domain.user.application.port
+package resumarble.core.domain.user.application
 
 import resumarble.core.domain.user.constraints.JwtProvider
 import resumarble.core.domain.user.domain.User
@@ -36,3 +36,8 @@ data class LogoutUserCommand(
         fun of(userId: Long) = LogoutUserCommand(userId)
     }
 }
+
+data class ReissueTokenCommand(
+    val accessToken: String,
+    val refreshToken: String
+)
