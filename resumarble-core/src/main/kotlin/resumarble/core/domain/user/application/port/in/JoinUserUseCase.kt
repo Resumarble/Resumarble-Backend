@@ -1,6 +1,6 @@
 package resumarble.core.domain.user.application.port.`in`
 
-import resumarble.core.domain.user.application.port.JoinUserCommand
+import resumarble.core.domain.user.application.JoinUserCommand
 
 interface JoinUserUseCase {
 

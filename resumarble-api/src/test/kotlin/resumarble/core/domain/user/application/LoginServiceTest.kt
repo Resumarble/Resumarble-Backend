@@ -9,7 +9,6 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
-import resumarble.core.domain.user.application.port.LogoutUserCommand
 import resumarble.core.domain.user.application.port.out.FindUserPort
 import resumarble.core.domain.user.application.service.LoginService
 import resumarble.core.global.error.UnidentifiedUserException

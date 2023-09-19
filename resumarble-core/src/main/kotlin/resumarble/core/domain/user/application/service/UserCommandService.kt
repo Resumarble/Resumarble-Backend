@@ -2,7 +2,7 @@ package resumarble.core.domain.user.application.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import resumarble.core.domain.user.application.port.JoinUserCommand
+import resumarble.core.domain.user.application.JoinUserCommand
 import resumarble.core.domain.user.application.port.`in`.JoinUserUseCase
 import resumarble.core.domain.user.application.port.out.FindUserPort
 import resumarble.core.domain.user.application.port.out.JoinUserPort

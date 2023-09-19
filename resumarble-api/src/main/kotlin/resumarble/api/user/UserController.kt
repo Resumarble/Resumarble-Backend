@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
-import resumarble.core.domain.user.application.port.LogoutUserCommand
+import resumarble.core.domain.user.application.LogoutUserCommand
 import resumarble.core.domain.user.application.port.`in`.JoinUserUseCase
 import resumarble.core.domain.user.application.port.`in`.LoginUserUseCase
 import resumarble.core.domain.user.application.port.`in`.LogoutUserUseCase
