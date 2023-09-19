@@ -1,13 +1,3 @@
-INSERT INTO job (job_title_kr, job_title_en)
-VALUES ('백엔드 개발자', 'Backend Engineer');
-INSERT INTO job (job_title_kr, job_title_en)
-VALUES ('프론트 개발자', 'Frontend Engineer');
-INSERT INTO job (job_title_kr, job_title_en)
-VALUES ('풀스택 개발자', 'Fullstack Engineer');
-INSERT INTO job (job_title_kr, job_title_en)
-VALUES ('데이터 엔지니어', 'Data Engineer');
-
-
 INSERT INTO prompt (prompt_type, content)
 VALUES ( 'INTERVIEW_QUESTION'
        , 'You''re a hiring manager looking for a new ''%s'' to join your team.
@@ -27,6 +17,7 @@ VALUES ( 'INTERVIEW_QUESTION'
 
           Instructions2:
           You must write your question unconditionally and absolutely in JSON format, as shown below.
+          Make sure not to include any trailing commas after the last property in each object and do not put any commas after the last object in the array.
           Never add anything else. numbers, letters, etc.
 
           {
@@ -36,4 +27,8 @@ VALUES ( 'INTERVIEW_QUESTION'
               ]
           }
 
-          - You don''t write '','' at the end.')
+          - You don''t write '','' at the end.
+
+          Important Note:
+          - Make sure each property name like "question" and "bestAnswer" is enclosed in double quotes.
+          - Do not include any extra characters like {}, (), [], '', "", or emojis in your JSON content.')
