@@ -37,6 +37,15 @@ data class LogoutUserCommand(
     }
 }
 
+data class DuplicateAccountCommand(
+    val account: String
+) {
+    companion object {
+        @JvmStatic
+        fun of(account: String) = DuplicateAccountCommand(account)
+    }
+}
+
 data class ReissueTokenCommand(
     val accessToken: String,
     val refreshToken: String

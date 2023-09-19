@@ -36,3 +36,7 @@ data class ReissueTokenRequest(
         refreshToken = refreshToken
     )
 }
+
+data class DuplicateAccountRequest(
+    val account: String
+)
