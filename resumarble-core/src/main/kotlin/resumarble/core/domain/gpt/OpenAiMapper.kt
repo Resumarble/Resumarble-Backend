@@ -46,7 +46,7 @@ class OpenAiMapper(
         response: InterviewQuestionResponse
     ): SavePredictionCommand {
         return SavePredictionCommand(
-            userId = 1L,
+            userId = command.userId,
             job = Job.fromJobTitleEn(command.job),
             category = Category.fromValue(command.category),
             questionAndAnswerList = convertToQuestionAndAnswer(response.interviews)
