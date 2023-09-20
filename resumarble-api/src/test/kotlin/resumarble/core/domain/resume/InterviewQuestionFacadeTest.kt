@@ -8,6 +8,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import resumarble.core.domain.gpt.OpenAiMapper
 import resumarble.core.domain.gpt.application.OpenAiService
+import resumarble.core.domain.prediction.facade.PredictionFacade
 import resumarble.core.domain.prompt.application.PromptService
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade
 import resumarble.core.global.error.CompletionFailedException
@@ -18,7 +19,8 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
         val promptService = mockk<PromptService>()
         val openAiService = mockk<OpenAiService>()
         val openAiMapper = mockk<OpenAiMapper>()
-        val sut = InterviewQuestionFacade(promptService, openAiService, openAiMapper)
+        val predictionFacade = mockk<PredictionFacade>()
+        val sut = InterviewQuestionFacade(promptService, openAiService, openAiMapper, predictionFacade)
 
         afterEach {
             clearAllMocks()
@@ -29,12 +31,19 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
             val completionRequest = ChatCompletionFixture.chatCompletionRequest()
             val completionResponse = ChatCompletionFixture.chatCompletionMessageResponse()
             val response = ResumeFixture.interviewQuestionResponse()
+            val savePredictionCommand = ResumeFixture.savePredictionCommand()
 
             When("정상적인 요청일 때") {
                 every { promptService.getPrompt(any()) } returns promptResponse
-                every { openAiMapper.promptAndContentToChatCompletionRequest(any(), any()) } returns completionRequest
+                every {
+                    openAiMapper.promptAndContentToChatCompletionRequest(
+                        any(),
+                        any()
+                    )
+                } returns completionRequest
                 every { openAiService.requestChatCompletion(any()) } returns completionResponse
                 every { openAiMapper.completionToInterviewQuestionResponse(any()) } returns response
+                every { openAiMapper.completionToSavePredictionCommand(any(), any()) } returns savePredictionCommand
 
                 Then("면접 예상 질문이 생성된다.") {
                     sut.generateInterviewQuestion(ResumeFixture.interviewQuestionCommand())
