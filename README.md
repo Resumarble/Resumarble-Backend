@@ -7,11 +7,11 @@ Develop -> Feature -> Develop -> Main(Release)
 
 ### Tech Stack
 
-- Kotlin 1.8.22
-- Spring Boot 3.1.2
+- Kotlin 1.9.10
+- Spring Boot 3.1.3 -> Armeria 1.25.2
 - Spring Data JPA
 - Kotlin Jdsl
-- Spring Cloud OpenFeign
+- Spring Cloud Open Feign
 - Spring Cloud Config
 - MySQL
 - Kotest
