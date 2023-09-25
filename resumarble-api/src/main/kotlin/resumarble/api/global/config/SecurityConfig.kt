@@ -22,6 +22,7 @@ class SecurityConfig(
             .sessionManagement { it.disable() }
             .authorizeHttpRequests {
                 it.requestMatchers(HttpMethod.GET, "/jobs/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/users/me").hasRole("USER")
                     .requestMatchers(HttpMethod.POST, "/users/logout").permitAll()
                     .requestMatchers(HttpMethod.POST, "/resumes/**").permitAll()
                     .requestMatchers("/users/**").permitAll()
