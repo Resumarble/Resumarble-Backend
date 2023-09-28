@@ -5,7 +5,7 @@ data class UserNotFoundException(
 ) : BusinessException(ErrorCode.USER_NOT_FOUND)
 
 data class DuplicateUserException(
-    val email: String,
+    val account: String,
     override val errorCode: ErrorCode = ErrorCode.DUPLICATE_USER
 ) : BusinessException(ErrorCode.DUPLICATE_USER)
 
