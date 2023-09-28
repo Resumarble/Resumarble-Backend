@@ -36,7 +36,7 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateUserException::class)
     fun handleDuplicateUserException(e: DuplicateUserException): Response<Any> {
-        return Response.fail(e.errorCode, e.email)
+        return Response.fail(e.errorCode, e.account)
     }
 
     @ExceptionHandler(UnidentifiedUserException::class)
