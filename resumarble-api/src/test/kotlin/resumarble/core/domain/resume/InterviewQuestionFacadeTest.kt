@@ -4,7 +4,9 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import io.mockk.clearAllMocks
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.runs
 import io.mockk.verify
 import resumarble.core.domain.gpt.OpenAiMapper
 import resumarble.core.domain.gpt.application.OpenAiService
@@ -44,7 +46,7 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
                 every { openAiService.requestChatCompletion(any()) } returns completionResponse
                 every { openAiMapper.completionToInterviewQuestionResponse(any()) } returns response
                 every { openAiMapper.completionToSavePredictionCommand(any(), any()) } returns savePredictionCommand
-
+                every { predictionFacade.savePrediction(any()) } just runs
                 Then("면접 예상 질문이 생성된다.") {
                     sut.generateInterviewQuestion(ResumeFixture.interviewQuestionCommand())
                     verify(exactly = 1) {
