@@ -1,14 +1,4 @@
 spring:
-  cloud:
-    openfeign:
-      circuitbreaker:
-        enabled: true
-  data:
-    redis:
-      port: 6379
-      host: localhost
-  kafka:
-    bootstrap-servers: ENC(N7RrOIacldwE0oXmIzILUmmaCTG5BYRfGtbv2T4n7aU/TwEtx9eShK6jDUpiSEQj6kRaI1uKG/r0/4GKZoWWWA==)
   profiles:
     active: local
 

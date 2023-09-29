@@ -1,9 +1,19 @@
 spring:
-  application:
-    name: resumarble-prod
-  config:
-    import: "optional:configserver:http://43.201.132.18:8090/"
-  cloud:
-    config:
-      name: resumarble
-      profile: prod
+  data:
+    redis:
+      host: redis
+      port: 6379
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(dCrVdmLp5QC4flIjQcqC5LVL0iArF6vwN46lxhIkT+v7r3YbU+oywvSid1Cnu044RDnhn2taVIZZhGm7QisUWXUctrA8rDr/Zmh7N6KZtA1I+TBYdnDNRv1lSvg9xiPL9kFo+kUjAObhGcQKTMs8y4FBlxb3qkjX/yp1stoCnV0EnmhxHjexDXVFy5j3FnAs8g8mw77ReJZTdD3gr6whG0CEQsgYFJROx/bzjkNZ5ONgkdHd9MlbSA==)
+    username: ENC(tlS7O0VbZkEPjggphSj3RA==)
+    password: ENC(4PBHAwxJhkDv+8tL9aGE+PfYMv0h5ZB2)
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
