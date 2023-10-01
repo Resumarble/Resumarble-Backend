@@ -1,6 +1,5 @@
 package resumarble.infrastructure.prediction.adapter
 
-import org.springframework.data.repository.findByIdOrNull
 import resumarble.core.domain.prediction.application.port.out.FindPredictionPort
 import resumarble.core.domain.prediction.application.port.out.SavePredictionPort
 import resumarble.core.domain.prediction.domain.Prediction
@@ -23,10 +22,12 @@ class PredictionPersistenceAdapter(
         questionAndAnswerRepository.saveAll(questionAndAnswerEntities)
     }
 
-    override fun findPredictionByUserId(userId: Long): List<Prediction> {
-        predictionRepository.findByIdOrNull(userId)?.let { predictionEntity ->
-            val questionAndAnswerEntities = questionAndAnswerRepository.findAllByPredictionId(predictionEntity.id)
-            return listOf(predictionEntity.toDomain(questionAndAnswerEntities))
-        } ?: return emptyList()
+    override fun findPredictionsByUserId(userId: Long): List<Prediction>? {
+        return predictionRepository.findAllByUserId(userId)?.let { predictions ->
+            predictions.map {
+                val questionAndAnswerEntities = questionAndAnswerRepository.findAllByPredictionId(it.id)
+                it.toDomain(questionAndAnswerEntities)
+            }
+        }
     }
 }

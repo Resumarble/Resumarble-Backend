@@ -14,8 +14,8 @@ class PredictionQueryService(
 ) : FindPredictionUseCase {
 
     override fun getPredictionByUserId(userId: Long): List<PredictionResponse> {
-        return findPredictionPort.findPredictionByUserId(userId)?.let { predictions ->
-            predictions.map {
+        findPredictionPort.findPredictionsByUserId(userId)?.let { predictions ->
+            return predictions.map {
                 PredictionResponse(
                     userId = it.userId,
                     questionAndAnswer = it.questionAndAnswer.map { questionAndAnswer ->
@@ -26,6 +26,6 @@ class PredictionQueryService(
                     }
                 )
             }
-        } ?: emptyList()
+        } ?: return emptyList()
     }
 }
