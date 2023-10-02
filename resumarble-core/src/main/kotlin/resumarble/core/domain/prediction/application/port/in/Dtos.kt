@@ -1,9 +1,17 @@
 package resumarble.core.domain.prediction.application.port.`in`
 
+import com.fasterxml.jackson.annotation.JsonProperty
+import java.time.LocalDateTime
+
 data class PredictionResponse(
-    val userId: Long,
-    val questionAndAnswer: List<QuestionAndAnswerResponse>
-    // TODO: 노출 화면 확정시 필드 추가하기
+    @JsonProperty("prediction_id")
+    val predictionId: Long,
+    val job: String,
+    val category: String,
+    @JsonProperty("question_and_answer")
+    val questionAndAnswer: List<QuestionAndAnswerResponse>,
+    @JsonProperty("created_date")
+    val createdDate: LocalDateTime
 )
 
 data class QuestionAndAnswerResponse(

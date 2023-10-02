@@ -31,10 +31,12 @@ class PredictionEntity(
 
     fun toDomain(questionAndAnswerEntities: List<QuestionAndAnswerEntity>) =
         Prediction(
+            predictionId = id,
             userId = userId,
             job = job,
             category = category,
-            questionAndAnswerList = questionAndAnswerEntities.map { it.toDomain() }
+            questionAndAnswerList = questionAndAnswerEntities.map { it.toDomain() },
+            createdDate = createdDate
         )
 
     companion object {

@@ -17,13 +17,16 @@ class PredictionQueryService(
         findPredictionPort.findPredictionsByUserId(userId)?.let { predictions ->
             return predictions.map {
                 PredictionResponse(
-                    userId = it.userId,
+                    predictionId = it.predictionId,
+                    job = it.job.jobTitleKr,
+                    category = it.category.value,
                     questionAndAnswer = it.questionAndAnswer.map { questionAndAnswer ->
                         QuestionAndAnswerResponse(
                             question = questionAndAnswer.question.value,
                             answer = questionAndAnswer.answer.value
                         )
-                    }
+                    },
+                    createdDate = it.createdDate
                 )
             }
         } ?: return emptyList()

@@ -14,8 +14,8 @@ abstract class BaseEntity {
 
     @CreatedDate
     @Column(updatable = false)
-    private var createdDate: LocalDateTime = LocalDateTime.now()
+    var createdDate: LocalDateTime = LocalDateTime.now()
 
     @LastModifiedDate
-    private var lastModifiedDate: LocalDateTime = LocalDateTime.now()
+    var lastModifiedDate: LocalDateTime = LocalDateTime.now()
 }
