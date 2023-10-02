@@ -17,12 +17,15 @@ import resumarble.api.global.advice.GlobalExceptionHandler
 import resumarble.core.domain.prediction.application.port.`in`.FindPredictionUseCase
 import resumarble.core.domain.prediction.application.port.`in`.PredictionResponse
 import resumarble.core.domain.prediction.application.port.`in`.QuestionAndAnswerResponse
+import resumarble.core.domain.prediction.domain.constraints.Category
+import resumarble.core.domain.prediction.domain.constraints.Job
 import resumarble.core.domain.user.application.DuplicateAccountCommand
 import resumarble.core.domain.user.application.port.`in`.JoinUserUseCase
 import resumarble.core.domain.user.application.service.MyPageResponse
 import resumarble.core.domain.user.application.service.UserFacade
 import resumarble.core.global.error.DuplicateUserException
 import resumarble.fixture.UserFixture
+import java.time.LocalDateTime
 
 class UserControllerTest : DescribeSpec() {
 
@@ -102,7 +105,9 @@ class UserControllerTest : DescribeSpec() {
             val response = MyPageResponse(
                 listOf(
                     PredictionResponse(
-                        userId,
+                        predictionId = 1L,
+                        job = Job.BACKEND_ENGINEER.jobTitleKr,
+                        category = Category.CAREER_HISTORY.name,
                         questionAndAnswer = listOf(
                             QuestionAndAnswerResponse(
                                 question = "질문1",
@@ -116,7 +121,8 @@ class UserControllerTest : DescribeSpec() {
                                 question = "질문3",
                                 answer = "답변3"
                             )
-                        )
+                        ),
+                        LocalDateTime.now()
                     )
                 )
             )
