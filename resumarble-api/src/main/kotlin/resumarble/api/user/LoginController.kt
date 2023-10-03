@@ -36,8 +36,8 @@ class LoginController(
 
     @Operation(summary = "액세스 토큰 재발급", description = "리프레시 토큰을 이용하여 액세스 토큰을 재발급한다.")
     @PostMapping("/reissue")
-    fun reissue(@RequestBody request: ReissueTokenRequest): Response<Unit> {
-        loginUserUseCase.reissueToken(request.toCommand())
-        return Response.ok()
+    fun reissue(@RequestBody request: ReissueTokenRequest): Response<LoginToken> {
+        val loginToken = loginUserUseCase.reissueToken(request.toCommand())
+        return Response.ok(loginToken)
     }
 }
