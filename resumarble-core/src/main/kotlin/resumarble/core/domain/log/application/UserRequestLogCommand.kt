@@ -1,13 +1,14 @@
 package resumarble.core.domain.log.application
 
+import resumarble.core.domain.log.constraints.RequestOutcome
 import java.time.LocalDateTime
 
 data class UserRequestLogCommand(
-    private val userId: Long,
+    val userId: Long,
 
-    private val userContent: String,
+    val userContent: String,
 
-    private val requestOutcome: String,
+    val requestOutcome: RequestOutcome,
 
-    private val requestDate: LocalDateTime = LocalDateTime.now()
+    val requestDate: LocalDateTime = LocalDateTime.now()
 )

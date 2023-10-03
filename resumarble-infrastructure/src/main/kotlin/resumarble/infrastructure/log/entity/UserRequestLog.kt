@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import resumarble.core.domain.log.constraints.RequestOutcome
 import java.time.LocalDateTime
 
 @Entity
