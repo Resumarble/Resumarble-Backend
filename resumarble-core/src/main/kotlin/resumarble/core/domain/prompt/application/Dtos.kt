@@ -21,10 +21,9 @@ data class PromptResponse(
     fun createRequestForm(
         job: String,
         resumeType: String,
-        questionDifficult: String,
         career: String,
         language: String
-    ) = content.format(job, resumeType, questionDifficult, career, language)
+    ) = content.format(job, resumeType, career, language)
 
     companion object {
         @JvmStatic

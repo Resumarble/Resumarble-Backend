@@ -35,7 +35,7 @@ class InterviewQuestionFacade(
         promptResponse: PromptResponse
     ): ChatCompletionRequest {
         val completionRequestForm = command.toRequestForm(promptResponse, PROMPT_LANGUAGE)
-        return openAiMapper.promptAndContentToChatCompletionRequest(completionRequestForm, promptResponse.content)
+        return openAiMapper.promptAndContentToChatCompletionRequest(completionRequestForm, command.content)
     }
 
     private fun requestChatCompletion(completionRequest: ChatCompletionRequest): InterviewQuestionResponse {

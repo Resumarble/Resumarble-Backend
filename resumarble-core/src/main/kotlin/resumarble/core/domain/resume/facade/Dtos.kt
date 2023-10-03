@@ -10,7 +10,7 @@ data class InterviewQuestionCommand(
     val content: String
 ) {
     fun toRequestForm(prompt: PromptResponse, language: String): String {
-        return prompt.createRequestForm(job, career, category, content, language)
+        return prompt.createRequestForm(job, category, career, language)
     }
 }
 
