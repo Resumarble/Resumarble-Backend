@@ -17,7 +17,7 @@ class UserRequestLog(
     @Column(nullable = false, name = "user_id")
     val userId: Long,
 
-    @Column(nullable = false, name = "user_content")
+    @Column(nullable = false, name = "user_content", columnDefinition = "TEXT")
     val userContent: String,
 
     @Enumerated(EnumType.STRING)
