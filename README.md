@@ -8,10 +8,12 @@ Develop -> Feature -> Develop -> Main(Release)
 ### Tech Stack
 
 - Kotlin 1.9.10
-- Spring Boot 3.1.3 -> Armeria 1.25.2
-- Spring Data JPA
-- Kotlin Jdsl
+- Spring Boot 3.1.4
+- Spring Security + JWT
+- JPA(+ Spring Data JPA)
+- Kotlin Jdsl 3.0
 - Spring Cloud Open Feign
-- Spring Cloud Config
-- MySQL
+- MySQL 8.0.33
+- Redis(+ Spring Data Redis)
 - Kotest
+- Coroutine
