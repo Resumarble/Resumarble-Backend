@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.Where
 import resumarble.core.domain.user.constraints.JwtProvider
 import resumarble.core.domain.user.constraints.UserRole
 import resumarble.core.domain.user.domain.User
@@ -16,6 +18,8 @@ import resumarble.core.domain.user.domain.password.Password
 
 @Entity
 @Table(name = "user")
+@Where(clause = "is_deleted = false")
+@SQLDelete(sql = "UPDATE user SET is_deleted = true where user_id = ?")
 class UserEntity(
 
     @Column(nullable = false, unique = true)
@@ -32,6 +36,8 @@ class UserEntity(
     @Enumerated(EnumType.STRING)
     private val userRole: UserRole,
 
+    private val isDeleted: Boolean = false,
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -41,11 +47,11 @@ class UserEntity(
         @JvmStatic
         fun from(user: User): UserEntity {
             return UserEntity(
-                user.account,
-                user.password,
-                user.provider,
-                user.role,
-                user.userId
+                account = user.account,
+                password = user.password,
+                jwtProvider = user.provider,
+                userRole = user.role,
+                id = user.userId
             )
         }
     }
