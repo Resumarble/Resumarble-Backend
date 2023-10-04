@@ -36,7 +36,7 @@ class UserEntity(
     @Enumerated(EnumType.STRING)
     private val userRole: UserRole,
 
-    private val isDeleted: Boolean = false,
+    private var isDeleted: Boolean = false,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
