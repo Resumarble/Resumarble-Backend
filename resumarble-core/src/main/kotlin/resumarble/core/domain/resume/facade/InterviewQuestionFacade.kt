@@ -3,6 +3,9 @@ package resumarble.core.domain.resume.facade
 import resumarble.core.domain.gpt.ChatCompletionRequest
 import resumarble.core.domain.gpt.OpenAiMapper
 import resumarble.core.domain.gpt.application.OpenAiService
+import resumarble.core.domain.log.application.UserRequestLogCommand
+import resumarble.core.domain.log.application.UserRequestLogService
+import resumarble.core.domain.log.constraints.RequestOutcome
 import resumarble.core.domain.prediction.facade.PredictionFacade
 import resumarble.core.domain.prompt.application.PromptResponse
 import resumarble.core.domain.prompt.application.PromptService
@@ -15,7 +18,8 @@ class InterviewQuestionFacade(
     private val promptService: PromptService,
     private val openAiService: OpenAiService,
     private val openAiMapper: OpenAiMapper,
-    private val predictionFacade: PredictionFacade
+    private val predictionFacade: PredictionFacade,
+    private val userRequestLogService: UserRequestLogService
 ) {
 
     fun generateInterviewQuestion(command: InterviewQuestionCommand): InterviewQuestionResponse {
@@ -24,7 +28,14 @@ class InterviewQuestionFacade(
             val completionRequest = prepareCompletionRequest(command, promptResponse)
             requestChatCompletion(completionRequest)
         }
-
+        userRequestLogService.saveUserRequestLog(
+            UserRequestLogCommand.from(
+                command.userId,
+                command.content,
+                RequestOutcome.SUCCESS
+            )
+        )
+        // TODO: 책임과 역할 분리하기
         predictionFacade.savePrediction(openAiMapper.completionToSavePredictionCommand(command, completionResult))
 
         return completionResult

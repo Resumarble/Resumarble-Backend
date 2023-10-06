@@ -11,4 +11,11 @@ data class UserRequestLogCommand(
     val requestOutcome: RequestOutcome,
 
     val requestDate: LocalDateTime = LocalDateTime.now()
-)
+) {
+    companion object {
+        @JvmStatic
+        fun from(userId: Long, content: String, requestOutcome: RequestOutcome): UserRequestLogCommand {
+            return UserRequestLogCommand(userId, content, requestOutcome)
+        }
+    }
+}
