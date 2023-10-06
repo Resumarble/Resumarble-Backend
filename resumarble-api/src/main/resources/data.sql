@@ -9,7 +9,7 @@ VALUES ( 'INTERVIEW_QUESTION'
           Below is the information about ''%s'' of the applicant.
 
           Instructions1:
-          - Question Difficulty: ''%s''
+          - Question Difficulty: ''Hard''
           - Question Quantity: 3
           - Question Purpose: Assess candidate qualifications and fit for role
           - Applicant Levels: ''%s''
