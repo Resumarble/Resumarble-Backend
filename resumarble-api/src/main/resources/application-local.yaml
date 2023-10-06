@@ -10,7 +10,7 @@ spring:
     password: ENC(2DPtU8Z8QpWHMFjf+AnbfQ==)
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     open-in-view: false
     show-sql: true
     properties:
