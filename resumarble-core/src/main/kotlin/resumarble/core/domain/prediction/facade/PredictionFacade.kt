@@ -24,7 +24,7 @@ class PredictionFacade(
 
     val handler = CoroutineExceptionHandler { _, throwable ->
         loggingErrorMarking {
-            SAVE_PREDICTION_ERROR_MESSAGE + "${throwable.message}"
+            SAVE_PREDICTION_ERROR_MESSAGE + throwable.message
         }
     }
 
