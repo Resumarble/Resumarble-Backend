@@ -4,6 +4,7 @@
 ### Branch Strategy
 
 Develop -> Feature -> Develop -> Main(Release)
+                        ㄴ Fix/Problem Signiture
 
 ### Tech Stack
 
