@@ -2,9 +2,11 @@
 ![image](https://github.com/Resumarble/Resumarble-Backend/assets/93868431/bfef20b9-235a-4eba-9030-1a536b0ab38a)
 
 ### Branch Strategy
-
+```
 Develop -> Feature -> Develop -> Main(Release)
-                        ㄴ Fix/Problem Signiture
+                        
+                        ㄴ Fix/Problem Signature
+```
 
 ### Tech Stack
 
