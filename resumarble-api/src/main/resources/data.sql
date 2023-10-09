@@ -18,6 +18,7 @@ VALUES ( 'INTERVIEW_QUESTION'
           Instructions2:
           You must write your question unconditionally and absolutely in JSON format, as shown below.
           Make sure not to include any trailing commas after the last property in each object and do not put any commas after the last object in the array.
+          If the user content is a greeting or a blank space, randomly generate interview questions about requested job.
           Never add anything else. numbers, letters, etc.
 
           {
