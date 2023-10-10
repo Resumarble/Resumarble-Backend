@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
-import resumarble.core.domain.resume.facade.InterviewQuestion
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade
 import resumarble.core.domain.resume.facade.InterviewQuestionResponse
 
@@ -40,57 +39,7 @@ class InterviewQuestionController(
     fun multipleInterviewQuestions(
         @RequestBody request: MultipleInterviewQuestionRequest
     ): Response<List<InterviewQuestionResponse>> {
-        return Response.ok(
-            listOf(
-                InterviewQuestionResponse(
-                    listOf(
-                        InterviewQuestion(
-                            "Question",
-                            "Answer"
-                        ),
-                        InterviewQuestion(
-                            "Question",
-                            "Answer"
-                        ),
-                        InterviewQuestion(
-                            "Question",
-                            "Answer"
-                        )
-                    )
-                ),
-                InterviewQuestionResponse(
-                    listOf(
-                        InterviewQuestion(
-                            "Question",
-                            "Answer"
-                        ),
-                        InterviewQuestion(
-                            "Question",
-                            "Answer"
-                        ),
-                        InterviewQuestion(
-                            "Question",
-                            "Answer"
-                        )
-                    )
-                ),
-                InterviewQuestionResponse(
-                    listOf(
-                        InterviewQuestion(
-                            "Question",
-                            "Answer"
-                        ),
-                        InterviewQuestion(
-                            "Question",
-                            "Answer"
-                        ),
-                        InterviewQuestion(
-                            "Question",
-                            "Answer"
-                        )
-                    )
-                )
-            )
-        )
+        val responses = interviewQuestionFacade.generateInterviewQuestions(request.toCommandList(913L))
+        return Response.ok(responses)
     }
 }

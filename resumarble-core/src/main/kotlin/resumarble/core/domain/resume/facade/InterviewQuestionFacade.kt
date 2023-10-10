@@ -21,6 +21,11 @@ class InterviewQuestionFacade(
     private val predictionFacade: PredictionFacade,
     private val userRequestLogService: UserRequestLogService
 ) {
+    fun generateInterviewQuestions(commands: List<InterviewQuestionCommand>): List<InterviewQuestionResponse> {
+        return commands.map {
+            generateInterviewQuestion(it)
+        }.toList()
+    }
 
     fun generateInterviewQuestion(command: InterviewQuestionCommand): InterviewQuestionResponse {
         val promptResponse = promptService.getPrompt(PromptType.INTERVIEW_QUESTION)
