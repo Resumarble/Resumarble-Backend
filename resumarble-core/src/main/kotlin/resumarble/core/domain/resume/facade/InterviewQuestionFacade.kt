@@ -1,5 +1,9 @@
 package resumarble.core.domain.resume.facade
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
 import resumarble.core.domain.gpt.ChatCompletionRequest
 import resumarble.core.domain.gpt.OpenAiMapper
 import resumarble.core.domain.gpt.application.OpenAiService
@@ -22,9 +26,14 @@ class InterviewQuestionFacade(
     private val userRequestLogService: UserRequestLogService
 ) {
     fun generateInterviewQuestions(commands: List<InterviewQuestionCommand>): List<InterviewQuestionResponse> {
-        return commands.map {
-            generateInterviewQuestion(it)
-        }.toList()
+        return runBlocking(Dispatchers.Default) {
+            val result = commands.map { command ->
+                async {
+                    generateInterviewQuestion(command)
+                }
+            }
+            result.awaitAll()
+        }
     }
 
     fun generateInterviewQuestion(command: InterviewQuestionCommand): InterviewQuestionResponse {
@@ -38,7 +47,7 @@ class InterviewQuestionFacade(
                 RequestOutcome.SUCCESS
             )
         )
-        // TODO: 책임과 역할 분리하기
+
         predictionFacade.savePrediction(openAiMapper.completionToSavePredictionCommand(command, completionResult))
 
         return completionResult
