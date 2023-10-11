@@ -5,4 +5,6 @@ import resumarble.core.domain.prediction.domain.Prediction
 interface FindPredictionPort {
 
     fun findPredictionsByUserId(userId: Long): List<Prediction>?
+
+    fun findPredictionById(predictionId: Long): Prediction?
 }

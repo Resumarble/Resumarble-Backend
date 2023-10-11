@@ -1,5 +1,6 @@
 package resumarble.infrastructure.prediction.adapter
 
+import resumarble.core.domain.prediction.application.port.out.DeletePredictionPort
 import resumarble.core.domain.prediction.application.port.out.FindPredictionPort
 import resumarble.core.domain.prediction.application.port.out.SavePredictionPort
 import resumarble.core.domain.prediction.domain.Prediction
@@ -13,7 +14,7 @@ import resumarble.infrastructure.prediction.entity.QuestionAndAnswerEntityJpaRep
 class PredictionPersistenceAdapter(
     private val predictionRepository: PredictionEntityJpaRepository,
     private val questionAndAnswerRepository: QuestionAndAnswerEntityJpaRepository
-) : SavePredictionPort, FindPredictionPort {
+) : SavePredictionPort, FindPredictionPort, DeletePredictionPort {
     override fun savePrediction(prediction: Prediction) {
         val predictionEntity = predictionRepository.save(PredictionEntity.from(prediction))
         val questionAndAnswerEntities = prediction.questionAndAnswer.map {
@@ -29,5 +30,13 @@ class PredictionPersistenceAdapter(
                 it.toDomain(questionAndAnswerEntities)
             }
         }
+    }
+
+    override fun deletePrediction(predictionId: Long) {
+        predictionRepository.deleteById(predictionId)
+    }
+
+    override fun findPredictionById(predictionId: Long): Prediction? {
+        return predictionRepository.findPredictionEntityById(predictionId)?.toDomainWithoutQuestionAndAnswer()
     }
 }
