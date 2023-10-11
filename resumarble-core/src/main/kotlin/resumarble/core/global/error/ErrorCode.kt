@@ -13,6 +13,7 @@ enum class ErrorCode(
 
     // InterviewQuestion
     REQUEST_FAILED(HttpStatus.BAD_REQUEST, "요청에 실패했습니다"),
+    PREDICTION_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 예상 질문입니다."),
 
     // prompt
     PROMPT_NOT_FOUND(HttpStatus.NOT_FOUND, "프롬프트를 찾을 수 없습니다"),
