@@ -3,7 +3,7 @@ package resumarble.core.domain.resume.facade
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.coroutineScope
 import resumarble.core.domain.gpt.ChatCompletionRequest
 import resumarble.core.domain.gpt.OpenAiMapper
 import resumarble.core.domain.gpt.application.OpenAiService
@@ -25,14 +25,15 @@ class InterviewQuestionFacade(
     private val predictionFacade: PredictionFacade,
     private val userRequestLogService: UserRequestLogService
 ) {
-    fun generateInterviewQuestions(commands: List<InterviewQuestionCommand>): List<InterviewQuestionResponse> {
-        return runBlocking(Dispatchers.Default) {
-            val result = commands.map { command ->
-                async {
+    suspend fun generateInterviewQuestions(commands: List<InterviewQuestionCommand>): List<InterviewQuestionResponse> {
+        return coroutineScope {
+            val deferreds = commands.map { command ->
+                async(Dispatchers.Default) {
                     generateInterviewQuestion(command)
                 }
             }
-            result.awaitAll()
+
+            deferreds.awaitAll()
         }
     }
 

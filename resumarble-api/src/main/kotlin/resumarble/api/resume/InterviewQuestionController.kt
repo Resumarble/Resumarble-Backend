@@ -36,7 +36,7 @@ class InterviewQuestionController(
         description = "테스트 API로, 개발 완료시 /interview-questions로 변경 예정입니다."
     )
     @PostMapping("/multiple-interview-questions")
-    fun multipleInterviewQuestions(
+    suspend fun multipleInterviewQuestions(
         @RequestBody request: MultipleInterviewQuestionRequest
     ): Response<List<InterviewQuestionResponse>> {
         val responses = interviewQuestionFacade.generateInterviewQuestions(request.toCommandList(913L))
