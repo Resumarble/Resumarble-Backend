@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
+import resumarble.api.swagger.SwaggerInterviewQuestionWebPort
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade
 import resumarble.core.domain.resume.facade.InterviewQuestionResponse
 

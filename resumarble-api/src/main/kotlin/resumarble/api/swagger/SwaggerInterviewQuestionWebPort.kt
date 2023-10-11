@@ -1,8 +1,10 @@
-package resumarble.api.resume
+package resumarble.api.swagger
 
 import io.swagger.v3.oas.annotations.Operation
 import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
+import resumarble.api.resume.InterviewQuestionRequest
+import resumarble.api.resume.MultipleInterviewQuestionRequest
 import resumarble.core.domain.resume.facade.InterviewQuestionResponse
 
 interface SwaggerInterviewQuestionWebPort {
