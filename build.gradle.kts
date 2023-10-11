@@ -52,6 +52,8 @@ subprojects {
 
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
+
         // kotest
         testImplementation("io.kotest:kotest-assertions-core-jvm:5.6.2")
         testImplementation("io.kotest:kotest-runner-junit5-jvm:5.6.2")
