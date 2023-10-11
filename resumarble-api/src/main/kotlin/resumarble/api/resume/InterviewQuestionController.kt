@@ -1,6 +1,5 @@
 package resumarble.api.resume
 
-import io.swagger.v3.oas.annotations.Operation
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -15,14 +14,10 @@ import resumarble.core.domain.resume.facade.InterviewQuestionResponse
 @RequestMapping("/resumes")
 class InterviewQuestionController(
     private val interviewQuestionFacade: InterviewQuestionFacade
-) {
-    @Operation(
-        operationId = "interview-questions",
-        summary = "면접 예상 질문 생성",
-        description = "이력서를 기반으로 면접 예상 질문을 생성한다."
-    )
+) : SwaggerInterviewQuestionWebPort {
+
     @PostMapping("/interview-questions")
-    fun interviewQuestions(
+    override fun interviewQuestions(
         @RequestBody request: InterviewQuestionRequest,
         @AuthenticationPrincipal user: JwtUserDetails?
     ): Response<InterviewQuestionResponse> {
@@ -30,14 +25,10 @@ class InterviewQuestionController(
         return Response.ok(interviewQuestionFacade.generateInterviewQuestion(command))
     }
 
-    @Operation(
-        operationId = "interview-questions",
-        summary = "면접 예상 질문 생성 폼 여러개 요청",
-        description = "테스트 API로, 개발 완료시 /interview-questions로 변경 예정입니다."
-    )
     @PostMapping("/multiple-interview-questions")
-    suspend fun multipleInterviewQuestions(
-        @RequestBody request: MultipleInterviewQuestionRequest
+    override suspend fun multipleInterviewQuestions(
+        @RequestBody request: MultipleInterviewQuestionRequest,
+        @AuthenticationPrincipal user: JwtUserDetails?
     ): Response<List<InterviewQuestionResponse>> {
         val responses = interviewQuestionFacade.generateInterviewQuestions(request.toCommandList(913L))
         return Response.ok(responses)
