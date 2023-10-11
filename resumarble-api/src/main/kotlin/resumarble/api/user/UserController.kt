@@ -25,8 +25,8 @@ class UserController(
 
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.CREATED)
-    override fun join(@RequestBody joinUserRequest: JoinUserRequest): Response<Unit> {
-        joinUserUseCase.join(joinUserRequest.toCommand())
+    override fun join(@RequestBody request: JoinUserRequest): Response<Unit> {
+        joinUserUseCase.join(request.toCommand())
         return Response.ok()
     }
 
