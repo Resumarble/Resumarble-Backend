@@ -47,6 +47,15 @@ class PredictionEntity(
             createdDate = createdDate
         )
 
+    fun toDomainWithoutQuestionAndAnswer() = Prediction(
+        predictionId = id,
+        userId = userId,
+        job = job,
+        category = category,
+        questionAndAnswerList = listOf(),
+        createdDate = createdDate
+    )
+
     companion object {
         @JvmStatic
         fun from(prediction: Prediction) = PredictionEntity(
