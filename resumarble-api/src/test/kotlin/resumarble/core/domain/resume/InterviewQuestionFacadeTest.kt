@@ -10,6 +10,7 @@ import io.mockk.runs
 import io.mockk.verify
 import resumarble.core.domain.gpt.OpenAiMapper
 import resumarble.core.domain.gpt.application.OpenAiService
+import resumarble.core.domain.log.application.UserRequestLogService
 import resumarble.core.domain.prediction.facade.PredictionFacade
 import resumarble.core.domain.prompt.application.PromptService
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade
@@ -21,8 +22,10 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
         val promptService = mockk<PromptService>()
         val openAiService = mockk<OpenAiService>()
         val openAiMapper = mockk<OpenAiMapper>()
+        val userRequestLogService = mockk<UserRequestLogService>()
         val predictionFacade = mockk<PredictionFacade>()
-        val sut = InterviewQuestionFacade(promptService, openAiService, openAiMapper, predictionFacade)
+        val sut =
+            InterviewQuestionFacade(promptService, openAiService, openAiMapper, predictionFacade, userRequestLogService)
 
         afterEach {
             clearAllMocks()
@@ -46,6 +49,7 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
                 every { openAiService.requestChatCompletion(any()) } returns completionResponse
                 every { openAiMapper.completionToInterviewQuestionResponse(any()) } returns response
                 every { openAiMapper.completionToSavePredictionCommand(any(), any()) } returns savePredictionCommand
+                every { userRequestLogService.saveUserRequestLog(any()) } just runs
                 every { predictionFacade.savePrediction(any()) } just runs
                 Then("면접 예상 질문이 생성된다.") {
                     sut.generateInterviewQuestion(ResumeFixture.interviewQuestionCommand())
