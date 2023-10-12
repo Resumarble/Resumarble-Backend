@@ -3,6 +3,7 @@ package resumarble.api.resume
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.assertions.print.print
 import io.kotest.core.spec.style.DescribeSpec
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import org.springframework.http.MediaType
@@ -25,9 +26,11 @@ class InterviewQuestionControllerTest : DescribeSpec() {
 
         describe("InterviewQuestionController") {
             val request = ResumeFixture.interviewQuestionRequest()
-            val response = ResumeFixture.interviewQuestionResponse()
+            val responseOneRequest = ResumeFixture.interviewQuestionResponse()
+            val response = listOf(ResumeFixture.interviewQuestionResponse())
             context("면접 예상 질문을 생성 요청하면") {
-                every { interviewQuestionFacade.generateInterviewQuestion(any()) } returns response
+                every { interviewQuestionFacade.generateInterviewQuestion(any()) } returns responseOneRequest
+                coEvery { interviewQuestionFacade.generateInterviewQuestions(any()) } returns response
                 it("면접 예상 질문을 생성한다.") {
                     sut.perform(
                         post("/resumes/interview-questions")

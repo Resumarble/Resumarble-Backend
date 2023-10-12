@@ -52,9 +52,15 @@ object ResumeFixture {
         return InterviewQuestionRequest(
             job = "Backend Developer",
             career = "3 years",
-            ResumeInfo(
-                category = "Technology Stack",
-                content = "Kotlin, Java, Spring Boot, JPA, MySQL, Redis, Kafka, Git, Kubernetes"
+            listOf(
+                ResumeInfo(
+                    category = "Technology Stack",
+                    content = "Kotlin, Java, Spring Boot, JPA, MySQL, Redis, Kafka, Git, Kubernetes"
+                ),
+                ResumeInfo(
+                    category = "Technology Stack",
+                    content = "Kotlin, Java, Spring Boot, JPA, MySQL, Redis, Kafka, Git, Kubernetes"
+                )
             )
         )
     }
