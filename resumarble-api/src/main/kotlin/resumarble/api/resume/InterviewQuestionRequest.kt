@@ -4,7 +4,7 @@ import resumarble.core.domain.resume.facade.InterviewQuestionCommand
 
 private const val MAXIMUM_REQUEST_COUNT = 3
 
-data class MultipleInterviewQuestionRequest(
+data class InterviewQuestionRequest(
     val job: String,
     val career: String,
     val resumeInfoList: List<ResumeInfo>

@@ -18,20 +18,12 @@ class InterviewQuestionController(
 ) : SwaggerInterviewQuestionWebPort {
 
     @PostMapping("/interview-questions")
-    override fun interviewQuestions(
+    override suspend fun interviewQuestions(
         @RequestBody request: InterviewQuestionRequest,
         @AuthenticationPrincipal user: JwtUserDetails?
-    ): Response<InterviewQuestionResponse> {
-        val command = request.toCommand(user?.userId ?: 0L)
-        return Response.ok(interviewQuestionFacade.generateInterviewQuestion(command))
-    }
-
-    @PostMapping("/multiple-interview-questions")
-    override suspend fun multipleInterviewQuestions(
-        @RequestBody request: MultipleInterviewQuestionRequest,
-        @AuthenticationPrincipal user: JwtUserDetails?
     ): Response<List<InterviewQuestionResponse>> {
-        val responses = interviewQuestionFacade.generateInterviewQuestions(request.toCommandList(913L))
+        val commands = request.toCommandList(user?.userId ?: 0L)
+        val responses = interviewQuestionFacade.generateInterviewQuestions(commands)
         return Response.ok(responses)
     }
 }

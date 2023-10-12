@@ -2,7 +2,8 @@ package resumarble.api.resume
 
 import resumarble.core.domain.resume.facade.InterviewQuestionCommand
 
-data class InterviewQuestionRequest(
+@Deprecated(message = "단건만 요청 받는 요청 DTO")
+data class OldInterviewQuestionRequest(
     val job: String,
     val career: String,
     val resumeInfo: ResumeInfo
