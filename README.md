@@ -1,12 +1,18 @@
 ## 이력서를 기반으로 한 면접 예상 질문 서비스
 ![image](https://github.com/Resumarble/Resumarble-Backend/assets/93868431/bfef20b9-235a-4eba-9030-1a536b0ab38a)
 
-## Branch Strategy
-```
-Develop -> Feature -> Develop -> Main(Release)
-                        
-                        ㄴ Fix/Problem Signature
-```
+## ⏳ Branch Strategy
+
+main: 배포용 서비스 코드가 있는 메인 브랜치로, 항상 현재 서비스 상태를 반영해야 합니다.
+
+develop: 다음 릴리스를 위해 최신 개발이 진행되는 개발 브랜치입니다.
+
+feature 브랜치: 새로운 기능 개발에 사용되는 브랜치입니다. develop 브랜치에서 생성되며, 기능 개발이 완료되면 develop 브랜치에 병합됩니다.
+
+hotfix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니다. develop 브랜치에서 생성되며, 수정이 완료되면 main develop 브랜치에 병합됩니다.
+
+이러한 브랜치 전략을 통해 저희는 개발 과정을 체계적으로 관리하고, 기능별로 병렬적인 작업을 진행할 수 있습니다. 코드 변경은 각자의 기능 브랜치에서 이루어지며, 최종적인 안정 버전은 main 브랜치에 반영됩니다.
+
 
 ## Tech Stack
 
