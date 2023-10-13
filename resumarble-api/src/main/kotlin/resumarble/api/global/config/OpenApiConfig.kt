@@ -1,4 +1,4 @@
-package resumarble.api.config
+package resumarble.api.global.config
 
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI
@@ -15,8 +15,7 @@ class OpenApiConfig {
         return OpenAPI()
             .components(
                 Components()
-            )
-            .info(getInfo())
+            ).info(getInfo())
             .servers(getServers())
     }
 
@@ -31,7 +30,8 @@ class OpenApiConfig {
     // swagger에 server 종류 추가
     private fun getServers(): List<Server> {
         return listOf(
-            Server().url("http://localhost:8080").description("localhost"),
+            Server().url("http://localhost:8080").description("localhost")
+                .url("http://49.50.173.88:8080").description("dev server")
         )
     }
 

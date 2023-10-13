@@ -1,7 +1,23 @@
 spring:
-  jpa:
-    open-in-view: false
+  profiles:
+    active: local
+
+logging:
+  level:
+    resumarble.core.domain.gpt.client: DEBUG
 
 springdoc:
-    swagger-ui:
-        path: /swagger
+  swagger-ui:
+    path: /swagger
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_PASSWORD}
+
+jwt:
+  secret-key: ENC(lrBnCZFjSWFI5R8i2I/1kd7ePdWgkXfmI4YNvTAvwiC3xNWgiBZmQwD8pr+1Wlh5ADMew1sWh5piKAp6AmjtNW7gdFgEe6bvdAGwsDeIYodiPNfa6GaMFQ==)
+external:
+  openai:
+    url: https://api.openai.com
+    token: ENC(rAYsw0jbXV5NfG0pKimswwaOldvl93RPcJrQZK/rGNQc5mm3aQrHI6p/LorED98dWNiNmDvWjidQgV2toXFiXA==)
+
