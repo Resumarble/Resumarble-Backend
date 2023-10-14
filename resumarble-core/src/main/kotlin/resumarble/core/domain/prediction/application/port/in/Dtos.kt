@@ -11,6 +11,7 @@ data class PredictionResponse(
 )
 
 data class QuestionAndAnswerResponse(
+    val qaId: Long = 0L,
     val question: String,
     val answer: String
 )
