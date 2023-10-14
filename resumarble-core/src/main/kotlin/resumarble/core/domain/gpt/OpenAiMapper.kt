@@ -35,21 +35,22 @@ class OpenAiMapper(
         )
     }
 
-    fun completionToInterviewQuestionResponse(completion: ChatCompletionMessageResponse): InterviewQuestionResponse {
-        return objectMapper.readValue<InterviewQuestionResponse>(
+    fun completionToInterviewQuestionResponse(completion: ChatCompletionMessageResponse): List<InterviewQuestion> {
+        val interviewQuestionResponse = objectMapper.readValue<InterviewQuestionResponse>(
             completion.questionAndAnswer
         )
+        return interviewQuestionResponse.interviews
     }
 
     fun completionToSavePredictionCommand(
         command: InterviewQuestionCommand,
-        response: InterviewQuestionResponse
+        interviews: List<InterviewQuestion>
     ): SavePredictionCommand {
         return SavePredictionCommand(
             userId = command.userId,
             job = Job.fromJobTitleEn(command.job),
             category = Category.fromValue(command.category),
-            questionAndAnswerList = convertToQuestionAndAnswer(response.interviews)
+            questionAndAnswerList = convertToQuestionAndAnswer(interviews)
         )
     }
 

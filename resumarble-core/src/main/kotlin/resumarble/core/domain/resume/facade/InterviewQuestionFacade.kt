@@ -25,19 +25,19 @@ class InterviewQuestionFacade(
     private val predictionFacade: PredictionFacade,
     private val userRequestLogService: UserRequestLogService
 ) {
-    suspend fun generateInterviewQuestions(commands: List<InterviewQuestionCommand>): List<InterviewQuestionResponse> {
+    suspend fun generateInterviewQuestions(commands: List<InterviewQuestionCommand>): List<InterviewQuestion> {
         return coroutineScope {
             val deferreds = commands.map { command ->
                 async(Dispatchers.Default) {
                     generateInterviewQuestion(command)
                 }
             }
-
             deferreds.awaitAll()
+                .flatten()
         }
     }
 
-    fun generateInterviewQuestion(command: InterviewQuestionCommand): InterviewQuestionResponse {
+    fun generateInterviewQuestion(command: InterviewQuestionCommand): List<InterviewQuestion> {
         val promptResponse = promptService.getPrompt(PromptType.INTERVIEW_QUESTION)
         val completionRequest = prepareCompletionRequest(command, promptResponse)
         val completionResult = loggingStopWatch { requestChatCompletion(completionRequest) }
@@ -62,7 +62,7 @@ class InterviewQuestionFacade(
         return openAiMapper.promptAndContentToChatCompletionRequest(completionRequestForm, command.content)
     }
 
-    private fun requestChatCompletion(completionRequest: ChatCompletionRequest): InterviewQuestionResponse {
+    private fun requestChatCompletion(completionRequest: ChatCompletionRequest): List<InterviewQuestion> {
         return openAiMapper.completionToInterviewQuestionResponse(
             openAiService.requestChatCompletion(completionRequest)
         )

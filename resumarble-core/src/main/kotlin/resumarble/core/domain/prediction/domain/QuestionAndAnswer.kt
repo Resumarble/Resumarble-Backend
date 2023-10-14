@@ -1,6 +1,7 @@
 package resumarble.core.domain.prediction.domain
 
 data class QuestionAndAnswer(
+    val id: Long = 0L,
     val question: Question,
     val answer: Answer
 )
