@@ -7,9 +7,7 @@ import kotlinx.coroutines.coroutineScope
 import resumarble.core.domain.gpt.ChatCompletionRequest
 import resumarble.core.domain.gpt.OpenAiMapper
 import resumarble.core.domain.gpt.application.OpenAiService
-import resumarble.core.domain.log.application.UserRequestLogCommand
 import resumarble.core.domain.log.application.UserRequestLogService
-import resumarble.core.domain.log.constraints.RequestOutcome
 import resumarble.core.domain.prediction.facade.PredictionFacade
 import resumarble.core.domain.prompt.application.PromptResponse
 import resumarble.core.domain.prompt.application.PromptService
@@ -41,13 +39,8 @@ class InterviewQuestionFacade(
         val promptResponse = promptService.getPrompt(PromptType.INTERVIEW_QUESTION)
         val completionRequest = prepareCompletionRequest(command, promptResponse)
         val completionResult = loggingStopWatch { requestChatCompletion(completionRequest) }
-        userRequestLogService.saveUserRequestLog(
-            UserRequestLogCommand.from(
-                command.userId,
-                command.content,
-                RequestOutcome.SUCCESS
-            )
-        )
+
+        userRequestLogService.saveUserRequestLog(command.toSaveLogCommand())
 
         predictionFacade.savePrediction(openAiMapper.completionToSavePredictionCommand(command, completionResult))
 
