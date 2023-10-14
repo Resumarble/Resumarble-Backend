@@ -31,14 +31,14 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
             clearAllMocks()
         }
 
-        Given("이력서를 기반으로 면접 예상 질문을 생성하는 경우") {
+        Given("면접 예상 질문을 요청할 경우") {
             val promptResponse = ResumeFixture.promptResponse()
             val completionRequest = ChatCompletionFixture.chatCompletionRequest()
-            val completionResponse = ChatCompletionFixture.chatCompletionMessageResponse()
-            val response = ResumeFixture.interviewQuestionResponse()
-            val savePredictionCommand = ResumeFixture.savePredictionCommand()
+            val chatCompletionResponse = ChatCompletionFixture.chatCompletionMessageResponse()
+            val completionResult = ResumeFixture.interviewQuestionResponse()
+            val predictionCommand = PredictionFixture.savePredictionCommand()
 
-            When("정상적인 요청일 때") {
+            When("정상적으로 처리되면") {
                 every { promptService.getPrompt(any()) } returns promptResponse
                 every {
                     openAiMapper.promptAndContentToChatCompletionRequest(
@@ -46,19 +46,26 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
                         any()
                     )
                 } returns completionRequest
-                every { openAiService.requestChatCompletion(any()) } returns completionResponse
-                every { openAiMapper.completionToInterviewQuestionResponse(any()) } returns response
-                every { openAiMapper.completionToSavePredictionCommand(any(), any()) } returns savePredictionCommand
-                every { userRequestLogService.saveUserRequestLog(any()) } just runs
-                every { predictionFacade.savePrediction(any()) } just runs
-                Then("면접 예상 질문이 생성된다.") {
-                    sut.generateInterviewQuestion(ResumeFixture.interviewQuestionCommand())
-                    verify(exactly = 1) {
-                        promptService.getPrompt(any())
-                        openAiMapper.promptAndContentToChatCompletionRequest(any(), any())
-                        openAiService.requestChatCompletion(any())
-                        openAiMapper.completionToInterviewQuestionResponse(any())
-                    }
+                every {
+                    openAiMapper.completionToInterviewQuestionResponse(
+                        any()
+                    )
+                } returns completionResult
+
+                every { openAiMapper.completionToSavePredictionCommand(any(), any()) } returns predictionCommand
+            }
+            every { openAiService.requestChatCompletion(any()) } returns chatCompletionResponse
+            every { userRequestLogService.saveUserRequestLog(any()) } just runs
+            every { predictionFacade.savePrediction(any()) } just runs
+
+            Then("면접 예상 질문을 생성한다.") {
+                sut.generateInterviewQuestion(ResumeFixture.interviewQuestionCommand())
+                verify(exactly = 1) {
+                    promptService.getPrompt(any())
+                    openAiMapper.promptAndContentToChatCompletionRequest(any(), any())
+                    openAiService.requestChatCompletion(any())
+                    userRequestLogService.saveUserRequestLog(any())
+                    predictionFacade.savePrediction(any())
                 }
             }
         }

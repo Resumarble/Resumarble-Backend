@@ -27,7 +27,7 @@ class InterviewQuestionControllerTest : DescribeSpec() {
         describe("InterviewQuestionController") {
             val request = ResumeFixture.interviewQuestionRequest()
             val responseOneRequest = ResumeFixture.interviewQuestionResponse()
-            val response = listOf(ResumeFixture.interviewQuestionResponse())
+            val response = ResumeFixture.interviewQuestionResponse()
             context("면접 예상 질문을 생성 요청하면") {
                 every { interviewQuestionFacade.generateInterviewQuestion(any()) } returns responseOneRequest
                 coEvery { interviewQuestionFacade.generateInterviewQuestions(any()) } returns response
