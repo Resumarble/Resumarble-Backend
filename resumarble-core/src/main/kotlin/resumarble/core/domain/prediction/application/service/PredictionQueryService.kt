@@ -22,6 +22,7 @@ class PredictionQueryService(
                     category = it.category.value,
                     questionAndAnswer = it.questionAndAnswer.map { questionAndAnswer ->
                         QuestionAndAnswerResponse(
+                            qaId = questionAndAnswer.id,
                             question = questionAndAnswer.question.value,
                             answer = questionAndAnswer.answer.value
                         )
