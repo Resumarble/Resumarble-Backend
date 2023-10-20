@@ -1,5 +1,6 @@
 package resumarble.api.user
 
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
@@ -44,6 +45,11 @@ class UserController(
         @RequestParam(defaultValue = "0") page: Int,
         @AuthenticationPrincipal user: JwtUserDetails
     ): Response<MyPageResponse> {
-        return Response.ok(userFacade.getMyPredictions(user.userId))
+        val pageRequest = PageRequest.of(page, OFFSET)
+        return Response.ok(userFacade.getMyPredictions(user.userId, pageRequest))
+    }
+
+    companion object {
+        private const val OFFSET = 10
     }
 }
