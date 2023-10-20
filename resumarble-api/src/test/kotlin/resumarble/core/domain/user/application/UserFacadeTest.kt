@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.springframework.data.domain.PageRequest
 import resumarble.core.domain.prediction.application.port.`in`.FindPredictionUseCase
 import resumarble.core.domain.prediction.application.port.`in`.PredictionResponse
 import resumarble.core.domain.prediction.application.port.`in`.QuestionAndAnswerResponse
@@ -12,6 +13,7 @@ import java.time.LocalDateTime
 
 class UserFacadeTest : BehaviorSpec() {
     init {
+        val page = PageRequest.of(0, 10)
         val findPredictionUseCase = mockk<FindPredictionUseCase>()
         val sut = UserFacade(findPredictionUseCase)
         given("마이페이지를 조회할 때") {
@@ -42,11 +44,11 @@ class UserFacadeTest : BehaviorSpec() {
                     createdDate = LocalDateTime.now()
                 )
             )
-            every { findPredictionUseCase.getPredictionByUserId(userId) } returns predictions
+            every { findPredictionUseCase.getPredictionByUserId(any(), any()) } returns predictions
             `when`("존재하는 유저인 경우") {
-                sut.getMyPredictions(userId)
+                sut.getMyPredictions(userId, page)
                 then("마이페이지가 조회된다.") {
-                    verify(exactly = 1) { findPredictionUseCase.getPredictionByUserId(userId) }
+                    verify(exactly = 1) { findPredictionUseCase.getPredictionByUserId(userId, page) }
                 }
             }
         }
