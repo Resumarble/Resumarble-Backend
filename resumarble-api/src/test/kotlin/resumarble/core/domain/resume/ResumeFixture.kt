@@ -2,8 +2,6 @@ package resumarble.core.domain.resume
 
 import resumarble.api.resume.InterviewQuestionRequest
 import resumarble.api.resume.ResumeInfo
-import resumarble.core.domain.log.application.UserRequestLogCommand
-import resumarble.core.domain.log.constraints.RequestOutcome
 import resumarble.core.domain.prediction.domain.Answer
 import resumarble.core.domain.prediction.domain.Question
 import resumarble.core.domain.prediction.domain.QuestionAndAnswer
@@ -83,14 +81,6 @@ object ResumeFixture {
                     answer = Answer("답변3")
                 )
             )
-        )
-    }
-
-    fun userRequestLogCommand(): UserRequestLogCommand {
-        return UserRequestLogCommand(
-            userId = 1L,
-            userContent = "질문1",
-            requestOutcome = RequestOutcome.SUCCESS
         )
     }
 }
