@@ -19,5 +19,5 @@ jwt:
 external:
   openai:
     url: https://api.openai.com
-    token: ENC(rAYsw0jbXV5NfG0pKimswwaOldvl93RPcJrQZK/rGNQc5mm3aQrHI6p/LorED98dWNiNmDvWjidQgV2toXFiXA==)
+    token: ENC(18XqK2igPaqRkgV3mWHhb3w6SMoNJNqdQuGQRmikY3YpkWeV2t+SSmF3RHQCXd0KPsHbeYg/u03eZzB5F5sp9w==)
 
