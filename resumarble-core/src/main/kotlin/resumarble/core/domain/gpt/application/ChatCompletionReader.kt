@@ -9,7 +9,6 @@ import resumarble.core.domain.log.constraints.RequestOutcome
 import resumarble.core.domain.prompt.application.PromptResponse
 import resumarble.core.domain.resume.facade.InterviewQuestion
 import resumarble.core.domain.resume.facade.InterviewQuestionCommand
-import resumarble.core.global.error.CompletionFailedException
 
 @Component
 class ChatCompletionReader(
@@ -40,9 +39,9 @@ class ChatCompletionReader(
         userId: Long,
         userContent: String
     ): List<InterviewQuestion> {
-        try {
+        return try {
             val completionResult = openAiService.requestChatCompletion(completionRequest)
-            return openAiMapper.completionToInterviewQuestionResponse(
+            openAiMapper.completionToInterviewQuestionResponse(
                 completionResult
             )
         } catch (e: Exception) {
@@ -53,7 +52,7 @@ class ChatCompletionReader(
                     RequestOutcome.FAILED
                 )
             )
-            throw CompletionFailedException()
+            emptyList()
         }
     }
 }
