@@ -3,7 +3,6 @@ package resumarble.core.domain.gpt.mapper
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import resumarble.core.domain.gpt.OpenAiMapper
 
 class OpenAiMapperTest : StringSpec() {
 
