@@ -1,5 +1,8 @@
 package resumarble.core.global.error
 
+import resumarble.core.domain.log.application.UserRequestLogCommand
+import resumarble.core.domain.log.constraints.RequestOutcome
+
 sealed class BusinessException(
     open val errorCode: ErrorCode
 ) : RuntimeException()
@@ -25,5 +28,9 @@ data class UnIdentifiedException(
 ) : BusinessException(ErrorCode.UNIDENTIFIED_USER)
 
 data class CompletionFailedException(
-    override val errorCode: ErrorCode = ErrorCode.REQUEST_FAILED
-) : BusinessException(ErrorCode.REQUEST_FAILED)
+    override val errorCode: ErrorCode = ErrorCode.REQUEST_FAILED,
+    val userId: Long,
+    val userContent: String
+) : BusinessException(ErrorCode.REQUEST_FAILED) {
+    fun toFailedLogCommand() = UserRequestLogCommand(userId, userContent, RequestOutcome.FAILED)
+}
