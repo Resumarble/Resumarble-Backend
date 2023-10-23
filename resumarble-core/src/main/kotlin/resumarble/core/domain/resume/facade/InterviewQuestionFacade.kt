@@ -38,7 +38,9 @@ class InterviewQuestionFacade(
     fun generateInterviewQuestion(command: InterviewQuestionCommand): List<InterviewQuestion> {
         val promptResponse = promptService.getPrompt(PromptType.INTERVIEW_QUESTION)
         val completionRequest = prepareCompletionRequest(command, promptResponse)
-        val completionResult = loggingStopWatch { requestChatCompletion(completionRequest) }
+
+        val completionResult =
+            loggingStopWatch { requestChatCompletion(completionRequest) }
 
         userRequestLogService.saveUserRequestLog(command.toSaveLogCommand())
 
