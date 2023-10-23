@@ -10,7 +10,7 @@ import io.mockk.runs
 import io.mockk.verify
 import resumarble.core.domain.gpt.OpenAiMapper
 import resumarble.core.domain.gpt.application.OpenAiService
-import resumarble.core.domain.log.application.UserRequestLogService
+import resumarble.core.domain.log.application.UserRequestLogWriter
 import resumarble.core.domain.prediction.facade.PredictionFacade
 import resumarble.core.domain.prompt.application.PromptService
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade
@@ -22,10 +22,10 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
         val promptService = mockk<PromptService>()
         val openAiService = mockk<OpenAiService>()
         val openAiMapper = mockk<OpenAiMapper>()
-        val userRequestLogService = mockk<UserRequestLogService>()
+        val userRequestLogWriter = mockk<UserRequestLogWriter>()
         val predictionFacade = mockk<PredictionFacade>()
         val sut =
-            InterviewQuestionFacade(promptService, openAiService, openAiMapper, predictionFacade, userRequestLogService)
+            InterviewQuestionFacade(promptService, openAiService, openAiMapper, predictionFacade, userRequestLogWriter)
 
         afterEach {
             clearAllMocks()
@@ -55,7 +55,7 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
                 every { openAiMapper.completionToSavePredictionCommand(any(), any()) } returns predictionCommand
             }
             every { openAiService.requestChatCompletion(any()) } returns chatCompletionResponse
-            every { userRequestLogService.saveUserRequestLog(any()) } just runs
+            every { userRequestLogWriter.saveUserRequestLog(any()) } just runs
             every { predictionFacade.savePrediction(any()) } just runs
 
             Then("면접 예상 질문을 생성한다.") {
@@ -64,7 +64,7 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
                     promptService.getPrompt(any())
                     openAiMapper.promptAndContentToChatCompletionRequest(any(), any())
                     openAiService.requestChatCompletion(any())
-                    userRequestLogService.saveUserRequestLog(any())
+                    userRequestLogWriter.saveUserRequestLog(any())
                     predictionFacade.savePrediction(any())
                 }
             }
@@ -82,7 +82,10 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
                         any()
                     )
                 } returns completionRequest
-                every { openAiService.requestChatCompletion(any()) } throws CompletionFailedException()
+                every { openAiService.requestChatCompletion(any()) } throws CompletionFailedException(
+                    userId = 1L,
+                    userContent = "request failed"
+                )
 
                 Then("예외가 발생한다.") {
                     shouldThrow<CompletionFailedException> {
