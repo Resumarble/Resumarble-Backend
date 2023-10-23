@@ -3,7 +3,6 @@ package resumarble.api.global.advice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import resumarble.api.global.response.Response
-import resumarble.core.domain.log.application.UserRequestLogWriter
 import resumarble.core.global.error.BusinessException
 import resumarble.core.global.error.CompletionFailedException
 import resumarble.core.global.error.DuplicateUserException
@@ -15,9 +14,7 @@ import resumarble.core.global.error.UserNotFoundException
 import resumarble.core.global.util.logger
 
 @RestControllerAdvice
-class GlobalExceptionHandler(
-    private val userRequestLogWriter: UserRequestLogWriter
-) {
+class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException::class)
     fun handleBusinessException(e: BusinessException): Response<Any?> {
@@ -31,7 +28,6 @@ class GlobalExceptionHandler(
 
     @ExceptionHandler(CompletionFailedException::class)
     fun handleCompletionFailedException(e: CompletionFailedException): Response<Any?> {
-        userRequestLogWriter.saveUserRequestLog(e.toFailedLogCommand())
         return Response.fail(e.errorCode)
     }
 

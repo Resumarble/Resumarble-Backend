@@ -2,8 +2,6 @@ package resumarble.core.domain.resume
 
 import resumarble.api.resume.InterviewQuestionRequest
 import resumarble.api.resume.ResumeInfo
-import resumarble.core.domain.log.application.UserRequestLogCommand
-import resumarble.core.domain.log.constraints.RequestOutcome
 import resumarble.core.domain.prediction.domain.Answer
 import resumarble.core.domain.prediction.domain.Question
 import resumarble.core.domain.prediction.domain.QuestionAndAnswer
@@ -19,7 +17,7 @@ object ResumeFixture {
 
     fun interviewQuestionCommand(): InterviewQuestionCommand =
         InterviewQuestionCommand(
-            job = "Backend Developer",
+            job = "Backend Engineer",
             career = "3 years",
             category = "Teck Stack",
             content = "Kotlin, Java, Spring Boot, JPA, MySQL, Redis, Kafka, Git, Kubernetes"
@@ -39,7 +37,7 @@ object ResumeFixture {
             ),
             InterviewQuestion(
                 question = "What is your job?",
-                bestAnswer = "Backend Developer"
+                bestAnswer = "Backend Engineer"
             ),
             InterviewQuestion(
                 question = "What is your tech stack?",
@@ -49,7 +47,7 @@ object ResumeFixture {
 
     fun interviewQuestionRequest(): InterviewQuestionRequest {
         return InterviewQuestionRequest(
-            job = "Backend Developer",
+            job = "Backend Engineer",
             career = "3 years",
             listOf(
                 ResumeInfo(
@@ -83,14 +81,6 @@ object ResumeFixture {
                     answer = Answer("답변3")
                 )
             )
-        )
-    }
-
-    fun userRequestLogCommand(): UserRequestLogCommand {
-        return UserRequestLogCommand(
-            userId = 1L,
-            userContent = "질문1",
-            requestOutcome = RequestOutcome.SUCCESS
         )
     }
 }
