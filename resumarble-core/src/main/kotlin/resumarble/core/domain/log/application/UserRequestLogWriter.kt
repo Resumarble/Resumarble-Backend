@@ -9,7 +9,7 @@ import resumarble.core.domain.log.infrastructure.UserRequestLogRepository
 import resumarble.core.global.util.loggingErrorMarking
 
 @Service
-class UserRequestLogService(
+class UserRequestLogWriter(
     private val userRequestLogRepository: UserRequestLogRepository
 ) {
     val scope = CoroutineScope(Dispatchers.IO)
