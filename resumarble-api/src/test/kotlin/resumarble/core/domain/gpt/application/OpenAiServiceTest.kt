@@ -29,10 +29,7 @@ class OpenAiServiceTest : StringSpec() {
 
         "ChatCompletion 요청이 실패하면 예외가 발생한다." {
             // when
-            every { sut.requestChatCompletion(any()) } throws CompletionFailedException(
-                userId = 1L,
-                userContent = "request failed"
-            )
+            every { sut.requestChatCompletion(any()) } throws CompletionFailedException()
 
             // then
             shouldThrow<CompletionFailedException> {

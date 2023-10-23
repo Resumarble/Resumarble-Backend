@@ -19,7 +19,7 @@ object ResumeFixture {
 
     fun interviewQuestionCommand(): InterviewQuestionCommand =
         InterviewQuestionCommand(
-            job = "Backend Developer",
+            job = "Backend Engineer",
             career = "3 years",
             category = "Teck Stack",
             content = "Kotlin, Java, Spring Boot, JPA, MySQL, Redis, Kafka, Git, Kubernetes"
@@ -39,7 +39,7 @@ object ResumeFixture {
             ),
             InterviewQuestion(
                 question = "What is your job?",
-                bestAnswer = "Backend Developer"
+                bestAnswer = "Backend Engineer"
             ),
             InterviewQuestion(
                 question = "What is your tech stack?",
@@ -49,7 +49,7 @@ object ResumeFixture {
 
     fun interviewQuestionRequest(): InterviewQuestionRequest {
         return InterviewQuestionRequest(
-            job = "Backend Developer",
+            job = "Backend Engineer",
             career = "3 years",
             listOf(
                 ResumeInfo(
