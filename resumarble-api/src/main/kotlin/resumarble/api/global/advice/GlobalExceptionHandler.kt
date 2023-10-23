@@ -3,16 +3,21 @@ package resumarble.api.global.advice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import resumarble.api.global.response.Response
+import resumarble.core.domain.log.application.UserRequestLogWriter
 import resumarble.core.global.error.BusinessException
 import resumarble.core.global.error.CompletionFailedException
 import resumarble.core.global.error.DuplicateUserException
+import resumarble.core.global.error.ErrorCode
 import resumarble.core.global.error.PromptNotFoundException
 import resumarble.core.global.error.TokenVerifyException
 import resumarble.core.global.error.UnidentifiedUserException
 import resumarble.core.global.error.UserNotFoundException
+import resumarble.core.global.util.logger
 
 @RestControllerAdvice
-class GlobalExceptionHandler {
+class GlobalExceptionHandler(
+    private val userRequestLogWriter: UserRequestLogWriter
+) {
 
     @ExceptionHandler(BusinessException::class)
     fun handleBusinessException(e: BusinessException): Response<Any?> {
@@ -26,6 +31,7 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(CompletionFailedException::class)
     fun handleCompletionFailedException(e: CompletionFailedException): Response<Any?> {
+        userRequestLogWriter.saveUserRequestLog(e.toFailedLogCommand())
         return Response.fail(e.errorCode)
     }
 
@@ -48,9 +54,10 @@ class GlobalExceptionHandler {
     fun handleTokenVerifyException(e: TokenVerifyException): Response<Any?> {
         return Response.fail(e.errorCode)
     }
-//
-//    @ExceptionHandler(Exception::class)
-//    fun handleException(e: Exception): Response<Any?> {
-//        return Response.fail(ErrorCode.INTERNAL_SERVER_ERROR)
-//    }
+
+    @ExceptionHandler(Exception::class)
+    fun handleException(e: Exception): Response<Any?> {
+        logger.error(e.message, e)
+        return Response.fail(ErrorCode.INTERNAL_SERVER_ERROR)
+    }
 }
