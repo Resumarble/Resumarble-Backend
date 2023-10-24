@@ -3,7 +3,6 @@ package resumarble.core.domain.gpt.application
 import org.springframework.stereotype.Component
 import resumarble.core.domain.gpt.ChatCompletionRequest
 import resumarble.core.domain.gpt.mapper.OpenAiMapper
-import resumarble.core.domain.log.application.UserRequestLogCommand
 import resumarble.core.domain.log.application.UserRequestLogPublisher
 import resumarble.core.domain.log.constraints.RequestOutcome
 import resumarble.core.domain.prompt.application.PromptResponse
@@ -52,10 +51,10 @@ class ChatCompletionReader(
         }
 
         userRequestLogPublisher.publish(
-            UserRequestLogCommand.from(
-                userId,
-                userContent,
-                outcome
+            UserRequestLogEvent(
+                userId = userId,
+                userContent = userContent,
+                requestOutcome = outcome
             )
         )
 
