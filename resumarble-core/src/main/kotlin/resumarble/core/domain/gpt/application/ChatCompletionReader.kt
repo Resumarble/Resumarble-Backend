@@ -39,27 +39,26 @@ class ChatCompletionReader(
         userId: Long,
         userContent: String
     ): List<InterviewQuestion> {
-        return try {
+        var outcome: RequestOutcome
+        var result: List<InterviewQuestion>
+
+        try {
             val completionResult = openAiService.requestChatCompletion(completionRequest)
-            userRequestLogPublisher.publish(
-                UserRequestLogCommand.from(
-                    userId,
-                    userContent,
-                    RequestOutcome.SUCCESS
-                )
-            )
-            openAiMapper.completionToInterviewQuestionResponse(
-                completionResult
-            )
+            result = openAiMapper.completionToInterviewQuestionResponse(completionResult)
+            outcome = RequestOutcome.SUCCESS
         } catch (e: Exception) {
-            userRequestLogPublisher.publish(
-                UserRequestLogCommand.from(
-                    userId,
-                    userContent,
-                    RequestOutcome.FAILED
-                )
-            )
-            emptyList()
+            result = emptyList()
+            outcome = RequestOutcome.FAILED
         }
+
+        userRequestLogPublisher.publish(
+            UserRequestLogCommand.from(
+                userId,
+                userContent,
+                outcome
+            )
+        )
+
+        return result
     }
 }
