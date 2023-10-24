@@ -22,7 +22,16 @@ class ChatCompletionReader(
         promptResponse: PromptResponse
     ): List<InterviewQuestion> {
         val completionRequest = prepareCompletionRequest(command, promptResponse, command.language)
-        return requestChatCompletion(completionRequest, command.userId, command.content)
+        val chatCompletionResult = requestChatCompletionToOpenAi(completionRequest, command.userId, command.content)
+
+        userRequestLogPublisher.publish(
+            UserRequestLogCommand.from(
+                command.userId,
+                command.content,
+                RequestOutcome.SUCCESS
+            )
+        )
+        return chatCompletionResult
     }
 
     private fun prepareCompletionRequest(
@@ -34,7 +43,7 @@ class ChatCompletionReader(
         return openAiMapper.promptAndContentToChatCompletionRequest(completionRequestForm, command.content)
     }
 
-    private fun requestChatCompletion(
+    private fun requestChatCompletionToOpenAi(
         completionRequest: ChatCompletionRequest,
         userId: Long,
         userContent: String
@@ -46,9 +55,9 @@ class ChatCompletionReader(
             )
         } catch (e: Exception) {
             userRequestLogPublisher.publish(
-                UserRequestLogCommand(
-                    userId = userId,
-                    userContent = userContent,
+                UserRequestLogCommand.from(
+                    userId,
+                    userContent,
                     RequestOutcome.FAILED
                 )
             )
