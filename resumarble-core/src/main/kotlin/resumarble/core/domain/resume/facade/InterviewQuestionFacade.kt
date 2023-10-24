@@ -35,7 +35,9 @@ class InterviewQuestionFacade(
 
         val completionResult = loggingStopWatch { chatCompletionReader.readChatCompletion(command, promptResponse) }
 
-        predictionFacade.savePrediction(PredictionMapper.completionToSavePredictionCommand(command, completionResult))
+        if (completionResult.isNotEmpty()) {
+            predictionFacade.savePrediction(PredictionMapper.completionToSavePredictionCommand(command, completionResult))
+        }
 
         return completionResult
     }
