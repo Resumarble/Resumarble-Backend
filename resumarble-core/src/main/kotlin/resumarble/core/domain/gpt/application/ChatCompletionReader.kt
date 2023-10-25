@@ -24,15 +24,6 @@ class ChatCompletionReader(
         return requestChatCompletionToOpenAi(completionRequest, command.userId, command.content)
     }
 
-    private fun prepareCompletionRequest(
-        command: InterviewQuestionCommand,
-        promptResponse: PromptResponse,
-        promptLanguage: String
-    ): ChatCompletionRequest {
-        val completionRequestForm = command.toRequestForm(promptResponse, promptLanguage)
-        return openAiMapper.promptAndContentToChatCompletionRequest(completionRequestForm, command.content)
-    }
-
     private fun requestChatCompletionToOpenAi(
         completionRequest: ChatCompletionRequest,
         userId: Long,
@@ -57,7 +48,15 @@ class ChatCompletionReader(
                 requestOutcome = outcome
             )
         )
-
         return result
+    }
+
+    private fun prepareCompletionRequest(
+        command: InterviewQuestionCommand,
+        promptResponse: PromptResponse,
+        promptLanguage: String
+    ): ChatCompletionRequest {
+        val completionRequestForm = command.toRequestForm(promptResponse, promptLanguage)
+        return openAiMapper.promptAndContentToChatCompletionRequest(completionRequestForm, command.content)
     }
 }
