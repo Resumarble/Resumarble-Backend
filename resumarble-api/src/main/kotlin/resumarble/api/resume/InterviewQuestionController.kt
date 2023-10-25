@@ -22,8 +22,9 @@ class InterviewQuestionController(
         @RequestBody request: InterviewQuestionRequest,
         @AuthenticationPrincipal user: JwtUserDetails?
     ): Response<List<InterviewQuestion>> {
-        val commands = request.toCommandList(user?.userId ?: 0L)
-        val responses = interviewQuestionFacade.generateInterviewQuestions(commands)
+        val userId = user?.userId ?: 0L
+        val commands = request.toCommandList(userId)
+        val responses = interviewQuestionFacade.generateInterviewQuestions(userId, commands)
         return Response.ok(responses)
     }
 }
