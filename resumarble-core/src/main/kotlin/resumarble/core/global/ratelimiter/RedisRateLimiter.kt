@@ -22,7 +22,7 @@ class RedisRateLimiter(
     ) {
         val previousCount = redisTemplate.opsForValue().get(key)?.toInt() ?: 0
 
-        if (previousCount > limitRequestPerTime.count) {
+        if (previousCount >= limitRequestPerTime.count) {
             throw RequestPerSecondException()
         }
 
