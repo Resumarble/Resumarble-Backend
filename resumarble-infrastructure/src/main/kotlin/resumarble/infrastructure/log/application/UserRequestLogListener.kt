@@ -18,6 +18,6 @@ class UserRequestLogListener(
             content = event.userContent,
             requestOutcome = event.requestOutcome
         )
-        userRequestLogWriter.saveUserRequestLog(command)
+        userRequestLogWriter.save(command)
     }
 }
