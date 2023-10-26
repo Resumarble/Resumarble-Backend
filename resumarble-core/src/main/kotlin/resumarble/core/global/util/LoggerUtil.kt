@@ -1,6 +1,7 @@
 package resumarble.core.global.util
 
 import org.slf4j.LoggerFactory
+import resumarble.core.global.error.BusinessException
 import resumarble.core.global.util.LoggerUtil.logger
 import java.time.Duration
 import java.time.LocalDateTime
@@ -25,14 +26,19 @@ fun <T> loggingStopWatch(function: () -> T): T {
     return result
 }
 
-inline fun loggingErrorMarking(noinline function: () -> Unit) {
+fun loggingErrorMarking(function: () -> Unit) {
     try {
         function.invoke()
     } catch (
-        e: Exception
+        e: Throwable
     ) {
         val startAt = LocalDateTime.now()
-        logger.error(function.javaClass.name)
-        logger.info("예외 발생 시각: $startAt")
+        (e as? BusinessException)?.let {
+            logger.error(e.errorCode.message)
+            logger.info("예외 발생 시각: $startAt")
+        } ?: {
+            logger.error(e.message)
+            logger.info("예외 발생 시각: $startAt")
+        }
     }
 }
