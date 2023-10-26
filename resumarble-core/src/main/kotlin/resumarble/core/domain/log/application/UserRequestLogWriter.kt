@@ -15,8 +15,4 @@ class UserRequestLogWriter(
             userRequestLogRepository.saveUserRequestLog(command)
         }
     }
-
-    companion object {
-        private const val SAVE_USER_LOG_ERROR_MESSAGE = "유저 로그 저장에 실패했습니다."
-    }
 }
