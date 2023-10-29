@@ -8,7 +8,8 @@ dependencies {
     // add spring data jpa
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.0.0-SNAPSHOT")
+    implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.0.0")
+    implementation("com.linecorp.kotlin-jdsl:jpql-render:3.0.0")
 
     runtimeOnly("com.mysql:mysql-connector-j")
 
