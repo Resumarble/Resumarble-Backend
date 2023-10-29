@@ -19,7 +19,7 @@ import resumarble.core.global.domain.BaseEntity
 @Where(clause = "is_deleted = false")
 data class QuestionAndAnswerEntity(
 
-    private val predictionId: Long,
+    val predictionId: Long,
     @Column(
         nullable = false,
         columnDefinition = "TEXT"
@@ -41,6 +41,7 @@ data class QuestionAndAnswerEntity(
 ) : BaseEntity() {
 
     fun toDomain() = QuestionAndAnswer(
+        id = id,
         question = question,
         answer = answer
     )
