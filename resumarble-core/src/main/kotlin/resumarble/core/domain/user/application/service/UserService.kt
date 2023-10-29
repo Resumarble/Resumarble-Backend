@@ -7,6 +7,7 @@ import resumarble.core.domain.user.application.JoinUserCommand
 import resumarble.core.domain.user.application.port.`in`.JoinUserUseCase
 import resumarble.core.domain.user.application.port.out.FindUserPort
 import resumarble.core.domain.user.application.port.out.JoinUserPort
+import resumarble.core.domain.user.domain.User
 import resumarble.core.global.error.DuplicateUserException
 
 @Service
@@ -16,10 +17,10 @@ class UserService(
 ) : JoinUserUseCase {
 
     @Transactional
-    override fun join(command: JoinUserCommand) {
+    override fun join(command: JoinUserCommand): User {
         findUserPort.existsUserByAccount(command.account).takeIf { !it }
             ?: throw DuplicateUserException(command.account)
-        joinUserPort.join(command.toDomain())
+        return joinUserPort.join(command.toDomain())
     }
 
     @Transactional(readOnly = true)

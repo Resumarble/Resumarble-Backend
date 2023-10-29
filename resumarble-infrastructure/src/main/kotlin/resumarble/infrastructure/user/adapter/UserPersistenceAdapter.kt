@@ -13,8 +13,8 @@ class UserPersistenceAdapter(
     private val userJpaRepository: UserJpaRepository
 ) : JoinUserPort, FindUserPort {
 
-    override fun join(user: User) {
-        userJpaRepository.save(UserEntity.from(user))
+    override fun join(user: User): User {
+        return userJpaRepository.save(UserEntity.from(user)).toDomain()
     }
 
     override fun findUserById(userId: Long): User? {
