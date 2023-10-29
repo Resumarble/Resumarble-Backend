@@ -1,6 +1,7 @@
 package resumarble.api.user
 
 import com.fasterxml.jackson.core.JsonProcessingException
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,6 +18,7 @@ class OauthController(
     private val oauthService: OauthService
 ) {
 
+    @Operation(summary = "카카오 로그인", description = "카카오 로그인을 진행합니다.")
     @PostMapping("/kakao")
     @Throws(JsonProcessingException::class)
     fun kakaoLogin(@RequestHeader("Authorization") accessToken: String): Response<LoginToken> {
