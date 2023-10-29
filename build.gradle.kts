@@ -66,10 +66,6 @@ subprojects {
         // redis
         implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
-        // kotlin-jdsl
-        implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.0.0-SNAPSHOT")
-        implementation("com.linecorp.kotlin-jdsl:jpql-render:3.0.0-SNAPSHOT")
-
         // token
         implementation("com.auth0:java-jwt:3.18.3")
         implementation("io.jsonwebtoken:jjwt:0.9.1")
