@@ -39,8 +39,9 @@ class UserControllerTest : DescribeSpec() {
 
         describe("UserController 회원가입") {
             val request = UserFixture.joinUserRequest()
+            val user = UserFixture.user()
             context("회원가입 요청시") {
-                every { joinUserUseCase.join(any()) } just runs
+                every { joinUserUseCase.join(any()) } returns user
                 it("회원가입이 성공한다.") {
                     sut.perform(
                         post("/users/join")
