@@ -3,16 +3,14 @@ package resumarble.core.domain.resume.facade
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.supervisorScope
 import resumarble.core.domain.gpt.application.ChatCompletionReader
 import resumarble.core.domain.prediction.facade.PredictionFacade
 import resumarble.core.domain.prediction.mapper.PredictionMapper
 import resumarble.core.domain.prompt.application.PromptService
 import resumarble.core.domain.prompt.domain.PromptType
 import resumarble.core.global.annotation.Facade
-import resumarble.core.global.ratelimiter.LimitRequestPerTime
 import resumarble.core.global.util.loggingStopWatch
-import java.util.concurrent.TimeUnit
 
 @Facade
 class InterviewQuestionFacade(
@@ -21,12 +19,12 @@ class InterviewQuestionFacade(
     private val predictionFacade: PredictionFacade
 ) {
 
-    @LimitRequestPerTime(prefix = "generateInterviewQuestions", ttl = 5, count = 1, ttlTimeUnit = TimeUnit.SECONDS)
+    //    @LimitRequestPerTime(prefix = "generateInterviewQuestions", ttl = 5, count = 1, ttlTimeUnit = TimeUnit.SECONDS)
     suspend fun generateInterviewQuestions(
         userId: Long,
         commands: List<InterviewQuestionCommand>
     ): List<InterviewQuestion> {
-        return coroutineScope {
+        return supervisorScope {
             val deferreds = commands.map { command ->
                 async(Dispatchers.IO) {
                     generateInterviewQuestion(command)
