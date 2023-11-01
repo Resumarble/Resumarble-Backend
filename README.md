@@ -81,3 +81,9 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
 - **결과**
     - 자식 코루틴(async)에서 예외가 발생하더라도 예외가 부모 코루틴까지 전파되지 않도록 격리할 수 있었음
     - 또한 요청이 병렬적으로 3번 요청되는 상황에서 각 요청은 독립적으로 처리되어 서로의 실패에 영향을 받지 않게 됨(**3개 중 1개 실패, 2개 성공시 모두 실패하던 로직 → 사용자는 2개에 대한 결과를 확인 가능)**
+
+## 프로젝트 멤버
+| Back. | Front. |
+|:---:|:---:|
+| ![전상준](https://avatars.githubusercontent.com/u/93868431?v=4) | ![이유](https://avatars.githubusercontent.com/u/48672106?v=4)
+| [**전상준**](https://github.com/waveofmymind) | [**이유**](https://github.com/ReturnReason)
