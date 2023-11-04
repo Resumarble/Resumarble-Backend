@@ -1,7 +1,6 @@
 package resumarble.core.global.ratelimiter
 
 import org.aspectj.lang.ProceedingJoinPoint
-import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.reflect.MethodSignature
 import org.springframework.beans.factory.annotation.Qualifier
@@ -13,7 +12,7 @@ class RateLimiterAspect(
     @Qualifier("redisRateLimiter")
     private val rateLimiter: RateLimiter
 ) {
-    @Around("execution(* resumarble.core.domain.resume.facade.*.*(..))")
+//    @Around("execution(* resumarble.core.domain.resume.facade.*.*(..))")
     @Throws(Throwable::class)
     fun interceptor(joinPoint: ProceedingJoinPoint) {
         val limitRequestPerTime = getLimitRequestPerTimeAnnotationFromMethod(joinPoint)
