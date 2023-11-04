@@ -1,7 +1,9 @@
 package resumarble.core.domain.log.application
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import resumarble.core.domain.log.infrastructure.UserRequestLogRepository
 import resumarble.core.global.util.loggingErrorMarking
 
@@ -9,10 +11,11 @@ import resumarble.core.global.util.loggingErrorMarking
 class UserRequestLogWriter(
     private val userRequestLogRepository: UserRequestLogRepository
 ) {
-    @Transactional
     fun save(command: UserRequestLogCommand) {
-        loggingErrorMarking {
-            userRequestLogRepository.saveUserRequestLog(command)
+        CoroutineScope(Dispatchers.IO).launch {
+            loggingErrorMarking {
+                userRequestLogRepository.saveUserRequestLog(command)
+            }
         }
     }
 }

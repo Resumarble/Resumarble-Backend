@@ -3,7 +3,8 @@ package resumarble.core.domain.gpt.application
 import org.springframework.stereotype.Component
 import resumarble.core.domain.gpt.ChatCompletionRequest
 import resumarble.core.domain.gpt.mapper.OpenAiMapper
-import resumarble.core.domain.log.application.UserRequestLogPublisher
+import resumarble.core.domain.log.application.UserRequestLogCommand
+import resumarble.core.domain.log.application.UserRequestLogWriter
 import resumarble.core.domain.log.constraints.RequestOutcome
 import resumarble.core.domain.prompt.application.PromptResponse
 import resumarble.core.domain.resume.facade.InterviewQuestion
@@ -13,7 +14,7 @@ import resumarble.core.domain.resume.facade.InterviewQuestionCommand
 class ChatCompletionReader(
     private val openAiService: OpenAiService,
     private val openAiMapper: OpenAiMapper,
-    private val userRequestLogPublisher: UserRequestLogPublisher
+    private val userRequestLogWriter: UserRequestLogWriter
 ) {
 
     fun readChatCompletion(
@@ -41,8 +42,8 @@ class ChatCompletionReader(
             outcome = RequestOutcome.FAILED
         }
 
-        userRequestLogPublisher.publish(
-            UserRequestLogEvent(
+        userRequestLogWriter.save(
+            UserRequestLogCommand(
                 userId = userId,
                 userContent = userContent,
                 requestOutcome = outcome
