@@ -65,6 +65,7 @@ subprojects {
 
         // redis
         implementation("org.springframework.boot:spring-boot-starter-data-redis")
+        testImplementation("it.ozimov:embedded-redis:0.7.2")
 
         // token
         implementation("com.auth0:java-jwt:3.18.3")
