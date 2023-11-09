@@ -10,18 +10,16 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1" apply false
 }
 
-allprojects {
+subprojects {
     group = "resumarble"
     version = "0.0.1-SNAPSHOT"
+
     repositories {
         mavenCentral()
         maven(url = "https://plugins.gradle.org/m2/")
         maven(url = "https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates")
         gradlePluginPortal()
     }
-}
-
-subprojects {
 
     apply(plugin = "java")
     apply(plugin = "org.jetbrains.kotlin.jvm")
@@ -31,7 +29,6 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
     apply(plugin = "kotlin-kapt")
-
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
