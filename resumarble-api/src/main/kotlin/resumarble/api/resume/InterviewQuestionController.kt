@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
 import resumarble.api.swagger.SwaggerInterviewQuestionWebPort
+import resumarble.core.domain.resume.facade.InterviewQuestion
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade
-import resumarble.core.domain.resume.facade.InterviewQuestionResponse
 
 @RestController
 @RequestMapping("/resumes")
@@ -21,9 +21,10 @@ class InterviewQuestionController(
     override suspend fun interviewQuestions(
         @RequestBody request: InterviewQuestionRequest,
         @AuthenticationPrincipal user: JwtUserDetails?
-    ): Response<List<InterviewQuestionResponse>> {
-        val commands = request.toCommandList(user?.userId ?: 0L)
-        val responses = interviewQuestionFacade.generateInterviewQuestions(commands)
+    ): Response<List<InterviewQuestion>> {
+        val userId = user?.userId ?: 0L
+        val commands = request.toCommandList(userId)
+        val responses = interviewQuestionFacade.generateInterviewQuestions(userId, commands)
         return Response.ok(responses)
     }
 }

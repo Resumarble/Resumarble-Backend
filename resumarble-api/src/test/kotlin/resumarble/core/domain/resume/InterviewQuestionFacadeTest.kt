@@ -6,12 +6,12 @@ import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import io.mockk.mockkObject
 import io.mockk.runs
 import io.mockk.verify
-import resumarble.core.domain.gpt.OpenAiMapper
-import resumarble.core.domain.gpt.application.OpenAiService
-import resumarble.core.domain.log.application.UserRequestLogService
+import resumarble.core.domain.gpt.application.ChatCompletionReader
 import resumarble.core.domain.prediction.facade.PredictionFacade
+import resumarble.core.domain.prediction.mapper.PredictionMapper
 import resumarble.core.domain.prompt.application.PromptService
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade
 import resumarble.core.global.error.CompletionFailedException
@@ -19,45 +19,38 @@ import resumarble.core.global.error.CompletionFailedException
 class InterviewQuestionFacadeTest : BehaviorSpec() {
 
     init {
+        mockkObject(PredictionMapper)
         val promptService = mockk<PromptService>()
-        val openAiService = mockk<OpenAiService>()
-        val openAiMapper = mockk<OpenAiMapper>()
-        val userRequestLogService = mockk<UserRequestLogService>()
+        val chatCompletionReader = mockk<ChatCompletionReader>()
         val predictionFacade = mockk<PredictionFacade>()
         val sut =
-            InterviewQuestionFacade(promptService, openAiService, openAiMapper, predictionFacade, userRequestLogService)
+            InterviewQuestionFacade(promptService, chatCompletionReader, predictionFacade)
 
         afterEach {
             clearAllMocks()
         }
 
-        Given("이력서를 기반으로 면접 예상 질문을 생성하는 경우") {
+        Given("면접 예상 질문을 요청할 경우") {
             val promptResponse = ResumeFixture.promptResponse()
-            val completionRequest = ChatCompletionFixture.chatCompletionRequest()
-            val completionResponse = ChatCompletionFixture.chatCompletionMessageResponse()
-            val response = ResumeFixture.interviewQuestionResponse()
-            val savePredictionCommand = ResumeFixture.savePredictionCommand()
+            val completionResult = ResumeFixture.interviewQuestionResponse()
 
-            When("정상적인 요청일 때") {
+            When("정상적으로 처리되면") {
                 every { promptService.getPrompt(any()) } returns promptResponse
+                every { chatCompletionReader.readChatCompletion(any(), any()) } returns completionResult
                 every {
-                    openAiMapper.promptAndContentToChatCompletionRequest(
+                    PredictionMapper.completionToSavePredictionCommand(
                         any(),
                         any()
                     )
-                } returns completionRequest
-                every { openAiService.requestChatCompletion(any()) } returns completionResponse
-                every { openAiMapper.completionToInterviewQuestionResponse(any()) } returns response
-                every { openAiMapper.completionToSavePredictionCommand(any(), any()) } returns savePredictionCommand
-                every { userRequestLogService.saveUserRequestLog(any()) } just runs
+                } returns ResumeFixture.savePredictionCommand()
                 every { predictionFacade.savePrediction(any()) } just runs
-                Then("면접 예상 질문이 생성된다.") {
+
+                Then("면접 예상 질문을 생성한다.") {
                     sut.generateInterviewQuestion(ResumeFixture.interviewQuestionCommand())
                     verify(exactly = 1) {
                         promptService.getPrompt(any())
-                        openAiMapper.promptAndContentToChatCompletionRequest(any(), any())
-                        openAiService.requestChatCompletion(any())
-                        openAiMapper.completionToInterviewQuestionResponse(any())
+                        chatCompletionReader.readChatCompletion(any(), any())
+                        predictionFacade.savePrediction(any())
                     }
                 }
             }
@@ -65,17 +58,10 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
 
         Given("면접 예상 질문을 요청할 때") {
             val promptResponse = ResumeFixture.promptResponse()
-            val completionRequest = ChatCompletionFixture.chatCompletionRequest()
 
             When("내용이 비었으면") {
                 every { promptService.getPrompt(any()) } returns promptResponse
-                every {
-                    openAiMapper.promptAndContentToChatCompletionRequest(
-                        any(),
-                        any()
-                    )
-                } returns completionRequest
-                every { openAiService.requestChatCompletion(any()) } throws CompletionFailedException()
+                every { chatCompletionReader.readChatCompletion(any(), any()) } throws CompletionFailedException()
 
                 Then("예외가 발생한다.") {
                     shouldThrow<CompletionFailedException> {
@@ -83,8 +69,7 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
                     }
                     verify(exactly = 1) {
                         promptService.getPrompt(any())
-                        openAiMapper.promptAndContentToChatCompletionRequest(any(), any())
-                        openAiService.requestChatCompletion(any())
+                        chatCompletionReader.readChatCompletion(any(), any())
                     }
                 }
             }

@@ -16,10 +16,6 @@ data class PromptAlreadyExistsException(
     override val errorCode: ErrorCode = ErrorCode.PROMPT_ALREADY_EXISTS
 ) : BusinessException(ErrorCode.PROMPT_ALREADY_EXISTS)
 
-data class InvalidInputValueException(
-    override val errorCode: ErrorCode
-) : BusinessException(ErrorCode.INVALID_INPUT_VALUE)
-
 data class UnIdentifiedException(
     override val errorCode: ErrorCode = ErrorCode.UNIDENTIFIED_USER
 ) : BusinessException(ErrorCode.UNIDENTIFIED_USER)

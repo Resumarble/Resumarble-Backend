@@ -18,5 +18,5 @@ interface SwaggerUserWebPort {
     ): Response<Unit>
 
     @Operation(summary = "마이페이지", description = "마이페이지를 조회한다.")
-    fun myPage(user: JwtUserDetails): Response<MyPageResponse>
+    fun myPage(page: Int, user: JwtUserDetails): Response<MyPageResponse>
 }

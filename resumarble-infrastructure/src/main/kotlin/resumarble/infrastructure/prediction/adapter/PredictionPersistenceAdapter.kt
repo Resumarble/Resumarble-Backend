@@ -1,5 +1,6 @@
 package resumarble.infrastructure.prediction.adapter
 
+import org.springframework.data.domain.Pageable
 import resumarble.core.domain.prediction.application.port.out.DeletePredictionPort
 import resumarble.core.domain.prediction.application.port.out.FindPredictionPort
 import resumarble.core.domain.prediction.application.port.out.SavePredictionPort
@@ -23,9 +24,13 @@ class PredictionPersistenceAdapter(
         questionAndAnswerRepository.saveAll(questionAndAnswerEntities)
     }
 
-    override fun findPredictionsByUserId(userId: Long): List<Prediction>? {
-        return predictionRepository.findAllByUserId(userId)?.let { predictions ->
-            predictions.map {
+    override fun findPredictionsByUserId(userId: Long, page: Pageable): List<Prediction>? {
+        val predictionsPage = predictionRepository.findAllByUserIdOrderByCreatedDateDesc(userId, page)
+
+        val predictions = predictionsPage?.content
+
+        return predictions?.let { predictionEntities ->
+            predictionEntities.map {
                 val questionAndAnswerEntities = questionAndAnswerRepository.findAllByPredictionId(it.id)
                 it.toDomain(questionAndAnswerEntities)
             }

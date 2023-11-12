@@ -23,6 +23,7 @@ class SecurityConfig(
             .authorizeHttpRequests {
                 it.requestMatchers(HttpMethod.GET, "/jobs/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/users/me").hasRole("USER")
+                    .requestMatchers(HttpMethod.DELETE, "/question-answers/**").hasRole("USER")
                     .requestMatchers(HttpMethod.POST, "/users/logout").permitAll()
                     .requestMatchers(HttpMethod.POST, "/resumes/**").permitAll()
                     .requestMatchers("/users/**").permitAll()

@@ -1,11 +1,13 @@
 package resumarble.api.user
 
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.jwt.JwtUserDetails
@@ -39,7 +41,15 @@ class UserController(
     }
 
     @GetMapping("/me")
-    override fun myPage(@AuthenticationPrincipal user: JwtUserDetails): Response<MyPageResponse> {
-        return Response.ok(userFacade.getMyPredictions(user.userId))
+    override fun myPage(
+        @RequestParam(defaultValue = "0") page: Int,
+        @AuthenticationPrincipal user: JwtUserDetails
+    ): Response<MyPageResponse> {
+        val pageRequest = PageRequest.of(page, OFFSET)
+        return Response.ok(userFacade.getMyPredictions(user.userId, pageRequest))
+    }
+
+    companion object {
+        private const val OFFSET = 10
     }
 }

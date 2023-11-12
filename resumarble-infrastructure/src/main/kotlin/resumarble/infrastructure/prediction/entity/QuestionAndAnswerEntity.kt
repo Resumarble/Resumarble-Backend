@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.Where
 import resumarble.core.domain.prediction.domain.Answer
 import resumarble.core.domain.prediction.domain.Question
 import resumarble.core.domain.prediction.domain.QuestionAndAnswer
@@ -13,9 +15,11 @@ import resumarble.core.global.domain.BaseEntity
 
 @Entity
 @Table(name = "question_and_answer")
+@SQLDelete(sql = "UPDATE question_and_answer SET is_deleted = true where id = ?")
+@Where(clause = "is_deleted = false")
 data class QuestionAndAnswerEntity(
 
-    private val predictionId: Long,
+    val predictionId: Long,
     @Column(
         nullable = false,
         columnDefinition = "TEXT"
@@ -28,12 +32,16 @@ data class QuestionAndAnswerEntity(
     )
     private val answer: Answer,
 
+    @Column(name = "is_deleted")
+    private var isDeleted: Boolean = false,
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long = 0L
 ) : BaseEntity() {
 
     fun toDomain() = QuestionAndAnswer(
+        id = id,
         question = question,
         answer = answer
     )

@@ -25,5 +25,7 @@ enum class ErrorCode(
     UNIDENTIFIED_USER(HttpStatus.UNAUTHORIZED, "사용자 정보가 일치하지 않습니다."),
     DUPLICATE_USER(HttpStatus.CONFLICT, "이미 존재하는 유저입니다."),
     TOKEN_VERIFY_FAIL(HttpStatus.UNAUTHORIZED, "토큰 검증에 실패했습니다."),
-    REFRESH_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "리프레시 토큰을 찾을 수 없습니다.")
+    REFRESH_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "리프레시 토큰을 찾을 수 없습니다."),
+
+    REQUEST_PER_SECOND(HttpStatus.TOO_MANY_REQUESTS, "초당 요청 제한을 초과했습니다.");
 }

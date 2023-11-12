@@ -10,19 +10,16 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1" apply false
 }
 
-allprojects {
+subprojects {
     group = "resumarble"
     version = "0.0.1-SNAPSHOT"
+
     repositories {
         mavenCentral()
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         maven(url = "https://plugins.gradle.org/m2/")
         maven(url = "https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates")
         gradlePluginPortal()
     }
-}
-
-subprojects {
 
     apply(plugin = "java")
     apply(plugin = "org.jetbrains.kotlin.jvm")
@@ -32,7 +29,6 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
     apply(plugin = "kotlin-kapt")
-
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
@@ -66,10 +62,7 @@ subprojects {
 
         // redis
         implementation("org.springframework.boot:spring-boot-starter-data-redis")
-
-        // kotlin-jdsl
-        implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.0.0-SNAPSHOT")
-        implementation("com.linecorp.kotlin-jdsl:jpql-render:3.0.0-SNAPSHOT")
+        testImplementation("it.ozimov:embedded-redis:0.7.2")
 
         // token
         implementation("com.auth0:java-jwt:3.18.3")

@@ -1,5 +1,6 @@
 package resumarble.core.domain.prediction.application.service
 
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import resumarble.core.domain.prediction.application.port.`in`.FindPredictionUseCase
@@ -13,8 +14,8 @@ class PredictionQueryService(
     private val findPredictionPort: FindPredictionPort
 ) : FindPredictionUseCase {
 
-    override fun getPredictionByUserId(userId: Long): List<PredictionResponse> {
-        findPredictionPort.findPredictionsByUserId(userId)?.let { predictions ->
+    override fun getPredictionByUserId(userId: Long, page: Pageable): List<PredictionResponse> {
+        findPredictionPort.findPredictionsByUserId(userId, page)?.let { predictions ->
             return predictions.map {
                 PredictionResponse(
                     predictionId = it.predictionId,
@@ -22,6 +23,7 @@ class PredictionQueryService(
                     category = it.category.value,
                     questionAndAnswer = it.questionAndAnswer.map { questionAndAnswer ->
                         QuestionAndAnswerResponse(
+                            qaId = questionAndAnswer.id,
                             question = questionAndAnswer.question.value,
                             answer = questionAndAnswer.answer.value
                         )
