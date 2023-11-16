@@ -11,9 +11,7 @@ import resumarble.core.domain.prediction.mapper.PredictionMapper
 import resumarble.core.domain.prompt.application.PromptService
 import resumarble.core.domain.prompt.domain.PromptType
 import resumarble.core.global.annotation.Facade
-import resumarble.core.global.ratelimiter.LimitRequestPerTime
 import resumarble.core.global.util.loggingStopWatch
-import java.util.concurrent.TimeUnit
 
 @Facade
 class InterviewQuestionFacade(
@@ -22,7 +20,6 @@ class InterviewQuestionFacade(
     private val predictionFacade: PredictionFacade
 ) {
 
-    @LimitRequestPerTime(prefix = "generateInterviewQuestions", ttl = 5, count = 1, ttlTimeUnit = TimeUnit.SECONDS)
     suspend fun generateInterviewQuestions(
         userId: Long,
         commands: List<InterviewQuestionCommand>
