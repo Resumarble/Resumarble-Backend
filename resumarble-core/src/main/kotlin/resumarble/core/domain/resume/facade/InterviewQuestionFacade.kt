@@ -3,6 +3,7 @@ package resumarble.core.domain.resume.facade
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.supervisorScope
 import resumarble.core.domain.gpt.application.ChatCompletionReader
 import resumarble.core.domain.prediction.facade.PredictionFacade
@@ -37,10 +38,19 @@ class InterviewQuestionFacade(
         }
     }
 
-    fun generateInterviewQuestion(command: InterviewQuestionCommand): List<InterviewQuestion> {
+    suspend fun generateInterviewQuestion(command: InterviewQuestionCommand): List<InterviewQuestion> {
         val promptResponse = promptService.getPrompt(PromptType.INTERVIEW_QUESTION)
 
-        val completionResult = loggingStopWatch { chatCompletionReader.readChatCompletion(command, promptResponse) }
+        val completionResult = coroutineScope {
+            async(Dispatchers.IO) {
+                loggingStopWatch {
+                    chatCompletionReader.readChatCompletion(
+                        command,
+                        promptResponse
+                    )
+                }
+            }.await()
+        }
 
         if (completionResult.isNotEmpty()) {
             predictionFacade.savePrediction(
