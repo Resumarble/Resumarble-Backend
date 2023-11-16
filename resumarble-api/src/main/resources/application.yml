@@ -1,6 +1,17 @@
+server:
+  tomcat:
+    threads:
+      max: 200
+    max-connections: 8192
+    accept-count: 100
+    connection-timeout: 20000
+
 spring:
   profiles:
     active: local
+  mvc:
+    async:
+      request-timeout: 60000
 
 logging:
   level:
