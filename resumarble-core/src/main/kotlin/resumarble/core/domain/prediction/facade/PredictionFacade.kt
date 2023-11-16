@@ -3,7 +3,6 @@ package resumarble.core.domain.prediction.facade
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import resumarble.core.domain.prediction.application.port.`in`.SavePredictionUseCase
 import resumarble.core.global.annotation.Facade
@@ -14,7 +13,7 @@ class PredictionFacade(
     private val savePredictionUseCase: SavePredictionUseCase
 ) {
     fun savePrediction(command: SavePredictionCommand) {
-        CoroutineScope(Dispatchers.IO + handler).launch(SupervisorJob()) {
+        CoroutineScope(Dispatchers.IO + handler).launch {
             savePredictionUseCase.savePrediction(command.toDomain())
         }
     }
