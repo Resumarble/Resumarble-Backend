@@ -1,5 +1,6 @@
 package resumarble.api.global.advice
 
+import com.fasterxml.jackson.core.JsonProcessingException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import resumarble.api.global.response.Response
@@ -49,6 +50,12 @@ class GlobalExceptionHandler {
     @ExceptionHandler(TokenVerifyException::class)
     fun handleTokenVerifyException(e: TokenVerifyException): Response<Any?> {
         return Response.fail(e.errorCode)
+    }
+
+    @ExceptionHandler(JsonProcessingException::class)
+    fun handleJsonProcessingException(e: JsonProcessingException): Response<Any?> {
+        logger.error(e.message, e)
+        return Response.fail(ErrorCode.TOKEN_VERIFY_FAIL)
     }
 
     @ExceptionHandler(Exception::class)

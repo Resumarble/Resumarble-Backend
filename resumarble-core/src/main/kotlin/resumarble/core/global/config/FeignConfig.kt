@@ -1,6 +1,5 @@
 package resumarble.core.global.config
 
-import feign.Logger
 import feign.Retryer
 import org.springframework.cloud.openfeign.EnableFeignClients
 import org.springframework.cloud.openfeign.FeignClientsConfiguration
@@ -13,9 +12,6 @@ import org.springframework.context.annotation.Primary
 @EnableFeignClients("resumarble.core.domain.gpt.client")
 @Import(FeignClientsConfiguration::class)
 class FeignConfig {
-
-    @Bean
-    fun log() = Logger.Level.FULL
 
     @Bean
     @Primary

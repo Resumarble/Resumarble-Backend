@@ -31,12 +31,11 @@ object KakaoOauth2Utils {
 
         val id = jsonNode["id"].asLong()
         val email = jsonNode["kakao_account"]["email"].asText()
-        val name = jsonNode["properties"]["nickname"].asText()
 
         return KakaoUserInfo(
             sub = id.toString(),
             email = email,
-            name = name
+            name = email
         )
     }
 }

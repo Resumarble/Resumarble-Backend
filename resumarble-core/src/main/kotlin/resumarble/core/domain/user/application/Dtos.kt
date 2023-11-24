@@ -7,12 +7,13 @@ import resumarble.core.global.jwt.CreateTokenCommand
 
 data class JoinUserCommand(
     val account: String,
-    val password: String
+    val password: String,
+    val provider: JwtProvider = JwtProvider.RESUMARBLE
 ) {
     fun toDomain() = User(
         account = account,
         password = Password(password),
-        provider = JwtProvider.RESUMARBLE
+        provider = provider
     )
 }
 
