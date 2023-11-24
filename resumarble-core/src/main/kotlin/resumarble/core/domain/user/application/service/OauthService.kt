@@ -3,6 +3,7 @@ package resumarble.core.domain.user.application.service
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import resumarble.core.domain.user.application.port.out.FindUserPort
+import resumarble.core.domain.user.constraints.JwtProvider
 import resumarble.core.global.auth.OauthUserInfo
 import resumarble.core.global.jwt.CreateTokenCommand
 import resumarble.core.global.jwt.JwtTokenProvider
@@ -16,14 +17,14 @@ class OauthService(
 ) {
 
     @Transactional
-    fun loginOauthUser(userInfo: OauthUserInfo): LoginToken {
+    fun loginOauthUser(userInfo: OauthUserInfo, provider: JwtProvider): LoginToken {
         val user = findUserPort.findUserByAccount(userInfo.email())
-            ?: return registerOauthUser(userInfo)
+            ?: return registerOauthUser(userInfo, provider)
         return jwtTokenProvider.createToken(CreateTokenCommand.toTokenCommand(user))
     }
 
-    private fun registerOauthUser(userInfo: OauthUserInfo): LoginToken {
-        val command = userInfo.toCommand()
+    private fun registerOauthUser(userInfo: OauthUserInfo, provider: JwtProvider): LoginToken {
+        val command = userInfo.toCommand(provider)
         val user = userService.join(command)
         return jwtTokenProvider.createToken(CreateTokenCommand.toTokenCommand(user))
     }
