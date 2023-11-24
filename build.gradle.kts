@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.4" apply false
-    id("io.spring.dependency-management") version "1.1.3" apply false
-    kotlin("jvm") version "1.9.10"
-    kotlin("plugin.spring") version "1.9.10" apply false
-    kotlin("plugin.jpa") version "1.9.10" apply false
-    kotlin("kapt") version "1.9.10" apply false
+    id("org.springframework.boot") version "3.1.6" apply false
+    id("io.spring.dependency-management") version "1.1.4" apply false
+    kotlin("jvm") version "1.9.20"
+    kotlin("plugin.spring") version "1.9.20" apply false
+    kotlin("plugin.jpa") version "1.9.20" apply false
+    kotlin("kapt") version "1.9.20" apply false
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1" apply false
 }
 

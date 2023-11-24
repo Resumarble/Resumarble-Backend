@@ -15,8 +15,8 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
 
 ## Tech Stack
 
-- Kotlin 1.9.10
-- Spring Boot 3.1.4
+- Kotlin 1.9.20
+- Spring Boot 3.1.6
 - Spring Security + JWT
 - JPA(+ Spring Data JPA)
 - Kotlin Jdsl 3.0
