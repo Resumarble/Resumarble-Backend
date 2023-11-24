@@ -1,6 +1,7 @@
 package resumarble.core.global.auth
 
 import resumarble.core.domain.user.application.JoinUserCommand
+import resumarble.core.domain.user.constraints.JwtProvider
 
 interface OauthUserInfo {
 
@@ -10,10 +11,11 @@ interface OauthUserInfo {
 
     fun name(): String
 
-    fun toCommand(): JoinUserCommand {
+    fun toCommand(provider: JwtProvider = JwtProvider.KAKAO): JoinUserCommand {
         return JoinUserCommand(
             account = email(),
-            password = sub()
+            password = sub(),
+            provider = provider
         )
     }
 }
