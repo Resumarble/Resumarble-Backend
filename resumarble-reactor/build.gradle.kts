@@ -7,7 +7,11 @@ tasks.getByName<Jar>("jar") {
     enabled = false
 }
 
+extra["springCloudVersion"] = "2022.0.4"
+
 dependencies {
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
@@ -20,4 +24,10 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
 }
