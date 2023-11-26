@@ -54,12 +54,7 @@ subprojects {
         testImplementation("io.kotest:kotest-assertions-core-jvm:5.6.2")
         testImplementation("io.kotest:kotest-runner-junit5-jvm:5.6.2")
         testImplementation("io.mockk:mockk:1.13.5")
-
-        // spring security
-        implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-        implementation("org.springframework.boot:spring-boot-starter-security")
-        testImplementation("org.springframework.security:spring-security-test")
-
+        
         // redis
         implementation("org.springframework.boot:spring-boot-starter-data-redis")
         testImplementation("it.ozimov:embedded-redis:0.7.2")
