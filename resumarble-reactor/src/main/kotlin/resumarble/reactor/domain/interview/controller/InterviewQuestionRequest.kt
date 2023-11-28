@@ -1,6 +1,6 @@
-package resumarble.api.resume
+package resumarble.reactor.domain.interview.controller
 
-import resumarble.core.domain.resume.facade.InterviewQuestionCommand
+import resumarble.reactor.domain.interview.application.InterviewQuestionCommand
 
 private const val MAXIMUM_REQUEST_COUNT = 3
 

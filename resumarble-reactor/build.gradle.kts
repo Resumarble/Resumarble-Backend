@@ -10,6 +10,8 @@ tasks.getByName<Jar>("jar") {
 extra["springCloudVersion"] = "2022.0.4"
 
 dependencies {
+    implementation("io.github.openfeign:feign-jackson:13.1")
+
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
     implementation("org.springframework.boot:spring-boot-starter-webflux")
