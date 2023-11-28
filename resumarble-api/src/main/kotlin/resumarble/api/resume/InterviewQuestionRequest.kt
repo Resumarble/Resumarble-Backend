@@ -24,3 +24,8 @@ data class InterviewQuestionRequest(
         }
     }
 }
+
+data class ResumeInfo(
+    val category: String,
+    val content: String
+)
