@@ -1,6 +1,8 @@
 ## 이력서를 기반으로 한 면접 예상 질문 서비스
 ![image](https://github.com/Resumarble/Resumarble-Backend/assets/93868431/bfef20b9-235a-4eba-9030-1a536b0ab38a)
 
+서비스 링크: https://www.resumarble.site
+
 ## ⏳ Branch Strategy
 
 main: 배포용 서비스 코드가 있는 메인 브랜치로, 항상 현재 서비스 상태를 반영해야 합니다.
@@ -89,6 +91,9 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
     - A함수에서 B함수를 호출할 때(B함수는 AOP 적용) A에서 호출하는 B 함수는 프록시가 아닌 인스턴스 자신의 함수이기 때문에 프록시가 사용될 수 없다.
 - **해결 방안**
     - 관심사를 분리할 때 AOP가 아닌 코루틴의 후행 람다를 사용해서 분리한다.
+- **결과**
+    - 로그 처리와 RateLimiter를 AOP를 사용하지 않고 내부 함수 호출시에도 적용할 수 있게 되었지만, Continuation 객체가 넘어가야하기 때문에 suspend로 함수식을 선언했다.
+    - 아직 완벽하게 이해하지 못했기 때문에 검증이 더 필요하다.
 
 ## 프로젝트 멤버
 | Back. | Front. |
