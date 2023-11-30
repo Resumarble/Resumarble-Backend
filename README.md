@@ -28,10 +28,6 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
 - Kotest
 - Coroutine
 
-## API 명세서
-
-[스웨거](https://waveofmymind.shop/swagger-ui/index.html)
-
 ## 비즈니스 로직 플로우 차트
 
 ![image](https://github.com/Resumarble/Resumarble-Backend/assets/93868431/93a1c481-bdc9-4c46-be09-824cc827381a)
