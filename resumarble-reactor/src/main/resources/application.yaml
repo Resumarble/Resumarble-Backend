@@ -1,7 +1,9 @@
 server:
   port: 8081
 
-
+jasypt:
+  encryptor:
+    password: ${JASYPT_PASSWORD}
 
 external:
   openai:
