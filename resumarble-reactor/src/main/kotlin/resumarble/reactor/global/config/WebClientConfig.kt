@@ -9,12 +9,17 @@ import org.springframework.web.reactive.function.client.WebClient
 @Configuration
 class WebClientConfig {
 
+    @Value("\${external.openai.url}")
+    private lateinit var url: String
+
+    @Value("\${external.openai.token}")
+    private lateinit var token: String
+
     @Bean
-    fun webClient(
-        @Value("\${external.openai.token}") token: String,
-        @Value("\${external.openai.url}") url: String
-    ) = WebClient.builder()
-        .baseUrl(url)
-        .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer $token")
-        .build()
+    fun webClient(): WebClient {
+        return WebClient.builder()
+            .baseUrl(url)
+            .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer $token")
+            .build()
+    }
 }

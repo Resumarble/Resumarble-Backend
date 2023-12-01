@@ -7,14 +7,23 @@ tasks.getByName<Jar>("jar") {
     enabled = false
 }
 
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
+}
+
 extra["springCloudVersion"] = "2022.0.4"
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("io.github.openfeign:feign-jackson:13.1")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

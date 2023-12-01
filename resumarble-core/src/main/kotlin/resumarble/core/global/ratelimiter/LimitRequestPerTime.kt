@@ -2,8 +2,6 @@ package resumarble.core.global.ratelimiter
 
 import java.util.concurrent.TimeUnit
 
-@Target(AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)
-@Retention(AnnotationRetention.RUNTIME)
 annotation class LimitRequestPerTime(
     /**
      * 분당호출 제한시킬 unique key prefix
