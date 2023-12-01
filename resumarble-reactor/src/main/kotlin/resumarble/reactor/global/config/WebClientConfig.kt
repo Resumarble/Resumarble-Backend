@@ -18,7 +18,7 @@ class WebClientConfig {
     @Bean
     fun webClient(): WebClient {
         return WebClient.builder()
-            .baseUrl(url!!)
+            .baseUrl(url)
             .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer $token")
             .build()
     }
