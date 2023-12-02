@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import resumarble.reactor.domain.interview.application.InterviewQuestion
 import resumarble.reactor.domain.interview.application.InterviewQuestionFacade
+import resumarble.reactor.domain.interview.application.PredictionResponse
 
 @RestController
 @RequestMapping("/interview-questions")
@@ -18,7 +18,7 @@ class InterviewQuestionApi(
     suspend fun createInterviewQuestion(
         @RequestBody request: InterviewQuestionRequest,
         @RequestHeader(X_AUTHORIZATION_ID, defaultValue = "0") userId: String
-    ): List<InterviewQuestion> {
+    ): List<PredictionResponse> {
         return interviewQuestionFacade.generateInterviewQuestions(request.toCommandList(userId.toLong()))
     }
 
