@@ -24,6 +24,10 @@ dependencies {
 
     implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
 
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+
+    implementation("io.asyncer:r2dbc-mysql:1.0.4")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
