@@ -1,6 +1,20 @@
 server:
   port: 8081
 
+spring:
+  r2dbc:
+    url: r2dbc:mysql://127.0.0.1:3306/resumarble_reactor?useSSL=false&serverTimezone=UTC
+    username: ENC(tlS7O0VbZkEPjggphSj3RA==)
+    password: ENC(2DPtU8Z8QpWHMFjf+AnbfQ==)
+    pool:
+      enabled: true
+      initial-size: 10
+      max-acquire-time: 5s
+      max-create-connection-time: 5s
+      max-idle-time: 60m
+      max-life-time: 60m
+      max-size: 10
+
 jasypt:
   encryptor:
     password: ${JASYPT_PASSWORD}
