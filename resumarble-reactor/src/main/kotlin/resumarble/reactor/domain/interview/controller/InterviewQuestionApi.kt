@@ -10,7 +10,7 @@ import resumarble.reactor.domain.interview.application.InterviewQuestionFacade
 
 @RestController
 @RequestMapping("/interview-questions")
-class InterviewQuestionController(
+class InterviewQuestionApi(
     private val interviewQuestionFacade: InterviewQuestionFacade
 ) {
 
