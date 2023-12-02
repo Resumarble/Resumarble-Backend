@@ -3,9 +3,9 @@ server:
 
 spring:
   r2dbc:
-    url: r2dbc:mysql://127.0.0.1:3306/resumarble_reactor?useSSL=false&serverTimezone=UTC
+    url: ENC(GxSiHD8PLC5067th5rn741vyfD/F+Gd0KiE6AGouLOwZSUM4fJr88gMkr+mIliEITiSLGpNfPa3tLxvQkEWqzCtKyHJLfPEzi1txSe+G8plVUsu7dOT1wK0PxFF5N0KM9rCYiDP/Rz1LFpxEsNWXtXU0PVPo9s9TjE0nkxeV3nkPcK1WyB0+L4U/Qo5H9eT9JZpSeHZ4Cqub9swaFWH0yQBs7lRl3A1rxhlEQpO9B6nDI0sEQy/utps/roARVOQ0)
     username: ENC(tlS7O0VbZkEPjggphSj3RA==)
-    password: ENC(2DPtU8Z8QpWHMFjf+AnbfQ==)
+    password: ENC(4PBHAwxJhkDv+8tL9aGE+PfYMv0h5ZB2)
     pool:
       enabled: true
       initial-size: 10
@@ -14,6 +14,11 @@ spring:
       max-idle-time: 60m
       max-life-time: 60m
       max-size: 10
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
 
 jasypt:
   encryptor:
