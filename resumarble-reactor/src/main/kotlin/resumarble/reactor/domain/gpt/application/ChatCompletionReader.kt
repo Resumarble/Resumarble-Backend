@@ -3,8 +3,8 @@ package resumarble.reactor.domain.gpt.application
 import org.springframework.stereotype.Component
 import resumarble.reactor.domain.gpt.adapter.out.ChatCompletionRequest
 import resumarble.reactor.domain.gpt.mapper.OpenAiMapper
-import resumarble.reactor.domain.interview.application.InterviewQuestion
 import resumarble.reactor.domain.interview.application.InterviewQuestionCommand
+import resumarble.reactor.domain.interview.application.PredictionResponse
 
 @Component
 class ChatCompletionReader(
@@ -14,14 +14,14 @@ class ChatCompletionReader(
 
     suspend fun readChatCompletion(
         command: InterviewQuestionCommand
-    ): List<InterviewQuestion> {
+    ): List<PredictionResponse> {
         val completionRequest = prepareCompletionRequest(command)
         return requestChatCompletionToOpenAi(completionRequest)
     }
 
     private suspend fun requestChatCompletionToOpenAi(
         completionRequest: ChatCompletionRequest
-    ): List<InterviewQuestion> {
+    ): List<PredictionResponse> {
         val completionResult = openAiService.requestChatCompletion(completionRequest)
         return openAiMapper.completionToInterviewQuestionResponse(completionResult)
     }
