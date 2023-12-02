@@ -18,10 +18,10 @@ data class InterviewQuestionCommand(
 }
 
 data class InterviewQuestionResponse(
-    val interviews: List<InterviewQuestion>
+    val interviews: List<PredictionResponse>
 )
 
-data class InterviewQuestion(
+data class PredictionResponse(
     val question: String,
     val bestAnswer: String
 )

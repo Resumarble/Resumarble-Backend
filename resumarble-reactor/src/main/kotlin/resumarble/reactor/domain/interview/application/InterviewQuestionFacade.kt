@@ -5,16 +5,16 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.supervisorScope
-import org.springframework.stereotype.Service
 import resumarble.reactor.domain.gpt.application.ChatCompletionReader
+import resumarble.reactor.global.annotation.Facade
 
-@Service
+@Facade
 class InterviewQuestionFacade(
     private val chatCompletionReader: ChatCompletionReader
 ) {
     suspend fun generateInterviewQuestions(
         command: List<InterviewQuestionCommand>
-    ): List<InterviewQuestion> {
+    ): List<PredictionResponse> {
         return supervisorScope {
             command.map { command ->
                 async(Dispatchers.Default) {
@@ -24,7 +24,7 @@ class InterviewQuestionFacade(
         }
     }
 
-    private suspend fun generateInterviewQuestion(command: InterviewQuestionCommand): List<InterviewQuestion> {
+    private suspend fun generateInterviewQuestion(command: InterviewQuestionCommand): List<PredictionResponse> {
         return coroutineScope {
             async(Dispatchers.IO) { chatCompletionReader.readChatCompletion(command) }
         }.await()
