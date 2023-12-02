@@ -106,7 +106,7 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
     - 이를 이벤트 루프 기반의 웹플럭스가 해결해줄 수 있다고 판단했다. 
 
 ## 프로젝트 멤버
-| Back. | Front. |
+| Backend. | Frontend. |
 |:---:|:---:|
 | ![전상준](https://avatars.githubusercontent.com/u/93868431?v=4) | ![이유](https://avatars.githubusercontent.com/u/48672106?v=4)
 | [**전상준**](https://github.com/waveofmymind) | [**이유**](https://github.com/ReturnReason)
