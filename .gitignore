@@ -326,7 +326,7 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
-resumarble-reactor/out/
+resumarble-reactor/out/**
 resumarble-reactor/src/main/kotlin/resumarble/reactor/domain/gpt/prompt/Prompt.kt
 resumarble-api/out/
 resumarble-infrastructure/out/
