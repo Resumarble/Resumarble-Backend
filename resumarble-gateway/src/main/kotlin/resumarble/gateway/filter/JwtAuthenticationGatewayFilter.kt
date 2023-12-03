@@ -25,14 +25,14 @@ class JwtAuthenticationGatewayFilter(
         return GatewayFilter { exchange, chain ->
             val token = exchange.request.headers[HttpHeaders.AUTHORIZATION]?.get(0)?.substring(7)
             val decodedJwt = jwtVerifier.verify(token!!)
-            addAuthorizationHeader(exchange, decodedJwt.claims["userId"].toString())
+            addAuthorizationHeader(exchange, decodedJwt.claims[CLAIM_USER_ID].toString())
             chain.filter(exchange)
         }
     }
 
     private fun addAuthorizationHeader(exchange: ServerWebExchange, userId: String) {
         exchange.mutate().request(
-            exchange.request.mutate().header("X-Authorization-id", userId).build()
+            exchange.request.mutate().header(HTTP_HEADER_X_AUTHORIZATION_ID, userId).build()
         ).build()
     }
 
@@ -61,3 +61,6 @@ class JwtAuthenticationGatewayFilter(
         }
     }
 }
+
+private const val CLAIM_USER_ID = "id"
+private const val HTTP_HEADER_X_AUTHORIZATION_ID = "X-Authorization-Id"
