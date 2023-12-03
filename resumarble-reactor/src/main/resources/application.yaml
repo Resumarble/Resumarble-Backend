@@ -28,3 +28,6 @@ external:
   openai:
     url: https://api.openai.com
     token: ENC(18XqK2igPaqRkgV3mWHhb3w6SMoNJNqdQuGQRmikY3YpkWeV2t+SSmF3RHQCXd0KPsHbeYg/u03eZzB5F5sp9w==)
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
