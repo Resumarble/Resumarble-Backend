@@ -9,11 +9,15 @@ spring:
           uri: http://localhost:8081
           predicates:
             - Path=/interview-questions/**
-            - Header=
+            - Header=Authorization, Bearer\s+.*
           filters:
             - name: JwtAuthenticationGatewayFilter
               args:
                 name: jwtAuthenticationGatewayFilter
+        - id: resumarble-user
+          uri: http://localhost:8082
+          predicates:
+                - Path=/users/**
 
 external:
   jwt:
