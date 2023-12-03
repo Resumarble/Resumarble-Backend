@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS interview_question
 (
     id         bigint      NOT NULL AUTO_INCREMENT,
+    user_id    bigint      NOT NULL,
     category   varchar(50) NOT NULL,
     question   TEXT        NOT NULL,
     answer     TEXT        NOT NULL,
