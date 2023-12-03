@@ -2,8 +2,9 @@ package resumarble.reactor.domain.interview.application
 
 import resumarble.reactor.domain.gpt.prompt.Prompt
 import resumarble.reactor.domain.interview.domain.Category
+import resumarble.reactor.domain.interview.domain.InterviewQuestion
 
-const val PROMPT_LANGUAGE = "korean"
+private const val PROMPT_LANGUAGE = "korean"
 
 data class InterviewQuestionCommand(
     val userId: Long = 0L,
@@ -41,4 +42,13 @@ data class SaveInterviewQuestionCommand(
     val category: Category,
     val question: String,
     val answer: String
-)
+) {
+    fun toEntity(): InterviewQuestion {
+        return InterviewQuestion(
+            userId = userId,
+            category = category,
+            question = question,
+            answer = answer
+        )
+    }
+}
