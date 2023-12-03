@@ -5,10 +5,15 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: resumarble-main
-          uri: https://www.resumarble.site
+        - id: resumarble-reactor
+          uri: http://localhost:8081
           predicates:
-            - Path=/**
+            - Path=/interview-questions/**
+            - Header=
+          filters:
+            - name: JwtAuthenticationGatewayFilter
+              args:
+                name: jwtAuthenticationGatewayFilter
 
 external:
   jwt:
