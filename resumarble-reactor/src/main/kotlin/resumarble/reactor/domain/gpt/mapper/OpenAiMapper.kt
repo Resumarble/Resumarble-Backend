@@ -7,8 +7,8 @@ import resumarble.reactor.domain.gpt.adapter.out.ChatCompletionMessage
 import resumarble.reactor.domain.gpt.adapter.out.ChatCompletionMessageResponse
 import resumarble.reactor.domain.gpt.adapter.out.ChatCompletionRequest
 import resumarble.reactor.domain.gpt.constraints.OpenAiRole
-import resumarble.reactor.domain.interview.application.InterviewQuestion
 import resumarble.reactor.domain.interview.application.InterviewQuestionResponse
+import resumarble.reactor.domain.interview.application.PredictionResponse
 
 @Component
 class OpenAiMapper(
@@ -32,7 +32,7 @@ class OpenAiMapper(
         )
     }
 
-    fun completionToInterviewQuestionResponse(completion: ChatCompletionMessageResponse): List<InterviewQuestion> {
+    fun completionToInterviewQuestionResponse(completion: ChatCompletionMessageResponse): List<PredictionResponse> {
         val interviewQuestionResponse = objectMapper.readValue<InterviewQuestionResponse>(
             completion.questionAndAnswer
         )
