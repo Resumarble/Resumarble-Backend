@@ -335,3 +335,4 @@ resumarble-api/src/main/resources/data.sql
 .idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/kotlin,intellij,intellij+all,intellij+iml,macos,java,gradle
+/resumarble-reactor/out/
