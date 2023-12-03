@@ -26,6 +26,9 @@ class InterviewQuestion(
     @Column("answer")
     val answer: String,
 
+    @Column("user_id")
+    val userId: Long,
+
     @Id
-    val id: Long = 0L
+    var id: Long = 0L
 )
