@@ -33,6 +33,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter-kotlin:1.0.4")
+
     developmentOnly("io.netty:netty-resolver-dns-native-macos:4.1.75.Final") {
         artifact { classifier = "osx-aarch_64" }
     }
