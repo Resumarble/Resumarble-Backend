@@ -5,8 +5,10 @@ import com.navercorp.fixturemonkey.kotlin.KotlinPlugin
 import com.navercorp.fixturemonkey.kotlin.giveMeBuilder
 import com.navercorp.fixturemonkey.kotlin.minSizeExp
 import com.navercorp.fixturemonkey.kotlin.setExp
+import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.common.runBlocking
 import io.kotest.core.spec.style.BehaviorSpec
+import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.just
@@ -59,6 +61,23 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
                     }
                 }
             }
+
+            clearAllMocks()
+
+            When("ChatCompletion 요청이 실패하면") {
+                coEvery { chatCompletionReader.readChatCompletion(any()) } throws RuntimeException()
+                Then("면접 예상 질문을 생성하지 않는다.") {
+                    runBlocking {
+                        shouldThrowExactly<RuntimeException> {
+                            sut.generateInterviewQuestions(commands)
+                        }
+                        coVerify(exactly = 0) {
+                            interviewQuestionWriter.save(any())
+                        }
+                    }
+                }
+            }
+            clearAllMocks()
         }
     }
 }
