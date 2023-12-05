@@ -19,13 +19,14 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
 
 - Kotlin 1.9.20
 - Spring Boot 3.1.6
-- Spring MVC
-- Spring Reactive Webflux
+- Spring MVC -> Spring Webflux 마이그레이션중
 - Spring Security + JWT
 - JPA(+ Spring Data JPA)
-- Kotlin Jdsl 3.0
+- kotlin jdsl 3.0
+- Fixture Monkey
 - Spring Cloud Gateway
 - Spring Cloud Open Feign
+- Spring AI
 - MySQL 8.0.33
 - Redis(+ Spring Data Redis)
 - Kotest
