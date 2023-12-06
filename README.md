@@ -37,12 +37,6 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
 
 ![스크린샷 2023-12-06 오후 1 49 48](https://github.com/Resumarble/Resumarble-Backend/assets/93868431/938c5ef7-a3c1-454c-96b1-17a6e4dc743a)
 
-Spring Cloud Gatway를 활용한 API Gateway 패턴을 적용합니다.
-
-JWT 인증 방식을 사용하고 있기 때문에, 특정 API에 대한 인증을 게이트웨이에서 처리합니다.
-
-JWT 액세스 토큰에 대한 인증이 완료되면, X-Authorization-Id 헤더로 userId 값이 추가되어 본 서버로 라우팅됩니다.
-
 ## 비즈니스 로직 플로우 차트
 
 ![image](https://github.com/Resumarble/Resumarble-Backend/assets/93868431/93a1c481-bdc9-4c46-be09-824cc827381a)
