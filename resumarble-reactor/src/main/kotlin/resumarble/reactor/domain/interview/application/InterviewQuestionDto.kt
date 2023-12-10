@@ -27,10 +27,11 @@ data class PredictionResponse(
     val question: String,
     val bestAnswer: String
 ) {
-    fun toCommand(userId: Long, category: Category): SaveInterviewQuestionCommand {
+    fun toCommand(userId: Long, category: Category, job: String): SaveInterviewQuestionCommand {
         return SaveInterviewQuestionCommand(
             userId = userId,
             category = Category.fromValue(category.value),
+            job = job,
             question = question,
             answer = bestAnswer
         )
@@ -40,6 +41,7 @@ data class PredictionResponse(
 data class SaveInterviewQuestionCommand(
     val userId: Long,
     val category: Category,
+    val job: String,
     val question: String,
     val answer: String
 ) {
@@ -47,6 +49,7 @@ data class SaveInterviewQuestionCommand(
         return InterviewQuestion(
             userId = userId,
             category = category,
+            job = job,
             question = question,
             answer = answer
         )
