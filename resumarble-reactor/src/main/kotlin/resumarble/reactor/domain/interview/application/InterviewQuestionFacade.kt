@@ -8,6 +8,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import org.slf4j.LoggerFactory
+import org.springframework.data.domain.Pageable
+import reactor.core.publisher.Flux
 import resumarble.reactor.domain.gpt.application.ChatCompletionReader
 import resumarble.reactor.domain.interview.domain.Category
 import resumarble.reactor.global.annotation.Facade
@@ -16,7 +18,8 @@ import java.time.LocalDateTime
 @Facade
 class InterviewQuestionFacade(
     private val chatCompletionReader: ChatCompletionReader,
-    private val interviewQuestionWriter: InterviewQuestionWriter
+    private val interviewQuestionWriter: InterviewQuestionWriter,
+    private val interviewQuestionReader: InterviewQuestionReader
 ) {
     suspend fun generateInterviewQuestions(
         command: List<InterviewQuestionCommand>
@@ -39,13 +42,19 @@ class InterviewQuestionFacade(
             supervisorScope {
                 launch(Dispatchers.IO + handler) {
                     val predictionResponses = completionResult.await().map {
-                        it.toCommand(command.userId, Category.fromValue(command.category))
+                        it.toCommand(command.userId, Category.fromValue(command.category), command.job)
                     }
                     interviewQuestionWriter.save(predictionResponses)
                 }
             }
 
             completionResult.await()
+        }
+    }
+
+    fun readInterviewQuestions(userId: Long, page: Pageable): Flux<FindInterviewQuestionResponse> {
+        return interviewQuestionReader.getInterviewQuestions(userId, page).map {
+            FindInterviewQuestionResponse.from(it)
         }
     }
 
