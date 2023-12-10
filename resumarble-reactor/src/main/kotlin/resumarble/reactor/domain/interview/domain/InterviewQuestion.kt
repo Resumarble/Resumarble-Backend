@@ -20,6 +20,8 @@ class InterviewQuestion(
     @Column("category")
     val category: Category,
 
+    val job: String,
+
     @Column("question")
     val question: String,
 
