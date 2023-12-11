@@ -9,7 +9,6 @@ data class FindInterviewQuestionResponse(
     val questionAndAnswer: QuestionAndAnswer,
     val job: String,
     val category: Category,
-    val isVisited: Boolean,
     val createdDate: LocalDateTime
 ) {
 
@@ -24,7 +23,6 @@ data class FindInterviewQuestionResponse(
                 ),
                 job = interviewQuestion.job,
                 category = interviewQuestion.category,
-                isVisited = interviewQuestion.isVisible,
                 createdDate = interviewQuestion.createdAt
             )
         }
