@@ -33,6 +33,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
+    implementation("io.projectreactor.tools:blockhound:1.0.8.RELEASE")
+
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter-kotlin:1.0.4")
 
     developmentOnly("io.netty:netty-resolver-dns-native-macos:4.1.75.Final") {
