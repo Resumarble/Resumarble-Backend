@@ -14,9 +14,6 @@ class InterviewQuestion(
     @Column("is_deleted")
     val isDeleted: Boolean = false,
 
-    @Column("is_visible")
-    val isVisible: Boolean = false,
-
     @Column("category")
     val category: Category,
 

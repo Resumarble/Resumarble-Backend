@@ -29,7 +29,7 @@ class InterviewQuestionApi(
     fun readInterviewQuestion(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestHeader(X_AUTHORIZATION_ID) userId: String
-    ) = interviewQuestionFacade.readInterviewQuestions(userId.toLong(), PageRequest.of(page, 10))
+    ) = interviewQuestionFacade.readInterviewQuestions(userId.toLong(), PageRequest.of(page, 11))
 
     companion object {
         private const val X_AUTHORIZATION_ID = "X-Authorization-Id"
