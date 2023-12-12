@@ -35,7 +35,8 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
 
 ## 서버 구조
 
-![스크린샷 2023-12-06 오후 1 49 48](https://github.com/Resumarble/Resumarble-Backend/assets/93868431/938c5ef7-a3c1-454c-96b1-17a6e4dc743a)
+![제목 없음-2023-12-12-2307](https://github.com/Resumarble/Resumarble-Backend/assets/93868431/5961a14f-4674-4c01-a879-9e23347794cf)
+
 
 ## 비즈니스 로직 플로우 차트
 
