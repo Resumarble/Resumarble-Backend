@@ -4,6 +4,23 @@ server:
 spring:
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "https://www.resumarble.site"
+              - "https://resumarble.site"
+              - "http://localhost:3000"
+              - "http://localhost:8080"
+            allowedMethods:
+              - OPTIONS
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+            allowedHeaders: "*"
+            allowCredentials: true
       routes:
         - id: resumarble-reactor
           uri: http://localhost:8081
@@ -17,7 +34,7 @@ spring:
         - id: resumarble-user
           uri: http://localhost:8082
           predicates:
-                - Path=/users/**
+            - Path=/users/**
 
 external:
   jwt:
