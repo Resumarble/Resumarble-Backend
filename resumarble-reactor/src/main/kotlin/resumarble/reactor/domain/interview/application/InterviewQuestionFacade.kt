@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Pageable
-import reactor.core.publisher.Flux
 import resumarble.reactor.domain.gpt.application.ChatCompletionReader
 import resumarble.reactor.domain.interview.domain.Category
 import resumarble.reactor.global.annotation.Facade
@@ -52,10 +51,23 @@ class InterviewQuestionFacade(
         }
     }
 
-    fun readInterviewQuestions(userId: Long, page: Pageable): Flux<FindInterviewQuestionResponse> {
-        return interviewQuestionReader.getInterviewQuestions(userId, page).map {
-            FindInterviewQuestionResponse.from(it)
+    suspend fun getInterviewQuestionsWithNextPageIndicator(
+        userId: Long,
+        page: Pageable
+    ): MyPageInterviewQuestionResponse {
+        val interviewQuestions = mutableListOf<FindInterviewQuestionResponse>()
+
+        var count = 0
+        interviewQuestionReader.getInterviewQuestions(userId, page).collect { question ->
+            if (count < page.pageSize) {
+                interviewQuestions.add(FindInterviewQuestionResponse.from(question))
+            }
+            count++
         }
+
+        val hasNextPage = count > page.pageSize
+
+        return MyPageInterviewQuestionResponse(interviewQuestions, hasNextPage)
     }
 
     private val handler = CoroutineExceptionHandler { _, exception ->

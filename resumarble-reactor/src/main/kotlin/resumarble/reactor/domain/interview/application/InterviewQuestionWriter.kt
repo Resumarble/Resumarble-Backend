@@ -10,6 +10,6 @@ class InterviewQuestionWriter(
     private val interviewQuestionRepository: InterviewQuestionRepository
 ) {
     suspend fun save(commands: List<SaveInterviewQuestionCommand>) {
-        interviewQuestionRepository.saveAll(commands.map { it.toEntity() }).subscribe()
+        interviewQuestionRepository.saveAll(commands.map { it.toEntity() })
     }
 }

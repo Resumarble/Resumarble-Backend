@@ -26,10 +26,10 @@ class InterviewQuestionApi(
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    fun readInterviewQuestion(
+    suspend fun readInterviewQuestion(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestHeader(X_AUTHORIZATION_ID) userId: String
-    ) = interviewQuestionFacade.readInterviewQuestions(userId.toLong(), PageRequest.of(page, 11))
+    ) = interviewQuestionFacade.getInterviewQuestionsWithNextPageIndicator(userId.toLong(), PageRequest.of(page, 11))
 
     companion object {
         private const val X_AUTHORIZATION_ID = "X-Authorization-Id"

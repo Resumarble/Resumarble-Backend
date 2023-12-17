@@ -4,6 +4,10 @@ import resumarble.reactor.domain.interview.domain.Category
 import resumarble.reactor.domain.interview.domain.InterviewQuestion
 import java.time.LocalDateTime
 
+data class MyPageInterviewQuestionResponse(
+    val interviewQuestions: List<FindInterviewQuestionResponse>,
+    val hasNextPage: Boolean
+)
 data class FindInterviewQuestionResponse(
     val interviewQuestionId: Long,
     val userId: Long,
