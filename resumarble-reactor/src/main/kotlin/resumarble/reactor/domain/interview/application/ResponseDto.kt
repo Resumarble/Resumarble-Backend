@@ -5,6 +5,7 @@ import resumarble.reactor.domain.interview.domain.InterviewQuestion
 import java.time.LocalDateTime
 
 data class FindInterviewQuestionResponse(
+    val interviewQuestionId: Long,
     val userId: Long,
     val questionAndAnswer: QuestionAndAnswer,
     val job: String,
@@ -16,6 +17,7 @@ data class FindInterviewQuestionResponse(
         @JvmStatic
         fun from(interviewQuestion: InterviewQuestion): FindInterviewQuestionResponse {
             return FindInterviewQuestionResponse(
+                interviewQuestionId = interviewQuestion.id,
                 userId = interviewQuestion.userId,
                 questionAndAnswer = QuestionAndAnswer(
                     question = interviewQuestion.question,
