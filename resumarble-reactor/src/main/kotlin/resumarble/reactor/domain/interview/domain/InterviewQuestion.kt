@@ -3,6 +3,8 @@ package resumarble.reactor.domain.interview.domain
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
+import resumarble.reactor.global.exception.BusinessException
+import resumarble.reactor.global.exception.ErrorCode
 import java.time.LocalDateTime
 
 @Table("interview_question")
@@ -12,7 +14,7 @@ class InterviewQuestion(
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
     @Column("is_deleted")
-    val isDeleted: Boolean = false,
+    var isDeleted: Boolean = false,
 
     @Column("category")
     val category: Category,
@@ -30,4 +32,14 @@ class InterviewQuestion(
 
     @Id
     var id: Long = 0L
-)
+) {
+    fun delete() {
+        this.isDeleted = true
+    }
+
+    fun authenticate(userId: Long) {
+        if (this.userId != userId) {
+            throw BusinessException(ErrorCode.UNAUTHORIZED_ACCESS)
+        }
+    }
+}

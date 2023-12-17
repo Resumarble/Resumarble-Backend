@@ -11,7 +11,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Pageable
 import resumarble.reactor.domain.gpt.application.ChatCompletionReader
 import resumarble.reactor.domain.interview.domain.Category
+import resumarble.reactor.domain.interview.domain.InterviewQuestion
 import resumarble.reactor.global.annotation.Facade
+import resumarble.reactor.global.exception.BusinessException
+import resumarble.reactor.global.exception.ErrorCode
 import java.time.LocalDateTime
 
 @Facade
@@ -68,6 +71,14 @@ class InterviewQuestionFacade(
         val hasNextPage = count > page.pageSize
 
         return MyPageInterviewQuestionResponse(interviewQuestions, hasNextPage)
+    }
+
+    suspend fun deleteInterviewQuestion(interviewQuestionId: Long, userId: Long) {
+        val interviewQuestion: InterviewQuestion = interviewQuestionReader.getInterviewQuestion(interviewQuestionId)
+            ?: throw BusinessException(ErrorCode.NOT_FOUND)
+        interviewQuestion.authenticate(userId)
+        interviewQuestion.delete()
+        interviewQuestionWriter.renewDeleteQuestion(interviewQuestion)
     }
 
     private val handler = CoroutineExceptionHandler { _, exception ->

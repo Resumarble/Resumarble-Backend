@@ -13,4 +13,8 @@ class InterviewQuestionReader(
     suspend fun getInterviewQuestions(userId: Long, page: Pageable): Flow<InterviewQuestion> {
         return interviewQuestionRepository.findAllByUserId(userId, page.pageSize, page.offset.toInt())
     }
+
+    suspend fun getInterviewQuestion(interviewQuestionId: Long): InterviewQuestion? {
+        return interviewQuestionRepository.findById(interviewQuestionId)
+    }
 }

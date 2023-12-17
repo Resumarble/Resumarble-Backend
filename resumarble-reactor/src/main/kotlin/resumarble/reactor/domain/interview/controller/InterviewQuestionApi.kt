@@ -2,7 +2,9 @@ package resumarble.reactor.domain.interview.controller
 
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
@@ -30,6 +32,13 @@ class InterviewQuestionApi(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestHeader(X_AUTHORIZATION_ID) userId: String
     ) = interviewQuestionFacade.getInterviewQuestionsWithNextPageIndicator(userId.toLong(), PageRequest.of(page, 11))
+
+    @DeleteMapping("{interviewQuestionId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    suspend fun deleteInterviewQuestion(
+        @PathVariable interviewQuestionId: Long,
+        @RequestHeader(X_AUTHORIZATION_ID) userId: String
+    ) = interviewQuestionFacade.deleteInterviewQuestion(interviewQuestionId, userId.toLong())
 
     companion object {
         private const val X_AUTHORIZATION_ID = "X-Authorization-Id"
