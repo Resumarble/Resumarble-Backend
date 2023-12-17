@@ -33,7 +33,7 @@ class InterviewQuestionApi(
         @RequestHeader(X_AUTHORIZATION_ID) userId: String
     ) = interviewQuestionFacade.getInterviewQuestionsWithNextPageIndicator(userId.toLong(), PageRequest.of(page, 11))
 
-    @DeleteMapping("{interviewQuestionId}")
+    @DeleteMapping("/{interviewQuestionId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     suspend fun deleteInterviewQuestion(
         @PathVariable interviewQuestionId: Long,
