@@ -12,6 +12,7 @@ class InterviewQuestionWriter(
 ) {
     suspend fun save(commands: List<SaveInterviewQuestionCommand>) {
         interviewQuestionRepository.saveAll(commands.map { it.toEntity() })
+            .collect {}
     }
 
     suspend fun renewDeleteQuestion(interviewQuestion: InterviewQuestion) {
