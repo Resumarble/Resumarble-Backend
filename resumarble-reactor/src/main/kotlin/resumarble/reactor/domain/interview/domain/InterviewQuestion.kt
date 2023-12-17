@@ -31,7 +31,7 @@ class InterviewQuestion(
     val userId: Long,
 
     @Id
-    var id: Long = 0L
+    var id: Long? = null
 ) {
     fun delete() {
         this.isDeleted = true
