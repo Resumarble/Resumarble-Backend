@@ -17,6 +17,7 @@ import io.mockk.runs
 import resumarble.reactor.domain.gpt.application.ChatCompletionReader
 import resumarble.reactor.domain.interview.application.InterviewQuestionCommand
 import resumarble.reactor.domain.interview.application.InterviewQuestionFacade
+import resumarble.reactor.domain.interview.application.InterviewQuestionReader
 import resumarble.reactor.domain.interview.application.InterviewQuestionWriter
 import resumarble.reactor.domain.interview.application.PredictionResponse
 
@@ -24,10 +25,12 @@ class InterviewQuestionFacadeTest : BehaviorSpec() {
 
     private val chatCompletionReader: ChatCompletionReader = mockk<ChatCompletionReader>()
     private val interviewQuestionWriter: InterviewQuestionWriter = mockk<InterviewQuestionWriter>()
+    private val interviewQuestionReader: InterviewQuestionReader = mockk<InterviewQuestionReader>()
 
     private val sut: InterviewQuestionFacade = InterviewQuestionFacade(
         chatCompletionReader,
-        interviewQuestionWriter
+        interviewQuestionWriter,
+        interviewQuestionReader
     )
 
     private val fixtureMonkey = FixtureMonkeyBuilder().plugin(KotlinPlugin()).build()
