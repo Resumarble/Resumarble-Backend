@@ -21,7 +21,7 @@ data class FindInterviewQuestionResponse(
         @JvmStatic
         fun from(interviewQuestion: InterviewQuestion): FindInterviewQuestionResponse {
             return FindInterviewQuestionResponse(
-                interviewQuestionId = interviewQuestion.id,
+                interviewQuestionId = interviewQuestion.id!!,
                 userId = interviewQuestion.userId,
                 questionAndAnswer = QuestionAndAnswer(
                     question = interviewQuestion.question,
