@@ -31,7 +31,10 @@ class InterviewQuestionApi(
     suspend fun readInterviewQuestion(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestHeader(X_AUTHORIZATION_ID) userId: String
-    ) = interviewQuestionFacade.getInterviewQuestionsWithNextPageIndicator(userId.toLong(), PageRequest.of(page, 11))
+    ) = interviewQuestionFacade.getInterviewQuestionsWithNextPageIndicator(
+        userId.toLong(),
+        PageRequest.of(page, DEFAULT_PAGE_SIZE)
+    )
 
     @DeleteMapping("/{interviewQuestionId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -42,5 +45,6 @@ class InterviewQuestionApi(
 
     companion object {
         private const val X_AUTHORIZATION_ID = "X-Authorization-Id"
+        private const val DEFAULT_PAGE_SIZE = 10
     }
 }
