@@ -11,10 +11,14 @@ class InterviewQuestionReader(
     private val interviewQuestionRepository: InterviewQuestionRepository
 ) {
     suspend fun getInterviewQuestions(userId: Long, page: Pageable): Flow<InterviewQuestion> {
-        return interviewQuestionRepository.findAllByUserId(userId, page.pageSize, page.offset.toInt())
+        return interviewQuestionRepository.findAllByUserIdAndIsDeletedIsFalseOrderByCreatedAtDesc(userId, page)
     }
 
     suspend fun getInterviewQuestion(interviewQuestionId: Long): InterviewQuestion? {
         return interviewQuestionRepository.findById(interviewQuestionId)
+    }
+
+    suspend fun getInterviewQuestionCount(userId: Long): Long {
+        return interviewQuestionRepository.countByUserIdAndIsDeletedIsFalse(userId)
     }
 }

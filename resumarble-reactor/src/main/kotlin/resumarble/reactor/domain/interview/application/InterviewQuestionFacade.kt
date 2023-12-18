@@ -5,10 +5,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Pageable
+import org.springframework.transaction.annotation.Transactional
 import resumarble.reactor.domain.gpt.application.ChatCompletionReader
 import resumarble.reactor.domain.interview.domain.Category
 import resumarble.reactor.domain.interview.domain.InterviewQuestion
@@ -49,28 +51,33 @@ class InterviewQuestionFacade(
                     interviewQuestionWriter.save(predictionResponses)
                 }
             }
-
             completionResult.await()
         }
     }
 
+    @Transactional
     suspend fun getInterviewQuestionsWithNextPageIndicator(
         userId: Long,
         page: Pageable
     ): MyPageInterviewQuestionResponse {
-        val interviewQuestions = mutableListOf<FindInterviewQuestionResponse>()
+        // 현재 페이지의 데이터 조회
+        val interviewQuestions = interviewQuestionReader.getInterviewQuestions(userId, page).toList()
 
-        var count = 0
-        interviewQuestionReader.getInterviewQuestions(userId, page).collect { question ->
-            if (count < page.pageSize) {
-                interviewQuestions.add(FindInterviewQuestionResponse.from(question))
-            }
-            count++
-        }
+        // 전체 데이터 수 조회
+        val totalCount = interviewQuestionReader.getInterviewQuestionCount(userId)
 
-        val hasNextPage = count > page.pageSize
+        // 현재 페이지 번호와 페이지 크기
+        val currentPage = page.pageNumber
+        val pageSize = page.pageSize
 
-        return MyPageInterviewQuestionResponse(interviewQuestions, hasNextPage)
+        // 다음 페이지 존재 여부 계산
+        val hasNextPage = (currentPage + 1) * pageSize < totalCount
+
+        // 응답 객체 생성 및 반환
+        return MyPageInterviewQuestionResponse(
+            interviewQuestions = interviewQuestions.map { FindInterviewQuestionResponse.from(it) },
+            hasNextPage = hasNextPage
+        )
     }
 
     suspend fun deleteInterviewQuestion(interviewQuestionId: Long, userId: Long) {
