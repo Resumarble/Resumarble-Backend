@@ -4,23 +4,8 @@ server:
 spring:
   cloud:
     gateway:
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins:
-              - "https://www.resumarble.site"
-              - "https://resumarble.site"
-              - "http://localhost:3000"
-              - "http://localhost:8080"
-            allowedMethods:
-              - OPTIONS
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - PATCH
-            allowedHeaders: "*"
-            allowCredentials: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
       routes:
         - id: resumarble-reactor
           uri: https://iq.waveofmymind.site

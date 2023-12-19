@@ -14,6 +14,8 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-gateway")
     implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
 
+    implementation("io.projectreactor.tools:blockhound:1.0.8.RELEASE")
+
     developmentOnly("io.netty:netty-resolver-dns-native-macos:4.1.75.Final") {
         artifact { classifier = "osx-aarch_64" }
     }
