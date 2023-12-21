@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      routes:
+        - id: resumarble-reactor
+          uri: https://iq.waveofmymind.site
+          predicates:
+            - Path=/interview-questions/**
+            - Header=Authorization, Bearer\s+.*
+          filters:
+            - name: JwtAuthenticationGatewayFilter
+              args:
+                name: jwtAuthenticationGatewayFilter
+        - id: resumarble-user
+          uri: https://waveofmymind.shop
+          predicates:
+            - Path=/users/**
+
+external:
+  jwt:
+    secret-key: ENC(lrBnCZFjSWFI5R8i2I/1kd7ePdWgkXfmI4YNvTAvwiC3xNWgiBZmQwD8pr+1Wlh5ADMew1sWh5piKAp6AmjtNW7gdFgEe6bvdAGwsDeIYodiPNfa6GaMFQ==)
+jasypt:
+  encryptor:
+    password: ${JASYPT_PASSWORD}

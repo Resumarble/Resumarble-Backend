@@ -1,7 +1,8 @@
 package resumarble.core.domain.prediction.facade
 
-import resumarble.core.domain.prediction.domain.Prediction
-import resumarble.core.domain.prediction.domain.QuestionAndAnswer
+import resumarble.core.domain.prediction.domain.Answer
+import resumarble.core.domain.prediction.domain.InterviewQuestion
+import resumarble.core.domain.prediction.domain.Question
 import resumarble.core.domain.prediction.domain.constraints.Category
 import resumarble.core.domain.prediction.domain.constraints.Job
 
@@ -11,12 +12,20 @@ data class SavePredictionCommand(
     val category: Category,
     val questionAndAnswerList: List<QuestionAndAnswer>
 ) {
-    fun toDomain(): Prediction {
-        return Prediction(
-            userId = userId,
-            job = job,
-            category = category,
-            questionAndAnswerList = questionAndAnswerList
-        )
+    fun toDomain(): List<InterviewQuestion> {
+        return questionAndAnswerList.map {
+            InterviewQuestion(
+                userId = userId,
+                job = job,
+                category = category,
+                question = it.question,
+                answer = it.answer
+            )
+        }
     }
 }
+
+data class QuestionAndAnswer(
+    val question: Question,
+    val answer: Answer
+)

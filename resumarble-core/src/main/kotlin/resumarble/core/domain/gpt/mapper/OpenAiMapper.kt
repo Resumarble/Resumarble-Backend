@@ -6,8 +6,8 @@ import resumarble.core.domain.gpt.ChatCompletionMessage
 import resumarble.core.domain.gpt.ChatCompletionMessageResponse
 import resumarble.core.domain.gpt.ChatCompletionRequest
 import resumarble.core.domain.gpt.OpenAiRole
-import resumarble.core.domain.resume.facade.InterviewQuestion
-import resumarble.core.domain.resume.facade.InterviewQuestionResponse
+import resumarble.core.domain.resume.facade.Prediction
+import resumarble.core.domain.resume.facade.Predictions
 import resumarble.core.global.annotation.Mapper
 
 @Mapper
@@ -32,8 +32,8 @@ class OpenAiMapper(
         )
     }
 
-    fun completionToInterviewQuestionResponse(completion: ChatCompletionMessageResponse): List<InterviewQuestion> {
-        val interviewQuestionResponse = objectMapper.readValue<InterviewQuestionResponse>(
+    fun completionToInterviewQuestionResponse(completion: ChatCompletionMessageResponse): List<Prediction> {
+        val interviewQuestionResponse = objectMapper.readValue<Predictions>(
             completion.questionAndAnswer
         )
         return interviewQuestionResponse.interviews

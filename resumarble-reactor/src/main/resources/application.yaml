@@ -1,0 +1,34 @@
+server:
+  port: 8081
+  shutdown: graceful
+
+spring:
+  r2dbc:
+    url: ENC(GxSiHD8PLC5067th5rn741vyfD/F+Gd0KiE6AGouLOwZSUM4fJr88gMkr+mIliEITiSLGpNfPa3tLxvQkEWqzCtKyHJLfPEzi1txSe+G8plVUsu7dOT1wK0PxFF5N0KM9rCYiDP/Rz1LFpxEsNWXtXU0PVPo9s9TjE0nkxeV3nkPcK1WyB0+L4U/Qo5H9eT9JZpSeHZ4Cqub9swaFWH0yQBs7lRl3A1rxhlEQpO9B6nDI0sEQy/utps/roARVOQ0)
+    username: ENC(tlS7O0VbZkEPjggphSj3RA==)
+    password: ENC(4PBHAwxJhkDv+8tL9aGE+PfYMv0h5ZB2)
+    pool:
+      enabled: true
+      initial-size: 10
+      max-acquire-time: 5s
+      max-create-connection-time: 5s
+      max-idle-time: 60m
+      max-life-time: 60m
+      max-size: 10
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_PASSWORD}
+
+external:
+  openai:
+    url: https://api.openai.com
+    token: ENC(18XqK2igPaqRkgV3mWHhb3w6SMoNJNqdQuGQRmikY3YpkWeV2t+SSmF3RHQCXd0KPsHbeYg/u03eZzB5F5sp9w==)
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG

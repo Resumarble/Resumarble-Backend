@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation
 import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
 import resumarble.api.resume.InterviewQuestionRequest
-import resumarble.core.domain.resume.facade.InterviewQuestion
+import resumarble.core.domain.resume.facade.Prediction
 
 interface SwaggerInterviewQuestionWebPort {
 
@@ -16,5 +16,5 @@ interface SwaggerInterviewQuestionWebPort {
     suspend fun interviewQuestions(
         request: InterviewQuestionRequest,
         user: JwtUserDetails?
-    ): Response<List<InterviewQuestion>>
+    ): Response<List<Prediction>>
 }

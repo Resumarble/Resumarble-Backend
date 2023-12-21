@@ -1,20 +1,18 @@
 package resumarble.core.global.ratelimiter
 
 import org.aspectj.lang.ProceedingJoinPoint
-import org.aspectj.lang.annotation.Aspect
+import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.reflect.MethodSignature
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.stereotype.Component
+import kotlin.coroutines.Continuation
 
-@Aspect
-@Component
 class RateLimiterAspect(
     @Qualifier("redisRateLimiter")
     private val rateLimiter: RateLimiter
 ) {
-//    @Around("execution(* resumarble.core.domain.resume.facade.*.*(..))")
-    @Throws(Throwable::class)
+    @Around("@annotation(resumarble.core.global.ratelimiter.LimitRequestPerTime)")
     fun interceptor(joinPoint: ProceedingJoinPoint) {
+        val continuation = joinPoint.args.last() as Continuation<*>
         val limitRequestPerTime = getLimitRequestPerTimeAnnotationFromMethod(joinPoint)
         // LimitRequestPerTime 커스텀 어노테이션이 설정되지 않은 타겟 메서드는 분당 호출 제한을 체크하지 않고 바로 실행
         if (limitRequestPerTime == null) {

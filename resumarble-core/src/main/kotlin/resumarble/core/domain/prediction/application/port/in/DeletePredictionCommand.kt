@@ -1,17 +1,17 @@
 package resumarble.core.domain.prediction.application.port.`in`
 
 data class DeletePredictionCommand(
-    val predictionId: Long,
+    val interviewQuestionId: Long,
 
     val userId: Long
 ) {
     companion object {
         @JvmStatic
         fun from(
-            predictionId: Long,
+            interviewQuestionId: Long,
             userId: Long
         ) = DeletePredictionCommand(
-            predictionId,
+            interviewQuestionId,
             userId
         )
     }

@@ -1,6 +1,8 @@
 ## 이력서를 기반으로 한 면접 예상 질문 서비스
 ![image](https://github.com/Resumarble/Resumarble-Backend/assets/93868431/bfef20b9-235a-4eba-9030-1a536b0ab38a)
 
+서비스 링크: https://www.resumarble.site
+
 ## ⏳ Branch Strategy
 
 main: 배포용 서비스 코드가 있는 메인 브랜치로, 항상 현재 서비스 상태를 반영해야 합니다.
@@ -15,20 +17,26 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
 
 ## Tech Stack
 
-- Kotlin 1.9.10
-- Spring Boot 3.1.4
+- Kotlin 1.9.20
+- Spring Boot 3.1.6
+- Spring MVC
+- Spring Webflux 
 - Spring Security + JWT
 - JPA(+ Spring Data JPA)
-- Kotlin Jdsl 3.0
+- kotlin jdsl 3.0
+- Fixture Monkey
+- Spring Cloud Gateway
 - Spring Cloud Open Feign
+- Spring AI
 - MySQL 8.0.33
 - Redis(+ Spring Data Redis)
 - Kotest
 - Coroutine
 
-## API 명세서
+## 서버 구조
 
-[스웨거](https://waveofmymind.shop/swagger-ui/index.html)
+![제목 없음-2023-12-12-2307](https://github.com/Resumarble/Resumarble-Backend/assets/93868431/5961a14f-4674-4c01-a879-9e23347794cf)
+
 
 ## 비즈니스 로직 플로우 차트
 
@@ -89,9 +97,22 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
     - A함수에서 B함수를 호출할 때(B함수는 AOP 적용) A에서 호출하는 B 함수는 프록시가 아닌 인스턴스 자신의 함수이기 때문에 프록시가 사용될 수 없다.
 - **해결 방안**
     - 관심사를 분리할 때 AOP가 아닌 코루틴의 후행 람다를 사용해서 분리한다.
+- **결과**
+    - 로그 처리와 RateLimiter를 AOP를 사용하지 않고 내부 함수 호출시에도 적용할 수 있게 되었지만, Continuation 객체가 넘어가야하기 때문에 suspend로 함수식을 선언했다.
+    - 아직 완벽하게 이해하지 못했기 때문에 검증이 더 필요하다.
+
+### 5. Thread Per Request의 한계
+
+- **문제점 발생 및 이슈**
+    - 레주마블 서버는 MVC 톰캣에서 실행되기 때문에, 사용자가 요청부터 결과를 받아볼 때까지 20초 내외가 소요된다.
+    - 최대 쓰레드 수가 디폴트로 200개인 톰캣 옵션을 변경하여 다양하게 부하 테스트를 진행해본 결과, 사용자 요청이 크게 늘어나지 않았다.
+- **해결 방안**
+    - 사용자 요청당 1 쓰레드가 배정되기 때문에, 동시에 200개(디폴트)의 요청만 수행할 수 있고, 이후에는 대기 큐에 쌓인다.
+    - 외부 API 호출에 코루틴을 활용하더라도, 사용자 요청에 배정된 쓰레드는 코루틴이 종료될 때까지 기다리게된다.
+    - 요청을 많이 처리하기 위해 쓰레드 개수를 늘리는 것은 리소스를 더 많이 사용하기 때문에, 최적의 방법이라곤 할 수 없다.(스케일 업과 유사)
 
 ## 프로젝트 멤버
-| Back. | Front. |
+| Backend. | Frontend. |
 |:---:|:---:|
 | ![전상준](https://avatars.githubusercontent.com/u/93868431?v=4) | ![이유](https://avatars.githubusercontent.com/u/48672106?v=4)
 | [**전상준**](https://github.com/waveofmymind) | [**이유**](https://github.com/ReturnReason)

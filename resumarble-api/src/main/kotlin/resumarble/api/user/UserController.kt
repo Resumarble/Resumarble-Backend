@@ -46,7 +46,7 @@ class UserController(
         @AuthenticationPrincipal user: JwtUserDetails
     ): Response<MyPageResponse> {
         val pageRequest = PageRequest.of(page, OFFSET)
-        return Response.ok(userFacade.getMyPredictions(user.userId, pageRequest))
+        return Response.ok(userFacade.getMyInterviewQuestionList(user.userId, pageRequest))
     }
 
     companion object {

@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.4" apply false
-    id("io.spring.dependency-management") version "1.1.3" apply false
-    kotlin("jvm") version "1.9.10"
-    kotlin("plugin.spring") version "1.9.10" apply false
-    kotlin("plugin.jpa") version "1.9.10" apply false
-    kotlin("kapt") version "1.9.10" apply false
+    id("org.springframework.boot") version "3.1.6" apply false
+    id("io.spring.dependency-management") version "1.1.4" apply false
+    kotlin("jvm") version "1.9.20"
+    kotlin("plugin.spring") version "1.9.20" apply false
+    kotlin("plugin.jpa") version "1.9.20" apply false
+    kotlin("kapt") version "1.9.20" apply false
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1" apply false
 }
 
@@ -35,7 +35,6 @@ subprojects {
         filter {
             exclude { it.file.path.contains("$buildDir/generated/") }
         }
-        disabledRules = listOf("wildcard-imports")
     }
 
     java.sourceCompatibility = JavaVersion.VERSION_17
@@ -54,12 +53,7 @@ subprojects {
         testImplementation("io.kotest:kotest-assertions-core-jvm:5.6.2")
         testImplementation("io.kotest:kotest-runner-junit5-jvm:5.6.2")
         testImplementation("io.mockk:mockk:1.13.5")
-
-        // spring security
-        implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-        implementation("org.springframework.boot:spring-boot-starter-security")
-        testImplementation("org.springframework.security:spring-security-test")
-
+        
         // redis
         implementation("org.springframework.boot:spring-boot-starter-data-redis")
         testImplementation("it.ozimov:embedded-redis:0.7.2")

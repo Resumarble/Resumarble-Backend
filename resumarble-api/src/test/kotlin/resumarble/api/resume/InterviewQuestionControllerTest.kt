@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import resumarble.api.global.advice.GlobalExceptionHandler
+import resumarble.core.domain.prediction.application.port.`in`.DeleteInterviewQuestionUseCase
 import resumarble.core.domain.resume.ResumeFixture
 import resumarble.core.domain.resume.facade.InterviewQuestionFacade
 import resumarble.core.global.error.CompletionFailedException
@@ -19,8 +20,15 @@ class InterviewQuestionControllerTest : DescribeSpec() {
 
     init {
         val interviewQuestionFacade: InterviewQuestionFacade = mockk<InterviewQuestionFacade>()
+        val deleteInterviewQuestionUseCase = mockk<DeleteInterviewQuestionUseCase>()
+
         val objectMapper = ObjectMapper()
-        val sut = MockMvcBuilders.standaloneSetup(InterviewQuestionController(interviewQuestionFacade))
+        val sut = MockMvcBuilders.standaloneSetup(
+            InterviewQuestionApi(
+                interviewQuestionFacade,
+                deleteInterviewQuestionUseCase
+            )
+        )
             .setControllerAdvice(GlobalExceptionHandler()).build()
 
         describe("InterviewQuestionController") {
