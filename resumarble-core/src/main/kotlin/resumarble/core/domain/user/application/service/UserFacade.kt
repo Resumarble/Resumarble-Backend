@@ -11,7 +11,7 @@ class UserFacade(
 ) {
 
     @Transactional(readOnly = true)
-    fun getMyPredictions(userId: Long, page: Pageable): MyPageResponse {
-        return MyPageResponse(findInterviewQuestionUseCase.getInterviewQuestionByUserId(userId, page))
+    fun getMyInterviewQuestionList(userId: Long, page: Pageable): MyPageResponse {
+        return MyPageResponse.of(findInterviewQuestionUseCase.getInterviewQuestionByUserId(userId, page))
     }
 }
