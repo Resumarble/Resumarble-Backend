@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import resumarble.api.global.advice.GlobalExceptionHandler
+import resumarble.core.domain.prediction.application.port.`in`.FindInterviewQuestionResponse
 import resumarble.core.domain.prediction.application.port.`in`.FindInterviewQuestionUseCase
-import resumarble.core.domain.prediction.application.port.`in`.PredictionResponse
 import resumarble.core.domain.prediction.application.port.`in`.QuestionAndAnswerResponse
 import resumarble.core.domain.prediction.domain.constraints.Category
 import resumarble.core.domain.prediction.domain.constraints.Job
@@ -105,8 +105,8 @@ class UserControllerTest : DescribeSpec() {
             val userId = 1L
             val response = MyPageResponse(
                 listOf(
-                    PredictionResponse(
-                        predictionId = 1L,
+                    FindInterviewQuestionResponse(
+                        interviewQuestionId = 1L,
                         job = Job.BACKEND_ENGINEER.jobTitleKr,
                         category = Category.CAREER_HISTORY.name,
                         questionAndAnswer = QuestionAndAnswerResponse(
@@ -115,7 +115,8 @@ class UserControllerTest : DescribeSpec() {
                         ),
                         LocalDateTime.now()
                     )
-                )
+                ),
+                hasNext = false
             )
         }
     }

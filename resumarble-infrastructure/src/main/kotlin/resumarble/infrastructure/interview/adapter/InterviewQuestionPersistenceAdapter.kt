@@ -13,22 +13,35 @@ import resumarble.infrastructure.interview.entity.InterviewQuestionEntityJpaRepo
 class InterviewQuestionPersistenceAdapter(
     private val repository: InterviewQuestionEntityJpaRepository
 ) : SaveInterviewQuestionPort, FindInterviewQuestionPort, DeleteInterviewQuestionPort {
+
     override fun saveInterviewQuestion(interviewQuestions: List<InterviewQuestion>) {
         repository.saveAll(
             interviewQuestions.map { InterviewQuestionEntity.from(it) }
         )
     }
 
-    override fun findInterviewQuestionListByUserId(userId: Long, page: Pageable): List<InterviewQuestion>? {
-        // TODO: 페이지네이션 조회
-        return listOf()
+    override fun findInterviewQuestionListByUserId(
+        userId: Long,
+        page: Pageable
+    ): Pair<List<InterviewQuestion>, Boolean> {
+        val interviewQuestionEntityList = repository.findAllByUserIdOrderByCreatedDateDesc(
+            userId,
+            page
+        )
+
+        val hasNext = interviewQuestionEntityList?.hasNext() ?: false
+
+        return Pair(
+            interviewQuestionEntityList?.map { it.toDomain() }?.toList() ?: emptyList(),
+            hasNext
+        )
     }
 
-    override fun deleteInterviewQuestion(predictionId: Long) {
-        repository.deleteById(predictionId)
+    override fun deleteInterviewQuestion(interviewQuestionId: Long) {
+        repository.deleteById(interviewQuestionId)
     }
 
     override fun findInterviewQuestionById(interviewQuestionId: Long): InterviewQuestion? {
-        TODO("Not yet implemented")
+        return repository.findEntityById(interviewQuestionId)?.toDomain()
     }
 }
