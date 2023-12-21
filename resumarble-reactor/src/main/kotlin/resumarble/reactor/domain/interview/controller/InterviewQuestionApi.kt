@@ -1,7 +1,9 @@
 package resumarble.reactor.domain.interview.controller
 
+import kotlinx.coroutines.flow.Flow
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -13,18 +15,21 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import resumarble.reactor.domain.interview.application.InterviewQuestionFacade
+import resumarble.reactor.domain.interview.application.PredictionResponse
 
 @RestController
 @RequestMapping("/interview-questions")
 class InterviewQuestionApi(
     private val interviewQuestionFacade: InterviewQuestionFacade
 ) {
-
-    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
     suspend fun createInterviewQuestion(
         @RequestBody request: InterviewQuestionRequest,
         @RequestHeader(X_AUTHORIZATION_ID, defaultValue = "0") userId: String
-    ) = interviewQuestionFacade.generateInterviewQuestions(request.toCommandList(userId.toLong()))
+    ): Flow<List<PredictionResponse>> {
+        return interviewQuestionFacade.generateInterviewQuestions(request.toCommandList(userId.toLong()))
+    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

@@ -3,8 +3,10 @@ package resumarble.reactor.domain.interview.application
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
@@ -26,14 +28,13 @@ class InterviewQuestionFacade(
     private val interviewQuestionReader: InterviewQuestionReader
 ) {
     suspend fun generateInterviewQuestions(
-        command: List<InterviewQuestionCommand>
-    ): List<PredictionResponse> {
-        return supervisorScope {
-            command.map { command ->
-                async(Dispatchers.Default) {
-                    generateInterviewQuestion(command)
-                }
-            }.awaitAll().flatten()
+        commands: Flow<InterviewQuestionCommand>
+    ): Flow<List<PredictionResponse>> {
+        return commands.flatMapMerge { command ->
+            flow {
+                val predictionResponses = generateInterviewQuestion(command)
+                emit(predictionResponses)
+            }
         }
     }
 
