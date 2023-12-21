@@ -35,7 +35,6 @@ subprojects {
         filter {
             exclude { it.file.path.contains("$buildDir/generated/") }
         }
-        disabledRules = listOf("wildcard-imports")
     }
 
     java.sourceCompatibility = JavaVersion.VERSION_17
