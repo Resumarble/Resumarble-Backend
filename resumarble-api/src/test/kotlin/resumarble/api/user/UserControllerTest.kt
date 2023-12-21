@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import resumarble.api.global.advice.GlobalExceptionHandler
-import resumarble.core.domain.prediction.application.port.`in`.FindPredictionUseCase
+import resumarble.core.domain.prediction.application.port.`in`.FindInterviewQuestionUseCase
 import resumarble.core.domain.prediction.application.port.`in`.PredictionResponse
 import resumarble.core.domain.prediction.application.port.`in`.QuestionAndAnswerResponse
 import resumarble.core.domain.prediction.domain.constraints.Category
@@ -31,8 +31,8 @@ class UserControllerTest : DescribeSpec() {
 
     init {
         val joinUserUseCase = mockk<JoinUserUseCase>()
-        val findPredictionUseCase = mockk<FindPredictionUseCase>()
-        val userFacade = UserFacade(findPredictionUseCase)
+        val findInterviewQuestionUseCase = mockk<FindInterviewQuestionUseCase>()
+        val userFacade = UserFacade(findInterviewQuestionUseCase)
         val objectMapper = ObjectMapper()
         val sut = MockMvcBuilders.standaloneSetup(UserController(joinUserUseCase, userFacade))
             .setControllerAdvice(GlobalExceptionHandler()).build()
@@ -109,19 +109,9 @@ class UserControllerTest : DescribeSpec() {
                         predictionId = 1L,
                         job = Job.BACKEND_ENGINEER.jobTitleKr,
                         category = Category.CAREER_HISTORY.name,
-                        questionAndAnswer = listOf(
-                            QuestionAndAnswerResponse(
-                                question = "질문1",
-                                answer = "답변1"
-                            ),
-                            QuestionAndAnswerResponse(
-                                question = "질문2",
-                                answer = "답변2"
-                            ),
-                            QuestionAndAnswerResponse(
-                                question = "질문3",
-                                answer = "답변3"
-                            )
+                        questionAndAnswer = QuestionAndAnswerResponse(
+                            question = "질문",
+                            answer = "답변"
                         ),
                         LocalDateTime.now()
                     )

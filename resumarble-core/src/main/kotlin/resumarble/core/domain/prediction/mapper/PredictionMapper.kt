@@ -2,12 +2,12 @@ package resumarble.core.domain.prediction.mapper
 
 import resumarble.core.domain.prediction.domain.Answer
 import resumarble.core.domain.prediction.domain.Question
-import resumarble.core.domain.prediction.domain.QuestionAndAnswer
 import resumarble.core.domain.prediction.domain.constraints.Category
 import resumarble.core.domain.prediction.domain.constraints.Job
+import resumarble.core.domain.prediction.facade.QuestionAndAnswer
 import resumarble.core.domain.prediction.facade.SavePredictionCommand
-import resumarble.core.domain.resume.facade.InterviewQuestion
 import resumarble.core.domain.resume.facade.InterviewQuestionCommand
+import resumarble.core.domain.resume.facade.Prediction
 import resumarble.core.global.annotation.Mapper
 
 @Mapper
@@ -15,7 +15,7 @@ object PredictionMapper {
 
     fun completionToSavePredictionCommand(
         command: InterviewQuestionCommand,
-        interviews: List<InterviewQuestion>
+        interviews: List<Prediction>
     ): SavePredictionCommand {
         return SavePredictionCommand(
             userId = command.userId,
@@ -25,7 +25,7 @@ object PredictionMapper {
         )
     }
 
-    private fun convertToQuestionAndAnswer(interviews: List<InterviewQuestion>): List<QuestionAndAnswer> {
+    private fun convertToQuestionAndAnswer(interviews: List<Prediction>): List<QuestionAndAnswer> {
         return interviews.map {
             QuestionAndAnswer(
                 question = Question(it.question),

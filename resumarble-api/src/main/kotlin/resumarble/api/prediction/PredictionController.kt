@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
 import resumarble.api.swagger.SwaggerPredictionWebPort
+import resumarble.core.domain.prediction.application.port.`in`.DeleteInterviewQuestionUseCase
 import resumarble.core.domain.prediction.application.port.`in`.DeletePredictionCommand
-import resumarble.core.domain.prediction.application.port.`in`.DeletePredictionUseCase
 
 @RestController
 @RequestMapping("/predictions")
 class PredictionController(
-    private val deletePredictionUseCase: DeletePredictionUseCase
+    private val deleteInterviewQuestionUseCase: DeleteInterviewQuestionUseCase
 ) : SwaggerPredictionWebPort {
 
     @DeleteMapping("/{predictionId}")
@@ -25,7 +25,7 @@ class PredictionController(
         @PathVariable predictionId: Long,
         @AuthenticationPrincipal user: JwtUserDetails
     ): Response<Unit> {
-        deletePredictionUseCase.deletePrediction(DeletePredictionCommand.from(predictionId, user.userId))
+        deleteInterviewQuestionUseCase.deleteInterviewQuestion(DeletePredictionCommand.from(predictionId, user.userId))
         return Response.ok()
     }
 }

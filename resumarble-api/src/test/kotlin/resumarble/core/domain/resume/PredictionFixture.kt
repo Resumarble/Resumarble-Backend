@@ -2,9 +2,9 @@ package resumarble.core.domain.resume
 
 import resumarble.core.domain.prediction.domain.Answer
 import resumarble.core.domain.prediction.domain.Question
-import resumarble.core.domain.prediction.domain.QuestionAndAnswer
 import resumarble.core.domain.prediction.domain.constraints.Category
 import resumarble.core.domain.prediction.domain.constraints.Job
+import resumarble.core.domain.prediction.facade.QuestionAndAnswer
 import resumarble.core.domain.prediction.facade.SavePredictionCommand
 
 object PredictionFixture {
@@ -20,6 +20,7 @@ object PredictionFixture {
                     answer = Answer("3 years")
                 )
             )
+
         )
     }
 }

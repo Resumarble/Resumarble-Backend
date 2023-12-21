@@ -5,9 +5,9 @@ import resumarble.core.domain.prediction.domain.constraints.Job
 import resumarble.core.global.error.UnIdentifiedException
 import java.time.LocalDateTime
 
-class Prediction(
+class InterviewQuestion(
 
-    val predictionId: Long = 0L,
+    val interviewQuestionId: Long = 0L,
 
     val userId: Long,
 
@@ -15,17 +15,23 @@ class Prediction(
 
     val category: Category,
 
-    private val questionAndAnswerList: List<QuestionAndAnswer>,
+    val question: Question,
+
+    val answer: Answer,
 
     val createdDate: LocalDateTime = LocalDateTime.now()
-
 ) {
-    val questionAndAnswer: List<QuestionAndAnswer>
-        get() = questionAndAnswerList.toList()
 
-    fun authenticate(userId: Long) {
+    fun authenticate(userId: Long): Boolean {
         if (this.userId != userId) {
             throw UnIdentifiedException()
         }
+        return true
     }
 }
+
+@JvmInline
+value class Question(val value: String)
+
+@JvmInline
+value class Answer(val value: String)

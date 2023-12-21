@@ -7,8 +7,8 @@ import resumarble.core.domain.log.application.UserRequestLogCommand
 import resumarble.core.domain.log.application.UserRequestLogWriter
 import resumarble.core.domain.log.constraints.RequestOutcome
 import resumarble.core.domain.prompt.application.PromptResponse
-import resumarble.core.domain.resume.facade.InterviewQuestion
 import resumarble.core.domain.resume.facade.InterviewQuestionCommand
+import resumarble.core.domain.resume.facade.Prediction
 
 @Component
 class ChatCompletionReader(
@@ -20,7 +20,7 @@ class ChatCompletionReader(
     fun readChatCompletion(
         command: InterviewQuestionCommand,
         promptResponse: PromptResponse
-    ): List<InterviewQuestion> {
+    ): List<Prediction> {
         val completionRequest = prepareCompletionRequest(command, promptResponse, command.language)
         return requestChatCompletionToOpenAi(completionRequest, command.userId, command.content)
     }
@@ -29,9 +29,9 @@ class ChatCompletionReader(
         completionRequest: ChatCompletionRequest,
         userId: Long,
         userContent: String
-    ): List<InterviewQuestion> {
+    ): List<Prediction> {
         var outcome: RequestOutcome
-        var result: List<InterviewQuestion>
+        var result: List<Prediction>
 
         try {
             val completionResult = openAiService.requestChatCompletion(completionRequest)
