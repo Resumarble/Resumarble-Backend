@@ -23,7 +23,7 @@ class InterviewQuestionFacade(
     suspend fun generateInterviewQuestions(
         userId: Long,
         commands: List<InterviewQuestionCommand>
-    ): List<InterviewQuestion> {
+    ): List<Prediction> {
         return supervisorScope {
             val deferreds = commands.map { command ->
                 async(Dispatchers.IO) {
@@ -35,7 +35,7 @@ class InterviewQuestionFacade(
         }
     }
 
-    suspend fun generateInterviewQuestion(command: InterviewQuestionCommand): List<InterviewQuestion> {
+    suspend fun generateInterviewQuestion(command: InterviewQuestionCommand): List<Prediction> {
         val promptResponse = promptService.getPrompt(PromptType.INTERVIEW_QUESTION)
 
         val completionResult = coroutineScope {
