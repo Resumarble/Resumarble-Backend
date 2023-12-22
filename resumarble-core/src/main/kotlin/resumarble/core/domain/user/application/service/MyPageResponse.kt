@@ -3,7 +3,7 @@ package resumarble.core.domain.user.application.service
 import resumarble.core.domain.prediction.application.port.`in`.FindInterviewQuestionResponse
 
 data class MyPageResponse(
-    val predictions: List<FindInterviewQuestionResponse>,
+    val interviewQuestions: List<FindInterviewQuestionResponse>,
     val hasNext: Boolean
 ) {
     companion object {
