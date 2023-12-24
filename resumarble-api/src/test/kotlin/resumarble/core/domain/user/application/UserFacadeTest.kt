@@ -7,7 +7,6 @@ import io.mockk.verify
 import org.springframework.data.domain.PageRequest
 import resumarble.core.domain.prediction.application.port.`in`.FindInterviewQuestionResponse
 import resumarble.core.domain.prediction.application.port.`in`.FindInterviewQuestionUseCase
-import resumarble.core.domain.prediction.application.port.`in`.QuestionAndAnswerResponse
 import resumarble.core.domain.user.application.service.UserFacade
 import java.time.LocalDateTime
 
@@ -23,20 +22,16 @@ class UserFacadeTest : BehaviorSpec() {
                     interviewQuestionId = 1L,
                     job = "개발자",
                     category = "개발",
-                    QuestionAndAnswerResponse(
-                        question = "질문",
-                        answer = "답변"
-                    ),
+                    question = "질문",
+                    answer = "답변",
                     createdDate = LocalDateTime.now()
                 ),
                 FindInterviewQuestionResponse(
                     interviewQuestionId = 2L,
                     job = "개발자",
                     category = "개발",
-                    QuestionAndAnswerResponse(
-                        question = "질문",
-                        answer = "답변"
-                    ),
+                    question = "질문",
+                    answer = "답변",
                     createdDate = LocalDateTime.now()
                 )
             )

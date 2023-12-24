@@ -7,7 +7,8 @@ data class FindInterviewQuestionResponse(
     val interviewQuestionId: Long,
     val job: String,
     val category: String,
-    val questionAndAnswer: QuestionAndAnswerResponse,
+    val question: String,
+    val answer: String,
     val createdDate: LocalDateTime
 ) {
     companion object {
@@ -17,10 +18,8 @@ data class FindInterviewQuestionResponse(
                     it.interviewQuestionId,
                     it.job.jobTitleKr,
                     it.category.value,
-                    QuestionAndAnswerResponse(
-                        it.question.value,
-                        it.answer.value
-                    ),
+                    it.question.value,
+                    it.answer.value,
                     it.createdDate
                 )
             }

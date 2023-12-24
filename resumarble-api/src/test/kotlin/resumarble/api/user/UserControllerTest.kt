@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import resumarble.api.global.advice.GlobalExceptionHandler
 import resumarble.core.domain.prediction.application.port.`in`.FindInterviewQuestionResponse
 import resumarble.core.domain.prediction.application.port.`in`.FindInterviewQuestionUseCase
-import resumarble.core.domain.prediction.application.port.`in`.QuestionAndAnswerResponse
 import resumarble.core.domain.prediction.domain.constraints.Category
 import resumarble.core.domain.prediction.domain.constraints.Job
 import resumarble.core.domain.user.application.DuplicateAccountCommand
@@ -109,10 +108,8 @@ class UserControllerTest : DescribeSpec() {
                         interviewQuestionId = 1L,
                         job = Job.BACKEND_ENGINEER.jobTitleKr,
                         category = Category.CAREER_HISTORY.name,
-                        questionAndAnswer = QuestionAndAnswerResponse(
-                            question = "질문",
-                            answer = "답변"
-                        ),
+                        question = "질문",
+                        answer = "답변",
                         LocalDateTime.now()
                     )
                 ),
