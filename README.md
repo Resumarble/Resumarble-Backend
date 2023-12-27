@@ -16,22 +16,28 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
 이러한 브랜치 전략을 통해 개발 과정을 체계적으로 관리하고, 기능별로 병렬적인 작업을 진행할 수 있습니다. 코드 변경은 각자의 기능 브랜치에서 이루어지며, 최종적인 안정 버전은 main 브랜치에 반영됩니다.
 
 ## Tech Stack
-
+### Backend
 - Kotlin 1.9.20
-- Spring Boot 3.1.6
+- Spring Boot 3.1.6 ~ 3.2.0
 - Spring MVC
-- Spring Webflux 
+- Spring Webflux
+- Spring Data R2DBC
 - Spring Security + JWT
 - JPA(+ Spring Data JPA)
 - kotlin jdsl 3.0
 - Fixture Monkey
 - Spring Cloud Gateway
 - Spring Cloud Open Feign
-- Spring AI
 - MySQL 8.0.33
 - Redis(+ Spring Data Redis)
+- JASYPT Encrypt
 - Kotest
-- Coroutine
+- Kotlin Coroutine
+
+### DevOps
+- Docker
+- AWS EC2, GCP Compute Engine
+- Jenkins
 
 ## 서버 구조
 
