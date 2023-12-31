@@ -25,9 +25,7 @@ fix 브랜치: 빠르게 코드를 수정하는 데 사용되는 브랜치입니
 - Spring Security + JWT
 - JPA(+ Spring Data JPA)
 - kotlin jdsl 3.0
-- Fixture Monkey
 - Spring Cloud Gateway
-- Spring Cloud Open Feign
 - MySQL 8.0.33
 - Redis(+ Spring Data Redis)
 - JASYPT Encrypt
