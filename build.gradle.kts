@@ -63,6 +63,9 @@ subprojects {
         implementation("io.jsonwebtoken:jjwt:0.9.1")
         implementation("com.nimbusds:nimbus-jose-jwt:9.31")
 
+        implementation("org.springframework.boot:spring-boot-starter-actuator")
+        runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+
         runtimeOnly("com.h2database:h2")
         runtimeOnly("com.mysql:mysql-connector-j")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
