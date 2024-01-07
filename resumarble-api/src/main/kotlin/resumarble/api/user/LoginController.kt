@@ -1,6 +1,7 @@
 package resumarble.api.user
 
 import io.swagger.v3.oas.annotations.Operation
+import jakarta.validation.Valid
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -22,7 +23,11 @@ class LoginController(
 
     @Operation(summary = "로그인", description = "이메일, 패스워드를 입력받아 로그인을 진행한다.")
     @PostMapping("/login")
-    fun login(@RequestBody loginUserRequest: LoginUserRequest): Response<LoginToken> {
+    fun login(
+        @Valid
+        @RequestBody
+        loginUserRequest: LoginUserRequest
+    ): Response<LoginToken> {
         val token = loginUserUseCase.login(loginUserRequest.toCommand())
         return Response.ok(token)
     }

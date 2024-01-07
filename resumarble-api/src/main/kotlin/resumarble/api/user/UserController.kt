@@ -1,5 +1,6 @@
 package resumarble.api.user
 
+import jakarta.validation.Valid
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -27,7 +28,11 @@ class UserController(
 
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.CREATED)
-    override fun join(@RequestBody request: JoinUserRequest): Response<Unit> {
+    override fun join(
+        @Valid
+        @RequestBody
+        request: JoinUserRequest
+    ): Response<Unit> {
         joinUserUseCase.join(request.toCommand())
         return Response.ok()
     }
