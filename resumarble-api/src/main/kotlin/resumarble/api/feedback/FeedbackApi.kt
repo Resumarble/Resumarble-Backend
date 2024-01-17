@@ -7,16 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
+import resumarble.api.swagger.SwaggerFeedbackWebPort
 import resumarble.core.domain.feedback.application.FeedbackService
 
 @RestController
 @RequestMapping("/feedbacks")
 class FeedbackApi(
     private val feedbackService: FeedbackService
-) {
+) : SwaggerFeedbackWebPort {
 
     @PostMapping
-    suspend fun requestFeedback(
+    override suspend fun requestFeedback(
         @RequestBody request: List<FeedbackRequest>,
         @AuthenticationPrincipal user: JwtUserDetails?
     ): Response<String> {
