@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation
 import resumarble.api.feedback.FeedbackRequest
 import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
+import resumarble.core.domain.feedback.application.FeedbackResponse
 
 interface SwaggerFeedbackWebPort {
 
@@ -15,5 +16,5 @@ interface SwaggerFeedbackWebPort {
     suspend fun requestFeedback(
         request: List<FeedbackRequest>,
         user: JwtUserDetails?
-    ): Response<String>
+    ): Response<List<FeedbackResponse>>
 }

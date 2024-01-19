@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 import resumarble.api.global.jwt.JwtUserDetails
 import resumarble.api.global.response.Response
 import resumarble.api.swagger.SwaggerFeedbackWebPort
+import resumarble.core.domain.feedback.application.FeedbackResponse
 import resumarble.core.domain.feedback.application.FeedbackService
 
 @RestController
@@ -20,9 +21,9 @@ class FeedbackApi(
     override suspend fun requestFeedback(
         @RequestBody request: List<FeedbackRequest>,
         @AuthenticationPrincipal user: JwtUserDetails?
-    ): Response<String> {
+    ): Response<List<FeedbackResponse>> {
         val userId = user?.userId ?: 0L
         val commands = request.map { it.toCommand(userId) }
-        return Response.ok(feedbackService.requestFeedback(commands))
+        return Response.ok(feedbackService.requestFeedbacks(commands))
     }
 }

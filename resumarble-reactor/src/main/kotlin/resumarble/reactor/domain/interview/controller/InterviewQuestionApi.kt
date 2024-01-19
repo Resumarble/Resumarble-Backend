@@ -25,10 +25,9 @@ class InterviewQuestionApi(
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
     suspend fun createInterviewQuestion(
-        @RequestBody request: InterviewQuestionRequest,
-        @RequestHeader(X_AUTHORIZATION_ID, defaultValue = "0") userId: String
+        @RequestBody request: InterviewQuestionRequest
     ): Flow<List<PredictionResponse>> {
-        return interviewQuestionFacade.generateInterviewQuestions(request.toCommandList(userId.toLong()))
+        return interviewQuestionFacade.generateInterviewQuestions(request.toCommandList(0))
     }
 
     @GetMapping
