@@ -1,6 +1,8 @@
 package resumarble.core.domain.gpt.application
 
 import org.springframework.stereotype.Component
+import resumarble.core.domain.feedback.application.FeedbackCommand
+import resumarble.core.domain.feedback.application.FeedbackResponse
 import resumarble.core.domain.gpt.ChatCompletionRequest
 import resumarble.core.domain.gpt.mapper.OpenAiMapper
 import resumarble.core.domain.log.application.UserRequestLogCommand
@@ -23,6 +25,16 @@ class ChatCompletionReader(
     ): List<Prediction> {
         val completionRequest = prepareCompletionRequest(command, promptResponse, command.language)
         return requestChatCompletionToOpenAi(completionRequest, command.userId, command.content)
+    }
+
+    fun readChatCompletionFeedback(
+        command: FeedbackCommand,
+        prompt: String
+    ): List<FeedbackResponse> {
+        val request: ChatCompletionRequest =
+            openAiMapper.promptAndContentToChatCompletionRequest(prompt, command.answer)
+        val result = openAiService.requestChatCompletion(request)
+        return openAiMapper.completionToFeedbackResponse(result)
     }
 
     private fun requestChatCompletionToOpenAi(

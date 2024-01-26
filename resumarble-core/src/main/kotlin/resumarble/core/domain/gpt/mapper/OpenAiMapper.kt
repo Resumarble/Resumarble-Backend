@@ -2,6 +2,8 @@ package resumarble.core.domain.gpt.mapper
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import resumarble.core.domain.feedback.application.FeedbackResponse
+import resumarble.core.domain.feedback.application.FeedbackResponseList
 import resumarble.core.domain.gpt.ChatCompletionMessage
 import resumarble.core.domain.gpt.ChatCompletionMessageResponse
 import resumarble.core.domain.gpt.ChatCompletionRequest
@@ -37,5 +39,12 @@ class OpenAiMapper(
             completion.questionAndAnswer
         )
         return interviewQuestionResponse.interviews
+    }
+
+    fun completionToFeedbackResponse(completion: ChatCompletionMessageResponse): List<FeedbackResponse> {
+        val feedbackResponse = objectMapper.readValue<FeedbackResponseList>(
+            completion.questionAndAnswer
+        )
+        return feedbackResponse.feedbacks
     }
 }

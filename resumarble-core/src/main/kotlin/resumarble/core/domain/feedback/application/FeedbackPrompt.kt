@@ -3,17 +3,14 @@ package resumarble.core.domain.feedback.application
 object FeedbackPrompt {
 
     fun createFeedbackPrompt(command: FeedbackCommand): String {
-        return String.format(PROMPT, command.question, command.answer)
+        return String.format(PROMPT, command.question)
     }
 
     private const val PROMPT = """
-            Based on the provided question and the self-introduction content, your task is to analyze the response and offer feedback. 
+            Based on the provided question '%s' and the self-introduction content, your task is to analyze the response and offer feedback. 
 
             Do not use ', "",{}, (), [] or emojis in all content.
-            
-            question: '%s'
-            self-introduction content: '%s'
-            
+                        
             Instructions1:
 
             Focus on the following aspects: 
@@ -29,6 +26,7 @@ object FeedbackPrompt {
             5. Language: Korean
             
             Instructions2:
+            
             You must write your question unconditionally and absolutely in JSON format, as shown below.
           Make sure not to include any trailing commas after the last property in each object and do not put any commas after the last object in the array.
           If the user content is a greeting or a blank space, randomly generate interview questions about requested job.
